@@ -1,0 +1,18 @@
+from django.db import models
+from .NonStructuralElement import NonStructuralElement
+
+from .AutomaticFireExtinguishingSystem import AutomaticFireExtinguishingSystem
+
+'''
+The 'Ramp' class represents ramps that may be found in a building.
+'''
+class Ramp(NonStructuralElement):
+		hasFireExtinguishingSystem = models.ForeignKey(AutomaticFireExtinguishingSystem, on_delete=models.DO_NOTHING)
+		hasDirectionToExit = models.TextField()
+		hasDischargeLevel = models.TextField()
+		hasFloorsServed = models.TextField()
+		isRoofAccess = models.BooleanField()
+		hasCapacity = models.IntegerField()
+		hasExitTravelDistances = models.FloatField()
+		hasWidth = models.FloatField()
+		isExit = models.BooleanField()
