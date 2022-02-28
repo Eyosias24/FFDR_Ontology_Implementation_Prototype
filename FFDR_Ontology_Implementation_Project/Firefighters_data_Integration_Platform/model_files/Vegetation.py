@@ -13,5 +13,10 @@ class Vegetation(SurroundingStructure):
 		def serialize(self):
 			return {
 				'hasFlammabilityLevel': self.hasFlammabilityLevel, 
-				'hasSpecies': self.hasSpecies, 
+				'hasSpecies': self.hasSpecies,
+				'hasLocation': self.hasLocation
+
 			} 
+
+		def __str__(self):
+			return f"{self.hasSpecies}"

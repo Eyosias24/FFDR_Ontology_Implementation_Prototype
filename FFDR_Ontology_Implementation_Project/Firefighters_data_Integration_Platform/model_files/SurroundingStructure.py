@@ -7,3 +7,11 @@ incident building (the building with a fire emergency).
 class SurroundingStructure(models.Model):
 		hasDistanceFromIncidentBuilding = models.FloatField()
 		hasLocation = models.TextField()
+		
+		def serialize(self):
+			return {
+				'hasFlammabilityLevel': self.hasFlammabilityLevel, 
+				'hasSpecies': self.hasSpecies,
+
+			} 
+

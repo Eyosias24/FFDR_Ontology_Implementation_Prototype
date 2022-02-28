@@ -1,11 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
-  WeatherCondition();
-  Address();
+  //   weather_condition();
+  //   address();
+  vegetation();
 });
 
-function Address() {}
+function address() {}
 
-function WeatherCondition() {
+function vegetation() {
+  // Fetch vegetation
+  fetch("/vegetation/all")
+    .then((response) => response.json())
+    .then((vegetation) => {
+      console.log(vegetation);
+    });
+}
+
+function weather_condition() {
   // Get main container
   WeatherConditionContainer = document.querySelector("#main_container");
   fetch(
