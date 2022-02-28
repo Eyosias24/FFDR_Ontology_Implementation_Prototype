@@ -7,3 +7,9 @@ helicopters, that may be available on a building.
 '''
 class Helipad(BuildingComponent):
 		hasLocation = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasLocation': self.hasLocation, 
+			} 

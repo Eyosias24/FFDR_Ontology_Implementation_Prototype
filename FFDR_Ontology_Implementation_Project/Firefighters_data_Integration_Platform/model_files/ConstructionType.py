@@ -9,3 +9,10 @@ resistance of a building's elements (IBC, 2018)
 class ConstructionType(models.Model):
 		hasDescription = models.TextField()
 		hasType = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasDescription': self.hasDescription, 
+				'hasType': self.hasType, 
+			} 

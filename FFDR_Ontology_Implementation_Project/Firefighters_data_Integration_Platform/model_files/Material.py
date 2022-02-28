@@ -7,3 +7,9 @@ different elements.
 '''
 class Material(models.Model):
 		isMaterialOf = models.ForeignKey(BuildingComponent, on_delete=models.DO_NOTHING)
+
+
+		def serialize(self):
+			return {
+				'isMaterialOf': self.isMaterialOf, 
+			} 

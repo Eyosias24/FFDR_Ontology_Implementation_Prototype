@@ -7,3 +7,9 @@ water pressure to standpipes and sprinkler systems (OSHA, 2015).
 '''
 class FirePump(BuildingSafetySystem):
 		hasLocation = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasLocation': self.hasLocation, 
+			} 

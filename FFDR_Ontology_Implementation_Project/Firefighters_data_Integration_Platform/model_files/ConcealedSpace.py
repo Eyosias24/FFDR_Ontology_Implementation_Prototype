@@ -11,3 +11,11 @@ class ConcealedSpace(BuildingComponent):
 		hasFireExtinguishingSystem = models.ForeignKey(AutomaticFireExtinguishingSystem, on_delete=models.DO_NOTHING)
 		hasDescription = models.TextField()
 		hasLocation = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasFireExtinguishingSystem': self.hasFireExtinguishingSystem, 
+				'hasDescription': self.hasDescription, 
+				'hasLocation': self.hasLocation, 
+			} 

@@ -15,3 +15,16 @@ class Door(NonStructuralElement):
 		hasExitTravelDistances = models.FloatField()
 		hasWidth = models.FloatField()
 		isExit = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasControlPanel': self.hasControlPanel, 
+				'hasOpeningDirection': self.hasOpeningDirection, 
+				'isFunctional': self.isFunctional, 
+				'isPrimaryFireServiceEntryPoint': self.isPrimaryFireServiceEntryPoint, 
+				'isShaftway': self.isShaftway, 
+				'hasExitTravelDistances': self.hasExitTravelDistances, 
+				'hasWidth': self.hasWidth, 
+				'isExit': self.isExit, 
+			} 

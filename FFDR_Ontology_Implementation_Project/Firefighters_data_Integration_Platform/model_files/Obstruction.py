@@ -9,3 +9,10 @@ movement.
 class Obstruction(SurroundingStructure):
 		hasDescription = models.TextField()
 		hasType = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasDescription': self.hasDescription, 
+				'hasType': self.hasType, 
+			} 

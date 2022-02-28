@@ -8,3 +8,10 @@ building.
 class Balcony(NonStructuralElement):
 		hasCapacity = models.IntegerField()
 		hasWidth = models.FloatField()
+
+
+		def serialize(self):
+			return {
+				'hasCapacity': self.hasCapacity, 
+				'hasWidth': self.hasWidth, 
+			} 

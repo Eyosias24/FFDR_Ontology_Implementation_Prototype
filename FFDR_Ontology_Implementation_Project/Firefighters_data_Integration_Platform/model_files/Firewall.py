@@ -11,3 +11,9 @@ the wall (IFC, 2018).
 '''
 class Firewall(Facade):
 		hasEnclosedArea = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasEnclosedArea': self.hasEnclosedArea, 
+			} 

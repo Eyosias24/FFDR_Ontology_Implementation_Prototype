@@ -10,3 +10,11 @@ class SmokeandHeatRemovalSystem(BuildingSafetySystem):
 		hasLocation = models.TextField()
 		hasType = models.TextField()
 		isSystemActivated = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasLocation': self.hasLocation, 
+				'hasType': self.hasType, 
+				'isSystemActivated': self.isSystemActivated, 
+			} 

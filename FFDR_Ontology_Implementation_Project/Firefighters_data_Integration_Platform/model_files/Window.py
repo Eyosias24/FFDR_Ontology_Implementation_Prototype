@@ -11,3 +11,14 @@ class Window(NonStructuralElement):
 		isOnExterior = models.BooleanField()
 		isShaftway = models.BooleanField()
 		hasWidth = models.FloatField()
+
+
+		def serialize(self):
+			return {
+				'hasHeight': self.hasHeight, 
+				'hasOpeningDirection': self.hasOpeningDirection, 
+				'isFunctional': self.isFunctional, 
+				'isOnExterior': self.isOnExterior, 
+				'isShaftway': self.isShaftway, 
+				'hasWidth': self.hasWidth, 
+			} 

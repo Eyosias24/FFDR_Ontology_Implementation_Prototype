@@ -9,3 +9,10 @@ doors, elevators, and other rooms (OSHA, 2015).
 class KeyBox(BuildingComponent):
 		hasKey = models.TextField()
 		hasLocation = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasKey': self.hasKey, 
+				'hasLocation': self.hasLocation, 
+			} 

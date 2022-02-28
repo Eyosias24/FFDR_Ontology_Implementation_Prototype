@@ -12,3 +12,11 @@ class PortableFireExtinguisher(BuildingSafetySystem):
 		hasFireExtinguisherRating = models.TextField()
 		hasLocation = models.TextField()
 		hasType = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasFireExtinguisherRating': self.hasFireExtinguisherRating, 
+				'hasLocation': self.hasLocation, 
+				'hasType': self.hasType, 
+			} 

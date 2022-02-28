@@ -13,3 +13,12 @@ class StaticWaterSource(WaterSource):
 		hasDistanceFromIncidentBuilding = models.FloatField()
 		hasLocation = models.TextField()
 		hasType = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasDistanceFromFDC': self.hasDistanceFromFDC, 
+				'hasDistanceFromIncidentBuilding': self.hasDistanceFromIncidentBuilding, 
+				'hasLocation': self.hasLocation, 
+				'hasType': self.hasType, 
+			} 

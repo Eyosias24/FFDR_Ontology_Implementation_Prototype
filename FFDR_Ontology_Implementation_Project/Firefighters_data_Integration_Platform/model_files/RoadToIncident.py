@@ -7,3 +7,9 @@ site.
 '''
 class RoadToIncident(Road):
 		hasTrafficLevel = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasTrafficLevel': self.hasTrafficLevel, 
+			} 

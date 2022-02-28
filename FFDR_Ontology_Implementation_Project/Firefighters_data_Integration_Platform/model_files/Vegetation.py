@@ -8,3 +8,10 @@ building.
 class Vegetation(SurroundingStructure):
 		hasFlammabilityLevel = models.IntegerField()
 		hasSpecies = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasFlammabilityLevel': self.hasFlammabilityLevel, 
+				'hasSpecies': self.hasSpecies, 
+			} 

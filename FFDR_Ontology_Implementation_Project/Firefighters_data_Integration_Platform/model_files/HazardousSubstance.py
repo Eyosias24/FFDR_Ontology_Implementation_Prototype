@@ -11,3 +11,13 @@ class HazardousSubstance(BuildingComponent):
 		hasLocation = models.TextField()
 		hasSpecialHazard = models.TextField()
 		isDecontaminationRequired = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasDescription': self.hasDescription, 
+				'hasHazardLevel': self.hasHazardLevel, 
+				'hasLocation': self.hasLocation, 
+				'hasSpecialHazard': self.hasSpecialHazard, 
+				'isDecontaminationRequired': self.isDecontaminationRequired, 
+			} 

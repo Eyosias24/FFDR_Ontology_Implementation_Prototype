@@ -17,3 +17,17 @@ class Stairway(NonStructuralElement):
 		hasExitTravelDistances = models.FloatField()
 		hasWidth = models.FloatField()
 		isExit = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasFireExtinguishingSystem': self.hasFireExtinguishingSystem, 
+				'hasDirectionToExit': self.hasDirectionToExit, 
+				'hasDischargeLevel': self.hasDischargeLevel, 
+				'hasFloorsServed': self.hasFloorsServed, 
+				'isRoofAccess': self.isRoofAccess, 
+				'hasCapacity': self.hasCapacity, 
+				'hasExitTravelDistances': self.hasExitTravelDistances, 
+				'hasWidth': self.hasWidth, 
+				'isExit': self.isExit, 
+			} 

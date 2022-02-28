@@ -8,3 +8,9 @@ similar entities.
 '''
 class MunicipalDistributionSystem(WaterSource):
 		hasPressure = models.FloatField()
+
+
+		def serialize(self):
+			return {
+				'hasPressure': self.hasPressure, 
+			} 

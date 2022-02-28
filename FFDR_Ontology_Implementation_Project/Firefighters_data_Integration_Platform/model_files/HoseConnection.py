@@ -9,3 +9,10 @@ Type could be threaded or quick- connect.
 class HoseConnection(models.Model):
 		hasSize = models.FloatField()
 		hasType = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasSize': self.hasSize, 
+				'hasType': self.hasType, 
+			} 

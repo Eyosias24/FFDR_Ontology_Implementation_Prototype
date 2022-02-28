@@ -10,3 +10,12 @@ class FireLane(Road):
 		hasAnglesOfApproach = models.FloatField()
 		hasTurningRadius = models.FloatField()
 		hasVerticalClearance = models.FloatField()
+
+
+		def serialize(self):
+			return {
+				'hasAccessBarrierType': self.hasAccessBarrierType, 
+				'hasAnglesOfApproach': self.hasAnglesOfApproach, 
+				'hasTurningRadius': self.hasTurningRadius, 
+				'hasVerticalClearance': self.hasVerticalClearance, 
+			} 

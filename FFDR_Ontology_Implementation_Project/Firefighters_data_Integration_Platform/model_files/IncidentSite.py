@@ -23,3 +23,15 @@ class IncidentSite(models.Model):
 		hasAddress = models.ForeignKey(PublicSafetyAgencyContactAddress, on_delete=models.DO_NOTHING)
 		hasWeatherCondition = models.ForeignKey(WeatherCondition, on_delete=models.DO_NOTHING)
 		hasDemography = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'contains': self.contains, 
+				'contains': self.contains, 
+				'contains': self.contains, 
+				'contains': self.contains, 
+				'hasAddress': self.hasAddress, 
+				'hasWeatherCondition': self.hasWeatherCondition, 
+				'hasDemography': self.hasDemography, 
+			} 

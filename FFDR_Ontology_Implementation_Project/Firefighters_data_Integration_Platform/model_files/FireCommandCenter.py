@@ -10,3 +10,11 @@ class FireCommandCenter(models.Model):
 		contains = models.ForeignKey(ControlPanel, on_delete=models.DO_NOTHING)
 		hasKeyLocated = models.TextField()
 		hasLocation = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'contains': self.contains, 
+				'hasKeyLocated': self.hasKeyLocated, 
+				'hasLocation': self.hasLocation, 
+			} 

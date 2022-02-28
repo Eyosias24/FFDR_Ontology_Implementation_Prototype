@@ -27,3 +27,21 @@ class IncidentBuilding(models.Model):
 		hasNumberOfStory = models.IntegerField()
 		hasNumberOfSublevel = models.IntegerField()
 		hasOccupantLoad = models.IntegerField()
+
+
+		def serialize(self):
+			return {
+				'hasAddress': self.hasAddress, 
+				'hasBuildingPlan': self.hasBuildingPlan, 
+				'hasComponent': self.hasComponent, 
+				'hasOccupancy': self.hasOccupancy, 
+				'hasConstructionType': self.hasConstructionType, 
+				'hasBuildingArea': self.hasBuildingArea, 
+				'hasBuildingHeight': self.hasBuildingHeight, 
+				'hasCondition': self.hasCondition, 
+				'includeHazardousOperation': self.includeHazardousOperation, 
+				'hasNumberOfExit': self.hasNumberOfExit, 
+				'hasNumberOfStory': self.hasNumberOfStory, 
+				'hasNumberOfSublevel': self.hasNumberOfSublevel, 
+				'hasOccupantLoad': self.hasOccupantLoad, 
+			} 

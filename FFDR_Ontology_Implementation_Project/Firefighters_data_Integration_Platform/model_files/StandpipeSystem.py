@@ -20,3 +20,16 @@ class StandpipeSystem(BuildingSafetySystem):
 		hasRequiredMinimumPressure = models.FloatField()
 		hasType = models.TextField()
 		isIsolationValveOpen = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasWaterSource': self.hasWaterSource, 
+				'hasClass': self.hasClass, 
+				'hasCoverageZone': self.hasCoverageZone, 
+				'hasIsolationValveLocation': self.hasIsolationValveLocation, 
+				'hasRequiredMaximumPressure': self.hasRequiredMaximumPressure, 
+				'hasRequiredMinimumPressure': self.hasRequiredMinimumPressure, 
+				'hasType': self.hasType, 
+				'isIsolationValveOpen': self.isIsolationValveOpen, 
+			} 

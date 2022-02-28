@@ -14,3 +14,11 @@ class MassNotificationSystem(BuildingSafetySystem):
 		hasControlPanel = models.ForeignKey(MassNotificationSystemControlPanel, on_delete=models.DO_NOTHING)
 		hasCoverageZone = models.TextField()
 		hasType = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasControlPanel': self.hasControlPanel, 
+				'hasCoverageZone': self.hasCoverageZone, 
+				'hasType': self.hasType, 
+			} 

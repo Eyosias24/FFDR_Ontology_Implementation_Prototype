@@ -10,3 +10,14 @@ class WeatherCondition(models.Model):
 		hasTimeMark = models.TimeField()
 		hasWindDirection = models.TextField()
 		hasWindSpeed = models.FloatField()
+
+
+		def serialize(self):
+			return {
+				'hasPrecipitationValue': self.hasPrecipitationValue, 
+				'hasRelativeHumidity': self.hasRelativeHumidity, 
+				'hasTemperature': self.hasTemperature, 
+				'hasTimeMark': self.hasTimeMark, 
+				'hasWindDirection': self.hasWindDirection, 
+				'hasWindSpeed': self.hasWindSpeed, 
+			} 

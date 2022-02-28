@@ -9,3 +9,10 @@ firefighting equipment (OSHA, 2015).
 class EmergencyPowerOutlet(BuildingSafetySystem):
 		hasLocation = models.TextField()
 		hasType = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasLocation': self.hasLocation, 
+				'hasType': self.hasType, 
+			} 

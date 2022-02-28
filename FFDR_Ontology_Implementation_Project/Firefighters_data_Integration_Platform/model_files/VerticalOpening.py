@@ -11,3 +11,11 @@ class VerticalOpening(BuildingComponent):
 		hasShaftEnclosure = models.ForeignKey(ShaftEnclosure, on_delete=models.DO_NOTHING)
 		hasDescription = models.TextField()
 		hasLocation = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasShaftEnclosure': self.hasShaftEnclosure, 
+				'hasDescription': self.hasDescription, 
+				'hasLocation': self.hasLocation, 
+			} 

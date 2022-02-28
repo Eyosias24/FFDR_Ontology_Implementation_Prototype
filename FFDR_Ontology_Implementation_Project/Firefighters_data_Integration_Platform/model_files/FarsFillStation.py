@@ -14,3 +14,13 @@ class FarsFillStation(BuildingSafetySystem):
 		hasFillTime = models.FloatField()
 		hasLocation = models.TextField()
 		hasNumberOfSimultaneousFill = models.IntegerField()
+
+
+		def serialize(self):
+			return {
+				'hasControlPanel': self.hasControlPanel, 
+				'hasFillPressure': self.hasFillPressure, 
+				'hasFillTime': self.hasFillTime, 
+				'hasLocation': self.hasLocation, 
+				'hasNumberOfSimultaneousFill': self.hasNumberOfSimultaneousFill, 
+			} 

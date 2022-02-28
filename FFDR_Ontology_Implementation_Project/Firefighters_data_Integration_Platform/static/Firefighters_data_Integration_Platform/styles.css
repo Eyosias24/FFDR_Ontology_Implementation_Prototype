@@ -1,0 +1,17 @@
+#navigation {
+  width: 90%;
+  min-width: fit-content;
+  align-content: center;
+  position: relative;
+  margin: auto;
+}
+
+#navigation nav {
+  min-width: fit-content;
+  margin: auto;
+}
+
+#navigation #navbarSupportedContent form {
+  margin-left: auto;
+  margin-right: 0;
+}

@@ -12,3 +12,12 @@ class FireAlarmSystem(BuildingSafetySystem):
 		hasCoverageZone = models.TextField()
 		hasTypeOfSignalInitiator = models.TextField()
 		isSystemActivated = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasControlPanel': self.hasControlPanel, 
+				'hasCoverageZone': self.hasCoverageZone, 
+				'hasTypeOfSignalInitiator': self.hasTypeOfSignalInitiator, 
+				'isSystemActivated': self.isSystemActivated, 
+			} 

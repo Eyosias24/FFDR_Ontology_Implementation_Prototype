@@ -16,3 +16,12 @@ class SmokeControlSystem(BuildingSafetySystem):
 		hasCoverageZone = models.TextField()
 		hasType = models.TextField()
 		isSystemActivated = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasControlPanel': self.hasControlPanel, 
+				'hasCoverageZone': self.hasCoverageZone, 
+				'hasType': self.hasType, 
+				'isSystemActivated': self.isSystemActivated, 
+			} 

@@ -19,3 +19,17 @@ class Elevator(NonStructuralElement):
 		isFunctional = models.BooleanField()
 		isQualifiedForEvacuation = models.BooleanField()
 		hasExitTravelDistances = models.FloatField()
+
+
+		def serialize(self):
+			return {
+				'hasControlPanel': self.hasControlPanel, 
+				'hasFireExtinguishingSystem': self.hasFireExtinguishingSystem, 
+				'hasCapacity': self.hasCapacity, 
+				'hasDischargeLevel': self.hasDischargeLevel, 
+				'hasFloorsServed': self.hasFloorsServed, 
+				'hasMachineRoomLocation': self.hasMachineRoomLocation, 
+				'isFunctional': self.isFunctional, 
+				'isQualifiedForEvacuation': self.isQualifiedForEvacuation, 
+				'hasExitTravelDistances': self.hasExitTravelDistances, 
+			} 

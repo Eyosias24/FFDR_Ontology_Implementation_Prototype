@@ -10,3 +10,12 @@ class AutomaticSprinklerSystem(AutomaticFireExtinguishingSystem):
 		hasRequiredMaximumPressure = models.FloatField()
 		hasRequiredMinimumPressure = models.FloatField()
 		isControlValveOn = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasWaterSource': self.hasWaterSource, 
+				'hasRequiredMaximumPressure': self.hasRequiredMaximumPressure, 
+				'hasRequiredMinimumPressure': self.hasRequiredMinimumPressure, 
+				'isControlValveOn': self.isControlValveOn, 
+			} 

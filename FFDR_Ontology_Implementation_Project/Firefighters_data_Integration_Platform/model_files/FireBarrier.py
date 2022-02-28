@@ -9,3 +9,9 @@ spread of fire in which continuity of the wall is maintained (IFC,
 '''
 class FireBarrier(FireandSmokeProtectionElement):
 		hasEnclosedArea = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasEnclosedArea': self.hasEnclosedArea, 
+			} 

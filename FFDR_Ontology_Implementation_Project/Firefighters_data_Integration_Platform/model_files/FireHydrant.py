@@ -22,3 +22,15 @@ class FireHydrant(SurroundingStructure):
 		hasNumberOfOutlet = models.IntegerField()
 		hasType = models.TextField()
 		isFunctional = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasHoseConnection': self.hasHoseConnection, 
+				'hasWaterSource': self.hasWaterSource, 
+				'hasDistanceFromFDC': self.hasDistanceFromFDC, 
+				'hasFireFlow': self.hasFireFlow, 
+				'hasNumberOfOutlet': self.hasNumberOfOutlet, 
+				'hasType': self.hasType, 
+				'isFunctional': self.isFunctional, 
+			} 

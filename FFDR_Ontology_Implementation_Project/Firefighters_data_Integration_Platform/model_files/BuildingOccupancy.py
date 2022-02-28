@@ -8,3 +8,10 @@ based on the classification given in the International Building Code
 class BuildingOccupancy(models.Model):
 		hasDescription = models.TextField()
 		isAbandoned = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasDescription': self.hasDescription, 
+				'isAbandoned': self.isAbandoned, 
+			} 

@@ -6,3 +6,9 @@ The 'ParkingLot' class represents parking lots.
 '''
 class ParkingLot(SurroundingStructure):
 		hasArea = models.FloatField()
+
+
+		def serialize(self):
+			return {
+				'hasArea': self.hasArea, 
+			} 

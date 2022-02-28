@@ -6,3 +6,9 @@ The 'Wall' class represents walls in a building.
 '''
 class Wall(NonStructuralElement):
 		hasThickness = models.FloatField()
+
+
+		def serialize(self):
+			return {
+				'hasThickness': self.hasThickness, 
+			} 

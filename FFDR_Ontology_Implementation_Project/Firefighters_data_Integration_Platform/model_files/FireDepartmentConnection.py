@@ -17,3 +17,14 @@ class FireDepartmentConnection(BuildingSafetySystem):
 		hasDistanceFromWaterSource = models.FloatField()
 		hasLocation = models.TextField()
 		hasNumberOfInlet = models.IntegerField()
+
+
+		def serialize(self):
+			return {
+				'hasHoseConnection': self.hasHoseConnection, 
+				'hasWaterSource': self.hasWaterSource, 
+				'hasCoverageZone': self.hasCoverageZone, 
+				'hasDistanceFromWaterSource': self.hasDistanceFromWaterSource, 
+				'hasLocation': self.hasLocation, 
+				'hasNumberOfInlet': self.hasNumberOfInlet, 
+			} 

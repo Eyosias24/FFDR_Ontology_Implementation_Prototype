@@ -10,3 +10,10 @@ firefighters' breathing apparatus cylinders.
 class AirSupply(models.Model):
 		hasLocation = models.TextField()
 		hasType = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasLocation': self.hasLocation, 
+				'hasType': self.hasType, 
+			} 

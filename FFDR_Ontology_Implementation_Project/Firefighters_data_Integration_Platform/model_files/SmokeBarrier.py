@@ -8,3 +8,9 @@ ceiling assembly) that restricts the movement of smoke (IFC 2018).
 '''
 class SmokeBarrier(FireandSmokeProtectionElement):
 		hasEnclosedArea = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasEnclosedArea': self.hasEnclosedArea, 
+			} 

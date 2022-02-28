@@ -9,3 +9,10 @@ emergency (NFPA 101).
 class AreaOfRefuge(BuildingComponent):
 		hasCapacity = models.IntegerField()
 		hasLocation = models.TextField()
+
+
+		def serialize(self):
+			return {
+				'hasCapacity': self.hasCapacity, 
+				'hasLocation': self.hasLocation, 
+			} 
