@@ -8,3 +8,10 @@ installed in a building.
 class SensorDetector(BuildingSafetySystem):
 		hasCoverageZone = models.TextField()
 		isInAlarm = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasCoverageZone': self.hasCoverageZone, 
+				'isInAlarm': self.isInAlarm, 
+			} 

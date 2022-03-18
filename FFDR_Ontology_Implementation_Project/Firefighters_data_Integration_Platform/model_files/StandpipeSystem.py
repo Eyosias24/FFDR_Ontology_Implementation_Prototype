@@ -12,7 +12,7 @@ system of pipes within a building that provides water to fire hose
 connections and, in some cases, to sprinkler systems (NFPA 14).
 '''
 class StandpipeSystem(BuildingSafetySystem):
-		# hasWaterSource = models.[Add manually!!!]()
+		#hasWaterSource = models.[Add manually!!!]()
 		hasClass = models.TextField()
 		hasCoverageZone = models.TextField()
 		hasIsolationValveLocation = models.TextField()

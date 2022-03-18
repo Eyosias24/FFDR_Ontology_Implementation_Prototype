@@ -12,3 +12,12 @@ class NonStructuralElement(BuildingComponent):
 		hasID = models.TextField()
 		hasLocation = models.TextField()
 		hasFireResistanceRating = models.FloatField()
+
+
+		def serialize(self):
+			return {
+				'hasMaterial': self.hasMaterial, 
+				'hasID': self.hasID, 
+				'hasLocation': self.hasLocation, 
+				'hasFireResistanceRating': self.hasFireResistanceRating, 
+			} 

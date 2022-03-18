@@ -13,3 +13,14 @@ class Road(models.Model):
 		hasStatus = models.TextField()
 		hasType = models.TextField()
 		hasWidth = models.FloatField()
+
+
+		def serialize(self):
+			return {
+				'hasMaterial': self.hasMaterial, 
+				'hasCondition': self.hasCondition, 
+				'hasSlope': self.hasSlope, 
+				'hasStatus': self.hasStatus, 
+				'hasType': self.hasType, 
+				'hasWidth': self.hasWidth, 
+			} 

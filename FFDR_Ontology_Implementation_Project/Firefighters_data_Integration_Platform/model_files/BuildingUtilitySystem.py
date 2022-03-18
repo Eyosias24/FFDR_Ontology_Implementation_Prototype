@@ -13,3 +13,11 @@ class BuildingUtilitySystem(BuildingComponent):
 		hasAddress = models.ForeignKey(UtilityContactAddress, on_delete=models.DO_NOTHING)
 		hasControlPanel = models.ForeignKey(UtilityControlPanel, on_delete=models.DO_NOTHING)
 		isUtilityRunning = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasAddress': self.hasAddress, 
+				'hasControlPanel': self.hasControlPanel, 
+				'isUtilityRunning': self.isUtilityRunning, 
+			} 

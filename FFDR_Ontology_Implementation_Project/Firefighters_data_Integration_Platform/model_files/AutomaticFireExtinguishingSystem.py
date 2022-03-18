@@ -12,3 +12,12 @@ class AutomaticFireExtinguishingSystem(BuildingSafetySystem):
 		hasCoverageZone = models.TextField()
 		hasLocationOfControlValve = models.TextField()
 		isSystemActivated = models.BooleanField()
+
+
+		def serialize(self):
+			return {
+				'hasConnectionWith': self.hasConnectionWith, 
+				'hasCoverageZone': self.hasCoverageZone, 
+				'hasLocationOfControlValve': self.hasLocationOfControlValve, 
+				'isSystemActivated': self.isSystemActivated, 
+			} 
