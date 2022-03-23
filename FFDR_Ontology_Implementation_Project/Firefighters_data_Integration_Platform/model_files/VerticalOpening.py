@@ -1,21 +1,19 @@
 from django.db import models
 from .BuildingComponent import BuildingComponent
-
 from .ShaftEnclosure import ShaftEnclosure
-
 '''
 The 'VerticalOpening' class represents vertical Openings that may be
 found in a building.
 '''
 class VerticalOpening(BuildingComponent):
-		hasShaftEnclosure = models.ForeignKey(ShaftEnclosure, on_delete=models.DO_NOTHING)
-		hasDescription = models.TextField()
-		hasLocation = models.TextField()
+	hasShaftEnclosure = models.ForeignKey(ShaftEnclosure, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasDescription = models.TextField(blank=True)
+	hasLocation = models.TextField(blank=True)
 
 
-		def serialize(self):
-			return {
-				'hasShaftEnclosure': self.hasShaftEnclosure, 
-				'hasDescription': self.hasDescription, 
-				'hasLocation': self.hasLocation, 
-			} 
+	def serialize(self):
+		return {
+			'hasShaftEnclosure': self.hasShaftEnclosure.serialize() if not self.hasShaftEnclosure == None else '', 
+			'hasDescription': self.hasDescription, 
+			'hasLocation': self.hasLocation, 
+		} 

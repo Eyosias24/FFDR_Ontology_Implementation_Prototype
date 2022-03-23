@@ -1,6 +1,5 @@
 from django.db import models
 from .Facade import Facade
-
 '''
 The 'Firewall' class represents a firewall, which is a fire-
 resistance-rated wall that restricts the spread of fire while
@@ -10,10 +9,10 @@ conditions to allow the structure to collapse without the collapse of
 the wall (IFC, 2018).
 '''
 class Firewall(Facade):
-		hasEnclosedArea = models.TextField()
+	hasEnclosedArea = models.TextField(blank=True)
 
 
-		def serialize(self):
-			return {
-				'hasEnclosedArea': self.hasEnclosedArea, 
-			} 
+	def serialize(self):
+		return {
+			'hasEnclosedArea': self.hasEnclosedArea, 
+		} 

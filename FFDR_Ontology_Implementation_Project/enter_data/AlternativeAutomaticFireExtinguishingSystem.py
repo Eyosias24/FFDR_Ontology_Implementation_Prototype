@@ -1,0 +1,5 @@
+# AlternativeAutomaticFireExtinguishingSystem
+
+def add(request):
+
+	alternativeAutomaticFireExtinguishingSystem = AlternativeAutomaticFireExtinguishingSystem(	alternativeAutomaticFireExtinguishingSystem.save()

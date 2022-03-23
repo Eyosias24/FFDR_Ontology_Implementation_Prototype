@@ -1,6 +1,5 @@
 from django.db import models
 from .BuildingSafetySystem import BuildingSafetySystem
-
 '''
 Properties:  has water source: Automatic water supply, manual supply
 through FDC, Or both  has Class: fire service use (Class I), occupant
@@ -12,24 +11,24 @@ system of pipes within a building that provides water to fire hose
 connections and, in some cases, to sprinkler systems (NFPA 14).
 '''
 class StandpipeSystem(BuildingSafetySystem):
-		#hasWaterSource = models.[Add manually!!!]()
-		hasClass = models.TextField()
-		hasCoverageZone = models.TextField()
-		hasIsolationValveLocation = models.TextField()
-		hasRequiredMaximumPressure = models.FloatField()
-		hasRequiredMinimumPressure = models.FloatField()
-		hasType = models.TextField()
-		isIsolationValveOpen = models.BooleanField()
+	# hasWaterSource = models.Add_manually(blank=True)
+	hasClass = models.TextField(blank=True)
+	hasCoverageZone = models.TextField(blank=True)
+	hasIsolationValveLocation = models.TextField(blank=True)
+	hasRequiredMaximumPressure = models.FloatField(blank=True)
+	hasRequiredMinimumPressure = models.FloatField(blank=True)
+	hasType = models.TextField(blank=True)
+	isIsolationValveOpen = models.BooleanField(blank=True)
 
 
-		def serialize(self):
-			return {
-				'hasWaterSource': self.hasWaterSource, 
-				'hasClass': self.hasClass, 
-				'hasCoverageZone': self.hasCoverageZone, 
-				'hasIsolationValveLocation': self.hasIsolationValveLocation, 
-				'hasRequiredMaximumPressure': self.hasRequiredMaximumPressure, 
-				'hasRequiredMinimumPressure': self.hasRequiredMinimumPressure, 
-				'hasType': self.hasType, 
-				'isIsolationValveOpen': self.isIsolationValveOpen, 
-			} 
+	def serialize(self):
+		return {
+			'hasWaterSource': self.hasWaterSource, 
+			'hasClass': self.hasClass, 
+			'hasCoverageZone': self.hasCoverageZone, 
+			'hasIsolationValveLocation': self.hasIsolationValveLocation, 
+			'hasRequiredMaximumPressure': self.hasRequiredMaximumPressure, 
+			'hasRequiredMinimumPressure': self.hasRequiredMinimumPressure, 
+			'hasType': self.hasType, 
+			'isIsolationValveOpen': self.isIsolationValveOpen, 
+		} 

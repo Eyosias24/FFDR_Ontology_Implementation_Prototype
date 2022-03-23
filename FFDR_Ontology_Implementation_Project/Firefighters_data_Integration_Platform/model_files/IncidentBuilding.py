@@ -1,47 +1,51 @@
 from django.db import models
-from .Address import Address
-
+from .BuildingAddress import BuildingAddress
 from .BuildingPlan import BuildingPlan
-
 from .BuildingComponent import BuildingComponent
-
 from .BuildingOccupancy import BuildingOccupancy
-
 from .ConstructionType import ConstructionType
-
 '''
 The 'Incidentbuilding' class represents a building with a fire
 emergency.
 '''
 class IncidentBuilding(models.Model):
-		hasAddress = models.ForeignKey(Address, on_delete=models.DO_NOTHING)
-		hasBuildingPlan = models.ForeignKey(BuildingPlan, on_delete=models.DO_NOTHING)
-		hasComponent = models.ForeignKey(BuildingComponent, on_delete=models.DO_NOTHING)
-		hasOccupancy = models.ForeignKey(BuildingOccupancy, on_delete=models.DO_NOTHING)
-		hasConstructionType = models.ForeignKey(ConstructionType, on_delete=models.DO_NOTHING)
-		hasBuildingArea = models.FloatField()
-		hasBuildingHeight = models.FloatField()
-		hasCondition = models.TextField()
-		includeHazardousOperation = models.BooleanField()
-		hasNumberOfExit = models.IntegerField()
-		hasNumberOfStory = models.IntegerField()
-		hasNumberOfSublevel = models.IntegerField()
-		hasOccupantLoad = models.IntegerField()
+	hasProjectName = models.CharField(max_length=80, blank=True)
+	hasAddress = models.ForeignKey(BuildingAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasBuildingPlan = models.ForeignKey(BuildingPlan, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasComponent = models.ForeignKey(BuildingComponent, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasOccupancy = models.ForeignKey(BuildingOccupancy, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasConstructionType = models.ForeignKey(ConstructionType, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasBuildingArea = models.FloatField(blank=True)
+	hasBuildingAreaUnit = models.CharField(blank=True, max_length=80)
+	hasBuildingHeight = models.FloatField(blank=True)
+	hasBuildingHeightUnit = models.CharField(blank=True, max_length=80)
+	hasCondition = models.TextField(blank=True)
+	includeHazardousOperation = models.BooleanField(blank=True)
+	hasNumberOfExit = models.IntegerField(blank=True)
+	hasNumberOfStory = models.IntegerField(blank=True)
+	hasNumberOfSublevel = models.IntegerField(blank=True)
+	hasOccupantLoad = models.IntegerField(blank=True)
 
 
-		def serialize(self):
-			return {
-				'hasAddress': self.hasAddress, 
-				'hasBuildingPlan': self.hasBuildingPlan, 
-				'hasComponent': self.hasComponent, 
-				'hasOccupancy': self.hasOccupancy, 
-				'hasConstructionType': self.hasConstructionType, 
-				'hasBuildingArea': self.hasBuildingArea, 
-				'hasBuildingHeight': self.hasBuildingHeight, 
-				'hasCondition': self.hasCondition, 
-				'includeHazardousOperation': self.includeHazardousOperation, 
-				'hasNumberOfExit': self.hasNumberOfExit, 
-				'hasNumberOfStory': self.hasNumberOfStory, 
-				'hasNumberOfSublevel': self.hasNumberOfSublevel, 
-				'hasOccupantLoad': self.hasOccupantLoad, 
-			} 
+	def serialize(self):
+		return {
+			'hasProjectName': self.hasProjectName, 
+			'hasAddress': self.hasAddress.serialize() if not self.hasAddress == None else '', 
+			'hasBuildingPlan': self.hasBuildingPlan.serialize() if not self.hasBuildingPlan == None else '', 
+			'hasComponent': self.hasComponent.serialize() if not self.hasComponent == None else '', 
+			'hasOccupancy': self.hasOccupancy.serialize() if not self.hasOccupancy == None else '', 
+			'hasConstructionType': self.hasConstructionType.serialize() if not self.hasConstructionType == None else '', 
+			'hasBuildingArea': self.hasBuildingArea,
+			'hasBuildingAreaUnit': self.hasBuildingAreaUnit,  
+			'hasBuildingHeight': self.hasBuildingHeight,  
+			'hasBuildingHeightUnit': self.hasBuildingHeightUnit, 
+			'hasCondition': self.hasCondition, 
+			'includeHazardousOperation': self.includeHazardousOperation, 
+			'hasNumberOfExit': self.hasNumberOfExit, 
+			'hasNumberOfStory': self.hasNumberOfStory, 
+			'hasNumberOfSublevel': self.hasNumberOfSublevel, 
+			'hasOccupantLoad': self.hasOccupantLoad, 
+		} 
+
+	def __str__(self):
+		return  self.hasProjectName

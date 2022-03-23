@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
+  projectTitle = "Sample Project 01";
   loadNavPanels();
   // Incident site view
   document
     .querySelector("#incident-site")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewIncidentSite;
+      getIncidentSite;
     });
 
   // Incident building view
@@ -13,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#incident-building")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewIncidentBuilding;
+      getIncidentBuilding(projectTitle);
     });
 
   // Addresses view
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#addresses")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewAddresses;
+      getAddresses();
     });
 
   // Building Plans view
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#building-plans")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewBuildingPlans;
+      getBuildingPlans;
     });
 
   // Fire command center view
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#fire-command-center")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewFireCommandCenter;
+      getFireCommandCenter;
     });
 
   // Road to incident view
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#road-to-incident")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewRoadToIncident;
+      getRoadToIncident;
     });
 
   // Fire lane view
@@ -53,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#fire-lane")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewFireLane;
+      getFireLane;
     });
 
   // Water source view
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#water-source")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewWaterSource;
+      getWaterSource;
     });
 
   // Fire hydrant view
@@ -69,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#fire-hydrant")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewFireHydrant;
+      getFireHydrant;
     });
 
   // Weather condition view
@@ -77,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#weather-condition")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewWeatherCondition;
+      getWeatherCondition;
     });
 
   // Fire lane view
@@ -85,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#fire-lane")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewFireLane;
+      getFireLane;
     });
 
   // Surroundings view
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#surroundings")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewSurroundings;
+      getSurroundings;
     });
 
   // Automatic fire extinguishing system view
@@ -101,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#automatic-fire-extinguishing-system")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewAutomaticFireExtinguishingSystem;
+      getAutomaticFireExtinguishingSystem;
     });
 
   // Portable fire extinguishers view
@@ -109,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#portable-fire-extinguishers")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewPortableFireExtinguishers;
+      getPortableFireExtinguishers;
     });
 
   // Fire alarm system view
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#fire-alarm-system")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewFireAlarmSystem;
+      getFireAlarmSystem;
     });
 
   // Fire Department Connections view
@@ -125,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#fire-department-connections")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewFireDepartmentConnections;
+      getFireDepartmentConnections;
     });
 
   // Fire hose connections view
@@ -133,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#fire-hose-connections")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewFireHoseConnections;
+      getFireHoseConnections;
     });
 
   // Standpipe system view
@@ -141,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#standpipe-system")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewStandpipeSystem;
+      getStandpipeSystem;
     });
 
   // Sensors and detectors view
@@ -149,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#sensors-and-detectors")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewSensorsAndDetectors;
+      getSensorsAndDetectors;
     });
 
   // Fire and smoke protection elements view
@@ -157,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#fire-and-smoke-protection-elements")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewFireAndSmokeProtectionElements;
+      getFireAndSmokeProtectionElements;
     });
 
   // Building utility systems view
@@ -165,13 +166,13 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#building-utility-systems")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewBuildingUtilitySystems;
+      getBuildingUtilitySystems;
     });
 
   // Facade view
   document.querySelector("#facade").addEventListener("click", function (event) {
     changeActiveButton(event.target);
-    openViewFacade;
+    getFacade;
   });
 
   // Non-structural-elements view
@@ -179,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#non-structural-elements")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewNonStructuralElements;
+      getNonStructuralElements;
     });
 
   // Structural elements view
@@ -187,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#structural-elements")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewStructuralElements;
+      getStructuralElements;
     });
 
   // Hazardous materials view
@@ -195,13 +196,13 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#hazardous-materials")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewHazardousMaterials;
+      getHazardousMaterials;
     });
 
   // Keybox view
   document.querySelector("#keybox").addEventListener("click", function (event) {
     changeActiveButton(event.target);
-    openViewKeybox;
+    getKeybox;
   });
 
   // Concealed spaces view
@@ -209,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#concealed-spaces")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewConcealedSpaces;
+      getConcealedSpaces;
     });
 
   // Vertical openings view
@@ -217,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#vertical-openings")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewVerticalOpenings;
+      getVerticalOpenings;
     });
 
   // Roof top element view
@@ -225,47 +226,49 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#roof-top-element")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      openViewRoofTopElement;
+      getRoofTopElement;
     });
 });
 
 function changeActiveButton(newActiveButton) {
-  console.log(newActiveButton);
   currentActiveButton = document.getElementsByClassName("active");
   if (currentActiveButton.length > 0)
     currentActiveButton[0].className = "button";
   newActiveButton.className += " active";
 }
 
-function openViewIncidentSite() {}
-function openViewIncidentBuilding() {}
-function openViewAddresses() {}
-function openViewBuildingPlans() {}
-function openViewFireCommandCenter() {}
-function openViewRoadToIncident() {}
-function openViewFireLane() {}
-function openViewWaterSource() {}
-function openViewFireHydrant() {}
-function openViewWeatherCondition() {}
-function openViewFireLane() {}
-function openViewSurroundings() {}
-function openViewAutomaticFireExtinguishingSystem() {}
-function openViewPortableFireExtinguishers() {}
-function openViewFireAlarmSystem() {}
-function openViewFireDepartmentConnections() {}
-function openViewFireHoseConnections() {}
-function openViewStandpipeSystem() {}
-function openViewSensorsAndDetectors() {}
-function openViewFireAndSmokeProtectionElements() {}
-function openViewBuildingUtilitySystems() {}
-function openViewFacade() {}
-function openViewNonStructuralElements() {}
-function openViewStructuralElements() {}
-function openViewHazardousMaterials() {}
-function openViewKeybox() {}
-function openViewConcealedSpaces() {}
-function openViewVerticalOpenings() {}
-function openViewRoofTopElement() {}
+function showIncidentSite() {}
+function showAddresses() {}
+function showBuildingPlans() {}
+function showFireCommandCenter() {}
+function showRoadToIncident() {}
+function showFireLane() {}
+function showWaterSource() {}
+function showFireHydrant() {}
+function showWeatherCondition() {
+  // Get main view
+  mainView = document.querySelector("#main-view");
+  mainView.innerHTML = "";
+}
+function showFireLane() {}
+function showSurroundings() {}
+function showAutomaticFireExtinguishingSystem() {}
+function showPortableFireExtinguishers() {}
+function showFireAlarmSystem() {}
+function showFireDepartmentConnections() {}
+function showFireHoseConnections() {}
+function showStandpipeSystem() {}
+function showSensorsAndDetectors() {}
+function showFireAndSmokeProtectionElements() {}
+function showBuildingUtilitySystems() {}
+function showFacade() {}
+function showNonStructuralElements() {}
+function showStructuralElements() {}
+function showHazardousMaterials() {}
+function showKeybox() {}
+function showConcealedSpaces() {}
+function showVerticalOpenings() {}
+function showRoofTopElement() {}
 
 function loadNavPanels() {
   // Get the navigation panels

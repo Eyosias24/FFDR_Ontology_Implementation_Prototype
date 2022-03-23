@@ -1,9 +1,8 @@
 from django.db import models
-from .Address import Address
-
+from .ContactAddress import ContactAddress
 '''
 The 'BuildingManagerContactAddress' class represents a building
 manager's contact address.
 '''
-class BuildingManagerContactAddress(Address):
-		pass
+class BuildingManagerContactAddress(ContactAddress):
+	pass

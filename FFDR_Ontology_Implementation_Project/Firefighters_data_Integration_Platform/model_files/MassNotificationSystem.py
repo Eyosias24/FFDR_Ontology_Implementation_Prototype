@@ -1,8 +1,6 @@
 from django.db import models
 from .BuildingSafetySystem import BuildingSafetySystem
-
 from .MassNotificationSystemControlPanel import MassNotificationSystemControlPanel
-
 '''
 Notification type could be auditory or visual or both.
 
@@ -11,14 +9,14 @@ system that is used by firefighters to provide clear instruction to
 building occupants (OSHA, 2015).
 '''
 class MassNotificationSystem(BuildingSafetySystem):
-		hasControlPanel = models.ForeignKey(MassNotificationSystemControlPanel, on_delete=models.DO_NOTHING)
-		hasCoverageZone = models.TextField()
-		hasType = models.TextField()
+	hasControlPanel = models.ForeignKey(MassNotificationSystemControlPanel, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasCoverageZone = models.TextField(blank=True)
+	hasType = models.TextField(blank=True)
 
 
-		def serialize(self):
-			return {
-				'hasControlPanel': self.hasControlPanel, 
-				'hasCoverageZone': self.hasCoverageZone, 
-				'hasType': self.hasType, 
-			} 
+	def serialize(self):
+		return {
+			'hasControlPanel': self.hasControlPanel.serialize() if not self.hasControlPanel == None else '', 
+			'hasCoverageZone': self.hasCoverageZone, 
+			'hasType': self.hasType, 
+		} 

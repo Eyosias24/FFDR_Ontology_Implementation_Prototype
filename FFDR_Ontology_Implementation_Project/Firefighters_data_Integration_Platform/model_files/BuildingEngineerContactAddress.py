@@ -1,9 +1,10 @@
 from django.db import models
-from .Address import Address
-
+from .ContactAddress import ContactAddress
 '''
 The 'BuildingEngineerContactAddress' class represents a building
 engineer's contact address.
 '''
-class BuildingEngineerContactAddress(Address):
-		pass
+class BuildingEngineerContactAddress(ContactAddress):
+	pass
+
+

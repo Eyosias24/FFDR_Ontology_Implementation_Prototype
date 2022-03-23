@@ -1,14 +1,13 @@
 from django.db import models
 from .SurroundingStructure import SurroundingStructure
-
 '''
 The 'ParkingLot' class represents parking lots.
 '''
 class ParkingLot(SurroundingStructure):
-		hasArea = models.FloatField()
+	hasArea = models.FloatField(blank=True)
 
 
-		def serialize(self):
-			return {
-				'hasArea': self.hasArea, 
-			} 
+	def serialize(self):
+		return {
+			'hasArea': self.hasArea, 
+		} 

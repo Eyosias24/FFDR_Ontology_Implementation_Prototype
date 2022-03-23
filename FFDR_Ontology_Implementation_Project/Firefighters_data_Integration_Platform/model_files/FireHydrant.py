@@ -1,10 +1,7 @@
 from django.db import models
 from .SurroundingStructure import SurroundingStructure
-
 from .HoseConnection import HoseConnection
-
 from .WaterSource import WaterSource
-
 '''
 The 'FireHydrant' class represents fire hydrants, which are an
 important part of a fire suppression operation that provides
@@ -15,22 +12,22 @@ Type: Wet barrel hydrants (on pressurized water distribution systems),
 Dry barrel hydrants (used on static water supply sources)
 '''
 class FireHydrant(SurroundingStructure):
-		hasHoseConnection = models.ForeignKey(HoseConnection, on_delete=models.DO_NOTHING)
-		hasWaterSource = models.ForeignKey(WaterSource, on_delete=models.DO_NOTHING)
-		hasDistanceFromFDC = models.FloatField()
-		hasFireFlow = models.FloatField()
-		hasNumberOfOutlet = models.IntegerField()
-		hasType = models.TextField()
-		isFunctional = models.BooleanField()
+	hasHoseConnection = models.ForeignKey(HoseConnection, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasWaterSource = models.ForeignKey(WaterSource, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasDistanceFromFDC = models.FloatField(blank=True)
+	hasFireFlow = models.FloatField(blank=True)
+	hasNumberOfOutlet = models.IntegerField(blank=True)
+	hasType = models.TextField(blank=True)
+	isFunctional = models.BooleanField(blank=True)
 
 
-		def serialize(self):
-			return {
-				'hasHoseConnection': self.hasHoseConnection, 
-				'hasWaterSource': self.hasWaterSource, 
-				'hasDistanceFromFDC': self.hasDistanceFromFDC, 
-				'hasFireFlow': self.hasFireFlow, 
-				'hasNumberOfOutlet': self.hasNumberOfOutlet, 
-				'hasType': self.hasType, 
-				'isFunctional': self.isFunctional, 
-			} 
+	def serialize(self):
+		return {
+			'hasHoseConnection': self.hasHoseConnection.serialize() if not self.hasHoseConnection == None else '', 
+			'hasWaterSource': self.hasWaterSource.serialize() if not self.hasWaterSource == None else '', 
+			'hasDistanceFromFDC': self.hasDistanceFromFDC, 
+			'hasFireFlow': self.hasFireFlow, 
+			'hasNumberOfOutlet': self.hasNumberOfOutlet, 
+			'hasType': self.hasType, 
+			'isFunctional': self.isFunctional, 
+		} 
