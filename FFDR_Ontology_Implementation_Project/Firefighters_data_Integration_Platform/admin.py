@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import *
 
 admin.site.register(AirSupply)
@@ -17,13 +18,14 @@ admin.site.register(BuildingPlan)
 admin.site.register(CarbonMonoxideDetector)
 admin.site.register(CbrSensor)
 admin.site.register(ConcealedSpace)
+admin.site.register(ContactAddress)
 admin.site.register(ConstructionType)
 admin.site.register(Door)
 admin.site.register(DoorUnlockingSystemControlPanel)
 admin.site.register(Elevator)
 admin.site.register(ElevatorOverrideControlPanel)
 admin.site.register(EmergencyPowerOutlet)
-admin.site.register(EmergencyServiceProviderContactAddress)
+admin.site.register(ESPContactAddress)
 admin.site.register(ExteriorDoor)
 admin.site.register(ExteriorWall)
 admin.site.register(ExteriorWindow)
