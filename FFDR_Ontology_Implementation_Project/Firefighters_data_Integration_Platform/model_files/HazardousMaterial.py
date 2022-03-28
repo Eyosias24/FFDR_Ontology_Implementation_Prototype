@@ -15,4 +15,7 @@ class HazardousMaterial(SurroundingStructure):
 			'hasDescription': self.hasDescription, 
 			'hasHazardLevel': self.hasHazardLevel, 
 			'hasSpecialHazard': self.hasSpecialHazard, 
-		} 
+		}
+
+	def __str__(self):
+		return f"Hazardous Material: {self.hasName} "    

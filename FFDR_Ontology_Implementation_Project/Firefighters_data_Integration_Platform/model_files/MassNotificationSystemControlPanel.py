@@ -6,4 +6,6 @@ panel used to control a mass notification system that may be found in
 a building.
 '''
 class MassNotificationSystemControlPanel(ControlPanel):
-	pass
+	
+	def __str__(self):
+		return "Mass Notification System Control Panel" 

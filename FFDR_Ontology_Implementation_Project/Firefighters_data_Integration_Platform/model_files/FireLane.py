@@ -5,10 +5,12 @@ The 'FireLane' class represents a fire lane, which is an access road
 designated for fire apparatus (NFPA 1).
 '''
 class FireLane(Road):
-	hasAccessBarrierType = models.TextField(blank=True)
+	hasAccessBarrierType = models.CharField(blank=True, max_length=80)
 	hasAnglesOfApproach = models.FloatField(blank=True)
 	hasTurningRadius = models.FloatField(blank=True)
+	hasTurningRadiusUnit = models.CharField(blank=True, max_length=80)
 	hasVerticalClearance = models.FloatField(blank=True)
+	hasVerticalClearanceUnit = models.CharField(blank=True, max_length=80)
 
 
 	def serialize(self):
@@ -16,5 +18,7 @@ class FireLane(Road):
 			'hasAccessBarrierType': self.hasAccessBarrierType, 
 			'hasAnglesOfApproach': self.hasAnglesOfApproach, 
 			'hasTurningRadius': self.hasTurningRadius, 
+			'hasTurningRadiusUnit': self.hasTurningRadiusUnit, 
 			'hasVerticalClearance': self.hasVerticalClearance, 
+			'hasVerticalClearanceUnit': self.hasVerticalClearance, 
 		} 

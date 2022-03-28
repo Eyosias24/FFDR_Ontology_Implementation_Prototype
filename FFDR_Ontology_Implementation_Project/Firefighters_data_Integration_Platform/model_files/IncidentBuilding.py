@@ -1,18 +1,16 @@
 from django.db import models
 from .BuildingAddress import BuildingAddress
 from .BuildingPlan import BuildingPlan
-from .BuildingComponent import BuildingComponent
 from .BuildingOccupancy import BuildingOccupancy
 from .ConstructionType import ConstructionType
-'''
+''' 
 The 'Incidentbuilding' class represents a building with a fire
 emergency.
 '''
-class IncidentBuilding(models.Model):
-	hasProjectName = models.CharField(max_length=80, blank=True)
+class IncidentBuilding(models.Model):  
+	hasProjectName = models.CharField(max_length=80)
 	hasAddress = models.ForeignKey(BuildingAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasBuildingPlan = models.ForeignKey(BuildingPlan, on_delete=models.DO_NOTHING, blank=True, null=True)
-	hasComponent = models.ForeignKey(BuildingComponent, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasOccupancy = models.ForeignKey(BuildingOccupancy, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasConstructionType = models.ForeignKey(ConstructionType, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasBuildingArea = models.FloatField(blank=True)
@@ -32,7 +30,6 @@ class IncidentBuilding(models.Model):
 			'hasProjectName': self.hasProjectName, 
 			'hasAddress': self.hasAddress.serialize() if not self.hasAddress == None else '', 
 			'hasBuildingPlan': self.hasBuildingPlan.serialize() if not self.hasBuildingPlan == None else '', 
-			'hasComponent': self.hasComponent.serialize() if not self.hasComponent == None else '', 
 			'hasOccupancy': self.hasOccupancy.serialize() if not self.hasOccupancy == None else '', 
 			'hasConstructionType': self.hasConstructionType.serialize() if not self.hasConstructionType == None else '', 
 			'hasBuildingArea': self.hasBuildingArea,

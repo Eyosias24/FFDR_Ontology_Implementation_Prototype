@@ -6,12 +6,15 @@ such as fences that can obstruct firefighters' and fire trucks'
 movement.
 '''
 class Obstruction(SurroundingStructure):
+	hasType = models.TextField(max_length=80)
 	hasDescription = models.TextField(blank=True)
-	hasType = models.TextField(blank=True)
 
 
 	def serialize(self):
 		return {
-			'hasDescription': self.hasDescription, 
 			'hasType': self.hasType, 
+			'hasDescription': self.hasDescription,  
 		} 
+
+	def __str__(self):
+		return f"Obstruction: {self.hasName} " 

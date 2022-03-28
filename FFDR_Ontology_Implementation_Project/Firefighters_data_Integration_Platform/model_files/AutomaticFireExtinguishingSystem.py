@@ -18,4 +18,6 @@ class AutomaticFireExtinguishingSystem(BuildingSafetySystem):
 			'hasCoverageZone': self.hasCoverageZone, 
 			'hasLocationOfControlValve': self.hasLocationOfControlValve, 
 			'isSystemActivated': self.isSystemActivated, 
-		} 
+		}
+	def __str__(self):
+		return  f"Automatic Fire Extinguishing System: {self.hasCoverageZone}" 

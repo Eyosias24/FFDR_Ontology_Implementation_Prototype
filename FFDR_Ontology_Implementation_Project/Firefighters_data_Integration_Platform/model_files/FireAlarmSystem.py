@@ -18,4 +18,6 @@ class FireAlarmSystem(BuildingSafetySystem):
 			'hasCoverageZone': self.hasCoverageZone, 
 			'hasTypeOfSignalInitiator': self.hasTypeOfSignalInitiator, 
 			'isSystemActivated': self.isSystemActivated, 
-		} 
+		}
+	def __str__(self):
+		return  f"Fire Alarm System Zone: {self.hasCoverageZone}"

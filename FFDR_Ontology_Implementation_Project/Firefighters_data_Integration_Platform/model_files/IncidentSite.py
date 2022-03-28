@@ -10,22 +10,15 @@ The 'IncidentSite' class represents a site where a building fire
 emergency has occurred.
 '''
 class IncidentSite(models.Model):
-	contains = models.ForeignKey(FireCommandCenter, on_delete=models.DO_NOTHING, blank=True, null=True)
-	contains = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING, blank=True, null=True)
-	contains = models.ForeignKey(SurroundingStructure, on_delete=models.DO_NOTHING, blank=True, null=True)
-	contains = models.ForeignKey(SurroundingTerrain, on_delete=models.DO_NOTHING, blank=True, null=True)
-	hasAddress = models.ForeignKey(PublicSafetyAgencyContactAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
-	hasWeatherCondition = models.ForeignKey(WeatherCondition, on_delete=models.DO_NOTHING, blank=True, null=True)
-	hasDemography = models.TextField(blank=True)
+	hasProjectName = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING)
+	hasSiteDescription = models.TextField(blank=True)
 
 
 	def serialize(self):
 		return {
-			'contains': self.contains.serialize() if not self.contains == None else '', 
-			'contains': self.contains.serialize() if not self.contains == None else '', 
-			'contains': self.contains.serialize() if not self.contains == None else '', 
-			'contains': self.contains.serialize() if not self.contains == None else '', 
-			'hasAddress': self.hasAddress.serialize() if not self.hasAddress == None else '', 
-			'hasWeatherCondition': self.hasWeatherCondition.serialize() if not self.hasWeatherCondition == None else '', 
-			'hasDemography': self.hasDemography, 
+			'hasProjectName': self.hasProjectName,
+			'hasSiteDescription': self.hasSiteDescription, 
 		} 
+
+	def __str__(self):
+		return f"{self.__class__.__name__}: {self.hasProjectName}" 

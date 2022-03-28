@@ -14,3 +14,6 @@ class Vegetation(SurroundingStructure):
 			'hasFlammabilityLevel': self.hasFlammabilityLevel, 
 			'hasSpecies': self.hasSpecies, 
 		} 
+
+	def __str__(self):
+		return f"{self.__class__.__name__}: {self.hasName}" 

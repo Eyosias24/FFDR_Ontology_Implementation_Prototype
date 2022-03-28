@@ -22,4 +22,7 @@ class ContactAddress(models.Model):
 			'hasMobileNumber': self.hasMobileNumber,  
 			'hasEmail': self.hasEmail, 
 			'hasPhysicalAddress': self.hasPhysicalAddress 
-		} 
+		}
+
+	def __str__(self):
+		return  self.hasName + " Address" 

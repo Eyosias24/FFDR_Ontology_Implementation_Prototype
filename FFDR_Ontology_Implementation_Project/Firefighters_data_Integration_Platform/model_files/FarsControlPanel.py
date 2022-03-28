@@ -6,4 +6,6 @@ control a firefighter's air replenishment system (FARS)  that may be
 found in a building.
 '''
 class FarsControlPanel(ControlPanel):
-	pass
+	
+	def __str__(self):
+		return "FARS Control Panel" 

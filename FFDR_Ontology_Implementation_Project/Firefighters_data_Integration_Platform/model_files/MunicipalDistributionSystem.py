@@ -7,9 +7,14 @@ similar entities.
 '''
 class MunicipalDistributionSystem(WaterSource):
 	hasPressure = models.FloatField(blank=True)
+	hasPressureUnit = models.CharField(max_length=80)
 
 
 	def serialize(self):
 		return {
 			'hasPressure': self.hasPressure, 
-		} 
+			'hasPressureUnit': self.hasPressure, 
+		}
+
+	def __str__(self):
+		return f"{self.hasName}"  

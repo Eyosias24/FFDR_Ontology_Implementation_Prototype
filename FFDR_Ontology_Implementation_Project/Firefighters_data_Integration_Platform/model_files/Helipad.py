@@ -5,10 +5,12 @@ The 'Helipad' class represents a helipad, which is an area for landing
 helicopters, that may be available on a building.
 '''
 class Helipad(BuildingComponent):
-	hasLocation = models.TextField(blank=True)
+	hasLocation = models.CharField(max_length=255, blank=True)
 
 
 	def serialize(self):
 		return {
 			'hasLocation': self.hasLocation, 
 		} 
+	def __str__(self):
+		return  f"Helipad: {self.hasLocation}"  

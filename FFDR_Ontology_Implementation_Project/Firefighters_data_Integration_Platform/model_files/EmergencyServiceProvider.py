@@ -1,18 +1,30 @@
+from pydoc import classname
+from unicodedata import name
 from django.db import models
-from .EmergencyServiceProviderContactAddress import EmergencyServiceProviderContactAddress
+from .ESPContactAddress import ESPContactAddress
+from .IncidentBuilding import IncidentBuilding
 '''
 The 'EmergencyServiceProvider' class represents emergency service
 providers involved in a building fire emergency response.
 '''
 class EmergencyServiceProvider(models.Model):
-	hasAddress = models.ForeignKey(EmergencyServiceProviderContactAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasProjectName = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING)
+	hasName = models.CharField(max_length=80)
+	hasAddress = models.ForeignKey(ESPContactAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasDistanceFromIncidentBuilding = models.FloatField(blank=True)
-	hasLocation = models.TextField(blank=True)
+	hasDistanceFromIncidentBuildingUnit = models.CharField(blank=True, max_length=80)
 
 
 	def serialize(self):
 		return {
-			'hasAddress': self.hasAddress.serialize() if not self.hasAddress == None else '', 
+			'hasProjectName': self.hasProjectName.serialize(),
+			'hasName': self.hasName, 
+			'hasAddress': self.hasAddress.serialize() if not self.hasAddress == None else '',  
 			'hasDistanceFromIncidentBuilding': self.hasDistanceFromIncidentBuilding, 
-			'hasLocation': self.hasLocation, 
-		} 
+			'hasDistanceFromIncidentBuildingUnit': self.hasDistanceFromIncidentBuildingUnit
+		}
+
+	def __str__(self):
+		return f"{self.__class__.__name__}: {self.hasName}"
+
+ 

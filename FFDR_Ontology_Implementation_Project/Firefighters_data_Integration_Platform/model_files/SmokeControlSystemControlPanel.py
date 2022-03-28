@@ -6,4 +6,6 @@ used to control a smoke control system that may be found in a
 building.
 '''
 class SmokeControlSystemControlPanel(ControlPanel):
-	pass
+	
+	def __str__(self):
+		return "Smoke Control System Control Panel" 

@@ -6,4 +6,6 @@ control panel used to control a fire department communication system
 that may be found in a building.
 '''
 class FireDepartmentCommunicationSystemPanel(ControlPanel):
-	pass
+	
+	def __str__(self):
+		return "Fire Department Communication System Panel" 

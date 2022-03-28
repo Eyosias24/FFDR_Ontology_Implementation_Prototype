@@ -6,12 +6,15 @@ protected area in a building where occupants can take refuge during an
 emergency (NFPA 101).
 '''
 class AreaOfRefuge(BuildingComponent):
+	hasLocation = models.CharField(max_length=255)
 	hasCapacity = models.IntegerField(blank=True)
-	hasLocation = models.TextField(blank=True)
 
 
 	def serialize(self):
-		return {
+		return { 
+			'hasLocation': self.hasLocation,
 			'hasCapacity': self.hasCapacity, 
-			'hasLocation': self.hasLocation, 
 		} 
+
+	def __str__(self):
+		return f"Area of Refuge: {self.hasLocation}"  

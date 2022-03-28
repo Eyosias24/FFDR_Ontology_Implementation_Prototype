@@ -5,10 +5,13 @@ The 'Material' class represents the constituting materials of
 different elements.
 '''
 class Material(models.Model):
-	isMaterialOf = models.ForeignKey(BuildingComponent, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasName = models.CharField(max_length=80)
 
 
 	def serialize(self):
 		return {
-			'isMaterialOf': self.isMaterialOf.serialize() if not self.isMaterialOf == None else '', 
+			'hasName': self.hasName 
 		} 
+
+	def __str__(self):
+		return f"{self.hasName} "   

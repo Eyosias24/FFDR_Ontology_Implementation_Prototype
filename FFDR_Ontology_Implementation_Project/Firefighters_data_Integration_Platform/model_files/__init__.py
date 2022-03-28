@@ -1,3 +1,4 @@
+from .ContactAddress import ContactAddress
 from .AirSupply import AirSupply
 from .BuildingOccupancy import BuildingOccupancy
 from .BuildingPlan import BuildingPlan
@@ -18,7 +19,7 @@ from .BuildingManagerContactAddress import BuildingManagerContactAddress
 from .ConcealedSpace import ConcealedSpace
 from .DoorUnlockingSystemControlPanel import DoorUnlockingSystemControlPanel
 from .ElevatorOverrideControlPanel import ElevatorOverrideControlPanel
-from .EmergencyServiceProviderContactAddress import EmergencyServiceProviderContactAddress
+from .ESPContactAddress import ESPContactAddress
 from .ExtremelyValuableMaterial import ExtremelyValuableMaterial
 from .FarsControlPanel import FarsControlPanel
 from .FireDepartmentCommunicationSystemPanel import FireDepartmentCommunicationSystemPanel
