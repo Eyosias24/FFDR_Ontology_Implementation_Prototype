@@ -5,4 +5,6 @@ The 'PrimaryPowerSupplySystem' class represents a building's primary
 power supply system.
 '''
 class PrimaryPowerSupplySystem(BuildingUtilitySystem):
-	pass
+
+	def __str__(self):
+		return f"Primary Power Supply System"   

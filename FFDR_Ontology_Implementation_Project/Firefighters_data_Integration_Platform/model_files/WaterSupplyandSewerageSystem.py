@@ -5,4 +5,6 @@ The 'WaterSupplyandSewerageSystem' class represents a building's water
 supply and sewerage system.
 '''
 class WaterSupplyandSewerageSystem(BuildingUtilitySystem):
-	pass
+
+	def __str__(self):
+		return f"Water Supply and Sewerage System"   

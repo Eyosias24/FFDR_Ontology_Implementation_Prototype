@@ -5,4 +5,6 @@ The 'HvacSystem' class represents a building's heating, ventilation,
 and air conditioning (HVAC) system.
 '''
 class HvacSystem(BuildingUtilitySystem):
-	pass
+	
+	def __str__(self):
+		return "HVAC System" 

@@ -10,12 +10,13 @@ class Elevator(NonStructuralElement):
 	hasControlPanel = models.ForeignKey(ElevatorOverrideControlPanel, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasFireExtinguishingSystem = models.ForeignKey(AutomaticFireExtinguishingSystem, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasCapacity = models.IntegerField(blank=True)
-	hasDischargeLevel = models.TextField(blank=True)
+	hasDischargeLevel = models.CharField(blank=True, max_length=65)
 	hasFloorsServed = models.TextField(blank=True)
 	hasMachineRoomLocation = models.TextField(blank=True)
 	isFunctional = models.BooleanField(blank=True)
 	isQualifiedForEvacuation = models.BooleanField(blank=True)
 	hasExitTravelDistances = models.FloatField(blank=True)
+	hasDistancesUnit = models.CharField(blank=True, max_length=65)
 
 
 	def serialize(self):
@@ -29,4 +30,6 @@ class Elevator(NonStructuralElement):
 			'isFunctional': self.isFunctional, 
 			'isQualifiedForEvacuation': self.isQualifiedForEvacuation, 
 			'hasExitTravelDistances': self.hasExitTravelDistances, 
+			'hasDistancesUnit': self.hasDistancesUnit, 
 		} 
+

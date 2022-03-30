@@ -6,16 +6,21 @@ The 'NonStructuralElement' class represents the non-structural
 elements of a building.
 '''
 class NonStructuralElement(BuildingComponent):
+	hasId = models.CharField(max_length=65)
 	hasMaterial = models.ForeignKey(Material, on_delete=models.DO_NOTHING, blank=True, null=True)
-	hasID = models.TextField(blank=True)
-	hasLocation = models.TextField(blank=True)
+	hasLocation = models.CharField(blank=True, max_length=65)
 	hasFireResistanceRating = models.FloatField(blank=True)
+	hasFireResistanceRatingUnit = models.CharField(blank=True, max_length=65)
 
 
 	def serialize(self):
-		return {
-			'hasMaterial': self.hasMaterial.serialize() if not self.hasMaterial == None else '', 
-			'hasID': self.hasID, 
+		return {			 
+			'hasId': self.hasId, 
+			'hasMaterial': self.hasMaterial.serialize() if not self.hasMaterial == None else '',
 			'hasLocation': self.hasLocation, 
 			'hasFireResistanceRating': self.hasFireResistanceRating, 
-		} 
+			'hasFireResistanceRatingUnit': self.hasFireResistanceRatingUnit, 
+		}
+
+	def __str__(self):
+		return f"{self.__class__.__name__}: {self.hasId}"  

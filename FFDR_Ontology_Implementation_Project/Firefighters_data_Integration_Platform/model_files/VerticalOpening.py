@@ -17,3 +17,6 @@ class VerticalOpening(BuildingComponent):
 			'hasDescription': self.hasDescription, 
 			'hasLocation': self.hasLocation, 
 		} 
+
+	def __str__(self):
+		return f"Vertical Opening: {self.hasLocation}" 

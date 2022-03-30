@@ -5,10 +5,13 @@ The 'FirePump' class represents fire pumps which are used to boost the
 water pressure to standpipes and sprinkler systems (OSHA, 2015).
 '''
 class FirePump(BuildingSafetySystem):
-	hasLocation = models.TextField(blank=True)
+	hasLocation = models.CharField(max_length=65, blank=True)
 
 
 	def serialize(self):
 		return {
 			'hasLocation': self.hasLocation, 
 		} 
+
+	def __str__(self):
+		return f"Fire Pump: {self.hasLocation}"   

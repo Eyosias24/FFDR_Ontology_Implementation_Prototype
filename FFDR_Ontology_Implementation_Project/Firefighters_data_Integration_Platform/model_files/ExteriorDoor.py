@@ -1,8 +1,8 @@
 from django.db import models
-from .Facade import Facade
+from .Door import Door
 '''
 The 'ExteriorDoor' class represents doors found on the exterior of a
 building.
 '''
-class ExteriorDoor(Facade):
+class ExteriorDoor(Door):
 	pass

@@ -39,7 +39,7 @@ from .ParkingLot import ParkingLot
 from .Pipeline import Pipeline
 from .PoliceDepartment import PoliceDepartment
 from .PowerLine import PowerLine
-from .PublicSafetyAgencyContactAddress import PublicSafetyAgencyContactAddress
+from .PublicSafetyContactAddress import PublicSafetyContactAddress
 from .RoadToIncident import RoadToIncident
 from .RoofTopElement import RoofTopElement
 from .SmokeControlSystemControlPanel import SmokeControlSystemControlPanel

@@ -1,8 +1,8 @@
 from django.db import models
-from .Facade import Facade
+from .Window import Window
 '''
 The 'ExteriorWindow' class represents windows found on the exterior of
 a building.
 '''
-class ExteriorWindow(Facade):
+class ExteriorWindow(Window):
 	pass

@@ -11,11 +11,16 @@ class FireHoseConnection(BuildingSafetySystem):
 	hasHoseConnection = models.ForeignKey(HoseConnection, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasWaterSource = models.ForeignKey(StandpipeSystem, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasLocation = models.TextField(blank=True)
+	hasFloorsServed = models.CharField(max_length=65)
 
 
 	def serialize(self):
 		return {
 			'hasHoseConnection': self.hasHoseConnection.serialize() if not self.hasHoseConnection == None else '', 
 			'hasWaterSource': self.hasWaterSource.serialize() if not self.hasWaterSource == None else '', 
-			'hasLocation': self.hasLocation, 
+			'hasLocation': self.hasLocation,
+			'hasFloorsServed': self.hasFloorsServed,  
 		} 
+
+	def __str__(self):
+		return f"Fire Hose Connection: {self.hasFloorsServed}"  

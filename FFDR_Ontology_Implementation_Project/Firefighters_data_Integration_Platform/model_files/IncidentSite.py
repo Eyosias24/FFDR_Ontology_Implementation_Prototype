@@ -1,10 +1,5 @@
 from django.db import models
-from .FireCommandCenter import FireCommandCenter
 from .IncidentBuilding import IncidentBuilding
-from .SurroundingStructure import SurroundingStructure
-from .SurroundingTerrain import SurroundingTerrain
-from .PublicSafetyAgencyContactAddress import PublicSafetyAgencyContactAddress
-from .WeatherCondition import WeatherCondition
 '''
 The 'IncidentSite' class represents a site where a building fire
 emergency has occurred.

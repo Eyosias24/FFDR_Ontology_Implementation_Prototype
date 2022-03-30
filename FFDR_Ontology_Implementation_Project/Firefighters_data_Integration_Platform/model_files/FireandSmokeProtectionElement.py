@@ -8,8 +8,9 @@ occupants (OSHA, 2015).
 '''
 class FireandSmokeProtectionElement(BuildingSafetySystem):
 	hasMaterial = models.ForeignKey(Material, on_delete=models.DO_NOTHING, blank=True, null=True)
-	hasLocation = models.TextField(blank=True)
+	hasLocation = models.CharField(max_length=65, blank=True)
 	hasFireResistanceRating = models.FloatField(blank=True)
+	hasFireResistanceRatingUnit = models.CharField(max_length=65, blank=True)
 
 
 	def serialize(self):
@@ -17,4 +18,5 @@ class FireandSmokeProtectionElement(BuildingSafetySystem):
 			'hasMaterial': self.hasMaterial.serialize() if not self.hasMaterial == None else '', 
 			'hasLocation': self.hasLocation, 
 			'hasFireResistanceRating': self.hasFireResistanceRating, 
+			'hasFireResistanceRatingUnit': self.hasFireResistanceRatingUnit, 
 		} 

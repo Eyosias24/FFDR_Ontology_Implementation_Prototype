@@ -8,9 +8,9 @@ The 'PortableFireExtinguisher' class represents portable fire
 extinguishers placed throughout a building.
 '''
 class PortableFireExtinguisher(BuildingSafetySystem):
-	hasFireExtinguisherRating = models.TextField(blank=True)
-	hasLocation = models.TextField(blank=True)
-	hasType = models.TextField(blank=True)
+	hasType = models.CharField(max_length=65, blank=True)
+	hasFireExtinguisherRating = models.CharField(max_length=65, blank=True)
+	hasLocation = models.CharField(max_length=65, blank=True)
 
 
 	def serialize(self):
@@ -18,4 +18,7 @@ class PortableFireExtinguisher(BuildingSafetySystem):
 			'hasFireExtinguisherRating': self.hasFireExtinguisherRating, 
 			'hasLocation': self.hasLocation, 
 			'hasType': self.hasType, 
-		} 
+		}
+
+	def __str__(self):
+		return f"Portable Fire Extinguisher: {self.hasLocation}"     

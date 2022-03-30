@@ -8,9 +8,9 @@ other emergency systems are monitored and controlled (NFPA 72).
 '''
 class FireCommandCenter(models.Model):
 	hasProjectName = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING)
-	contains = models.ForeignKey(ControlPanel, on_delete=models.DO_NOTHING, blank=True, null=True)
-	hasKeyLocated = models.TextField(blank=True)
-	hasLocation = models.TextField(blank=True)
+	contains = models.ManyToManyField(ControlPanel, blank=True, null=True)
+	hasKeyLocated = models.CharField(blank=True, max_length=65)
+	hasLocation = models.CharField(blank=True, max_length=65)
 
 
 	def serialize(self):
@@ -19,4 +19,7 @@ class FireCommandCenter(models.Model):
 			'contains': self.contains.serialize() if not self.contains == None else '', 
 			'hasKeyLocated': self.hasKeyLocated, 
 			'hasLocation': self.hasLocation, 
-		} 
+		}
+
+	def __str__(self):
+		return f"Fire Command Center"   

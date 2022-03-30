@@ -1,5 +1,6 @@
 from django.db import models
 from .BuildingSafetySystem import BuildingSafetySystem
+from .WaterSource import WaterSource
 '''
 Properties:  has water source: Automatic water supply, manual supply
 through FDC, Or both  has Class: fire service use (Class I), occupant
@@ -11,13 +12,15 @@ system of pipes within a building that provides water to fire hose
 connections and, in some cases, to sprinkler systems (NFPA 14).
 '''
 class StandpipeSystem(BuildingSafetySystem):
-	# hasWaterSource = models.Add_manually(blank=True)
-	hasClass = models.TextField(blank=True)
+	hasWaterSource = models.ForeignKey(WaterSource, on_delete=models.DO_NOTHING, blank=True, null=True)	
+	hasClass = models.CharField(max_length=65, blank=True)
 	hasCoverageZone = models.TextField(blank=True)
 	hasIsolationValveLocation = models.TextField(blank=True)
 	hasRequiredMaximumPressure = models.FloatField(blank=True)
 	hasRequiredMinimumPressure = models.FloatField(blank=True)
-	hasType = models.TextField(blank=True)
+	hasPressureUnit = models.CharField(max_length=65, blank=True)
+	hasType = models.CharField(max_length=65, blank=True)
+	hasIsolationValveLocation = models.CharField(max_length=65, blank=True)
 	isIsolationValveOpen = models.BooleanField(blank=True)
 
 
@@ -29,6 +32,8 @@ class StandpipeSystem(BuildingSafetySystem):
 			'hasIsolationValveLocation': self.hasIsolationValveLocation, 
 			'hasRequiredMaximumPressure': self.hasRequiredMaximumPressure, 
 			'hasRequiredMinimumPressure': self.hasRequiredMinimumPressure, 
+			'hasPressureUnit': self.hasPressureUnit, 
 			'hasType': self.hasType, 
+			'hasIsolationValveLocation': self.hasIsolationValveLocation, 
 			'isIsolationValveOpen': self.isIsolationValveOpen, 
 		} 

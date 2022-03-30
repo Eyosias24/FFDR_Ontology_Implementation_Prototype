@@ -1,8 +1,8 @@
 from django.db import models
-from .Address import Address
+from .ContactAddress import ContactAddress
 '''
 The 'PublicSafetyAgencyContactAddress' class represents public safety
 agencies's contact address.
 '''
-class PublicSafetyAgencyContactAddress(Address):
+class PublicSafetyContactAddress(ContactAddress):
 	pass

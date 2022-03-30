@@ -5,4 +5,6 @@ The 'CbrSensor' class represents Chemical/Biological/Radiation (CBR)
 sensors installed in a building.
 '''
 class CbrSensor(SensorDetector):
-	pass
+
+	def __str__(self):
+		return f"CBR Sensor : {self.hasOnFloor} - {self.hasName}"   

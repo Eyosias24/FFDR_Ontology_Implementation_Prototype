@@ -6,14 +6,17 @@ removal system that assists firefighters in removing smoke after a
 fire is extinguished (OSHA, 2015).
 '''
 class SmokeandHeatRemovalSystem(BuildingSafetySystem):
-	hasLocation = models.TextField(blank=True)
-	hasType = models.TextField(blank=True)
+	hasType = models.CharField(max_length=65)
+	hasLocation = models.CharField(max_length=65)
 	isSystemActivated = models.BooleanField(blank=True)
 
 
 	def serialize(self):
 		return {
-			'hasLocation': self.hasLocation, 
 			'hasType': self.hasType, 
+			'hasLocation': self.hasLocation, 
 			'isSystemActivated': self.isSystemActivated, 
-		} 
+		}
+
+	def __str__(self):
+		return f"Smoke Control System: {self.hasLocation}"      

@@ -8,12 +8,14 @@ building.
 class Stairway(NonStructuralElement):
 	hasFireExtinguishingSystem = models.ForeignKey(AutomaticFireExtinguishingSystem, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasDirectionToExit = models.TextField(blank=True)
-	hasDischargeLevel = models.TextField(blank=True)
+	hasDischargeLevel = models.CharField(blank=True, max_length=65)
 	hasFloorsServed = models.TextField(blank=True)
 	isRoofAccess = models.BooleanField(blank=True)
 	hasCapacity = models.IntegerField(blank=True)
 	hasExitTravelDistances = models.FloatField(blank=True)
+	hasDistancesUnit = models.CharField(blank=True, max_length=65)
 	hasWidth = models.FloatField(blank=True)
+	hasWidthUnit = models.CharField(blank=True, max_length=65)
 	isExit = models.BooleanField(blank=True)
 
 
@@ -26,6 +28,8 @@ class Stairway(NonStructuralElement):
 			'isRoofAccess': self.isRoofAccess, 
 			'hasCapacity': self.hasCapacity, 
 			'hasExitTravelDistances': self.hasExitTravelDistances, 
-			'hasWidth': self.hasWidth, 
+			'hasDistancesUnit': self.hasDistancesUnit, 
+			'hasWidth': self.hasWidth,
+			'hasWidthUnit': self.hasWidthUnit,  
 			'isExit': self.isExit, 
 		} 

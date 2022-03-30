@@ -1,8 +1,8 @@
 from django.db import models
-from .Facade import Facade
+from .Wall import Wall
 '''
 The 'ExteriorWall' class represents walls found on the exterior of a
 building.
 '''
-class ExteriorWall(Facade):
+class ExteriorWall(Wall):
 	pass
