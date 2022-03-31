@@ -7,3 +7,13 @@ function getIncidentBuilding(projectTitle) {
       // do things
     });
 }
+
+function getAutomaticFireExtinguishingSystem(projectTitle) {
+  // Fetch AutomaticSprinklerSystem
+  fetch("/automatic_fire_extinguishing_system/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      showFireExtinguishingSystem(results);
+      // do things
+    });
+}

@@ -19,3 +19,13 @@ def get_incident_building(request, projectName):
 
 
 
+# fetch AlternativeAutomaticFireExtinguishingSystem
+def get_automatic_fire_extinguishing_system(request, projectName):
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+	automaticSprinklerSystem = AutomaticSprinklerSystem.objects.filter(hasProjectName=incidentBuilding)
+	alternativeAutomaticFireExtinguishingSystem = AlternativeAutomaticFireExtinguishingSystem.objects.filter(hasProjectName=incidentBuilding)
+	print(automaticSprinklerSystem[0].serialize())
+	automaticFireExtinguishingSystem = {"automaticSprinklerSystem":[item.serialize() for item in automaticSprinklerSystem ],
+										"alternativeAutomaticFireExtinguishingSystem":[item.serialize() for item in alternativeAutomaticFireExtinguishingSystem ]}
+	return JsonResponse(automaticFireExtinguishingSystem, safe=False)
+

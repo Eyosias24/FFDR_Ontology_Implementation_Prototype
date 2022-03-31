@@ -14,7 +14,8 @@ class ControlPanel(models.Model):
 
 	def serialize(self):
 		return {
-			'hasProjectName': self.hasProjectName,
+			'hasId': self.id,
+			'hasProjectName': self.hasProjectName.serialize() if not self.hasProjectName == None else ''  ,
 			'hasName': self.hasName,
 			'hasLocation': self.hasLocation, 
 			'hasDescription': self.hasDescription, 

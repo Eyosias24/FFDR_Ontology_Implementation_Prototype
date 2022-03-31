@@ -10,12 +10,12 @@ class WaterSource(models.Model):
 	hasName = models.CharField(max_length=80)
 	hasFireFlow = models.FloatField(blank=True)
 	hasFireFlowUnit = models.CharField(max_length=80)
-	isFunctional = models.BooleanField(blank=True)
+	isFunctional = models.BooleanField(blank=True) 
 
 
 	def serialize(self):
 		return {
-			'hasProjectName': self.hasProjectName,
+			'hasProjectName': self.hasProjectName.serialize() if not self.hasProjectName == None else '' ,
 			'hasName': self.hasName, 
 			'hasFireFlow': self.hasFireFlow, 
 			'hasFireFlowUnit': self.hasFireFlowUnit, 

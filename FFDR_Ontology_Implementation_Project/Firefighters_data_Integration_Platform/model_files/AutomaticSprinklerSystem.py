@@ -12,12 +12,11 @@ class AutomaticSprinklerSystem(AutomaticFireExtinguishingSystem):
 	hasPressureUnit = models.CharField(max_length=75, blank=True)
 	isControlValveOn = models.BooleanField(blank=True)
 
-
-	def serialize(self):
+	def serialize(self):		
 		return {
-			'hasWaterSource': self.hasWaterSource, 
+			'hasWaterSource': self.hasWaterSource.serialize() if not self.hasWaterSource == None else '' ,
 			'hasRequiredMaximumPressure': self.hasRequiredMaximumPressure, 
 			'hasRequiredMinimumPressure': self.hasRequiredMinimumPressure, 
 			'hasPressureUnit': self.hasPressureUnit, 
 			'isControlValveOn': self.isControlValveOn, 
-		} 
+		}  | super().serialize()

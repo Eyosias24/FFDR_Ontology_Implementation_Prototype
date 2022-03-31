@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#automatic-fire-extinguishing-system")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      getAutomaticFireExtinguishingSystem;
+      getAutomaticFireExtinguishingSystem(projectTitle);
     });
 
   // Portable fire extinguishers view

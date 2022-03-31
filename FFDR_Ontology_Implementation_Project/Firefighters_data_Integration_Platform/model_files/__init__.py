@@ -79,6 +79,7 @@ from .StandpipeSystem import StandpipeSystem
 from .Wall import Wall
 from .WaterSupplyandSewerageSystem import WaterSupplyandSewerageSystem
 from .Window import Window
+from .AutomaticFireExtinguishingSystem import AutomaticFireExtinguishingSystem
 from .AlternativeAutomaticFireExtinguishingSystem import AlternativeAutomaticFireExtinguishingSystem
 from .AutomaticSprinklerSystem import AutomaticSprinklerSystem
 from .CarbonMonoxideDetector import CarbonMonoxideDetector
