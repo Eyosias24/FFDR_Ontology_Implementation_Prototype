@@ -1,13 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Project title
   projectTitle = "Sample Project 01";
+
+  // Load navigation panels
   loadNavPanels();
-  // Incident site view
-  document
-    .querySelector("#incident-site")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getIncidentSite;
-    });
 
   // Incident building view
   document
@@ -15,86 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
       getIncidentBuilding(projectTitle);
-    });
-
-  // Addresses view
-  document
-    .querySelector("#addresses")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getAddresses();
-    });
-
-  // Building Plans view
-  document
-    .querySelector("#building-plans")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getBuildingPlans;
-    });
-
-  // Fire command center view
-  document
-    .querySelector("#fire-command-center")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getFireCommandCenter;
-    });
-
-  // Road to incident view
-  document
-    .querySelector("#road-to-incident")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getRoadToIncident;
-    });
-
-  // Fire lane view
-  document
-    .querySelector("#fire-lane")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getFireLane;
-    });
-
-  // Water source view
-  document
-    .querySelector("#water-source")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getWaterSource;
-    });
-
-  // Fire hydrant view
-  document
-    .querySelector("#fire-hydrant")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getFireHydrant;
-    });
-
-  // Weather condition view
-  document
-    .querySelector("#weather-condition")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getWeatherCondition;
-    });
-
-  // Fire lane view
-  document
-    .querySelector("#fire-lane")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getFireLane;
-    });
-
-  // Surroundings view
-  document
-    .querySelector("#surroundings")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getSurroundings;
     });
 
   // Automatic fire extinguishing system view
@@ -110,55 +26,15 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#portable-fire-extinguishers")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      getPortableFireExtinguishers;
+      getPortableFireExtinguishers(projectTitle);
     });
 
-  // Fire alarm system view
+  // Fire hydrant view
   document
-    .querySelector("#fire-alarm-system")
+    .querySelector("#fire-hydrant")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      getFireAlarmSystem;
-    });
-
-  // Fire Department Connections view
-  document
-    .querySelector("#fire-department-connections")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getFireDepartmentConnections;
-    });
-
-  // Fire hose connections view
-  document
-    .querySelector("#fire-hose-connections")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getFireHoseConnections;
-    });
-
-  // Standpipe system view
-  document
-    .querySelector("#standpipe-system")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getStandpipeSystem;
-    });
-
-  // Sensors and detectors view
-  document
-    .querySelector("#sensors-and-detectors")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getSensorsAndDetectors;
-    });
-
-  // Fire and smoke protection elements view
-  document
-    .querySelector("#fire-and-smoke-protection-elements")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getFireAndSmokeProtectionElements;
+      getFireHydrant(projectTitle);
     });
 
   // Building utility systems view
@@ -166,67 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector("#building-utility-systems")
     .addEventListener("click", function (event) {
       changeActiveButton(event.target);
-      getBuildingUtilitySystems;
-    });
-
-  // Facade view
-  document.querySelector("#facade").addEventListener("click", function (event) {
-    changeActiveButton(event.target);
-    getFacade;
-  });
-
-  // Non-structural-elements view
-  document
-    .querySelector("#non-structural-elements")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getNonStructuralElements;
-    });
-
-  // Structural elements view
-  document
-    .querySelector("#structural-elements")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getStructuralElements;
-    });
-
-  // Hazardous materials view
-  document
-    .querySelector("#hazardous-materials")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getHazardousMaterials;
-    });
-
-  // Keybox view
-  document.querySelector("#keybox").addEventListener("click", function (event) {
-    changeActiveButton(event.target);
-    getKeybox;
-  });
-
-  // Concealed spaces view
-  document
-    .querySelector("#concealed-spaces")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getConcealedSpaces;
-    });
-
-  // Vertical openings view
-  document
-    .querySelector("#vertical-openings")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getVerticalOpenings;
-    });
-
-  // Roof top element view
-  document
-    .querySelector("#roof-top-element")
-    .addEventListener("click", function (event) {
-      changeActiveButton(event.target);
-      getRoofTopElement;
+      getBuildingUtilitySystems(projectTitle);
     });
 });
 
@@ -236,39 +52,6 @@ function changeActiveButton(newActiveButton) {
     currentActiveButton[0].className = "button";
   newActiveButton.className += " active";
 }
-
-function showIncidentSite() {}
-function showAddresses() {}
-function showBuildingPlans() {}
-function showFireCommandCenter() {}
-function showRoadToIncident() {}
-function showFireLane() {}
-function showWaterSource() {}
-function showFireHydrant() {}
-function showWeatherCondition() {
-  // Get main view
-  mainView = document.querySelector("#main-view");
-  mainView.innerHTML = "";
-}
-function showFireLane() {}
-function showSurroundings() {}
-function showAutomaticFireExtinguishingSystem() {}
-function showPortableFireExtinguishers() {}
-function showFireAlarmSystem() {}
-function showFireDepartmentConnections() {}
-function showFireHoseConnections() {}
-function showStandpipeSystem() {}
-function showSensorsAndDetectors() {}
-function showFireAndSmokeProtectionElements() {}
-function showBuildingUtilitySystems() {}
-function showFacade() {}
-function showNonStructuralElements() {}
-function showStructuralElements() {}
-function showHazardousMaterials() {}
-function showKeybox() {}
-function showConcealedSpaces() {}
-function showVerticalOpenings() {}
-function showRoofTopElement() {}
 
 function loadNavPanels() {
   // Get the navigation panels

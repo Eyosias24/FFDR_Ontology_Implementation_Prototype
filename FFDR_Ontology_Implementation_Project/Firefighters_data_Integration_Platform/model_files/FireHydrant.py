@@ -31,6 +31,7 @@ class FireHydrant(SurroundingStructure):
 			'hasWaterSource': self.hasWaterSource.serialize() if not self.hasWaterSource == None else '', 
 			'hasDistanceFromFDC': self.hasDistanceFromFDC, 
 			'hasFireFlow': self.hasFireFlow, 
+			'hasFireFlowUnit': self.hasFireFlowUnit, 
 			'hasNumberOfOutlet': self.hasNumberOfOutlet, 
 			'isFunctional': self.isFunctional, 
-		} 
+		} | super().serialize()

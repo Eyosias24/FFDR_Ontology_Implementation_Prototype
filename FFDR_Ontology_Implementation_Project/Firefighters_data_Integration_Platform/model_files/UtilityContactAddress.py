@@ -5,4 +5,5 @@ The 'UtilityContactAddress' class represents the address of people
 that manage the utilities in a building.
 '''
 class UtilityContactAddress(ContactAddress):
-	pass
+	def serialize(self):
+		return super().serialize() 

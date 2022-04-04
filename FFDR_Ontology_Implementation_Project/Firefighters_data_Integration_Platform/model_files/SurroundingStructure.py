@@ -15,9 +15,9 @@ class SurroundingStructure(models.Model):
 
 	def serialize(self):
 		return {
-			'hasProjectName': self.hasProjectName,
+			'hasProjectName': self.hasProjectName.serialize() if not self.hasProjectName == None else '',  
 			'hasName': self.hasName,
 			'hasDistanceFromIncidentBuilding': self.hasDistanceFromIncidentBuilding, 
 			'hasDistanceUnit': self.hasDistanceUnit,  
 			'hasLocation': self.hasLocation,  
-		} 
+		}  

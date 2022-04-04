@@ -18,7 +18,7 @@ class PortableFireExtinguisher(BuildingSafetySystem):
 			'hasFireExtinguisherRating': self.hasFireExtinguisherRating, 
 			'hasLocation': self.hasLocation, 
 			'hasType': self.hasType, 
-		}
+		}| super().serialize()
 
 	def __str__(self):
 		return f"Portable Fire Extinguisher: {self.hasLocation}"     

@@ -10,7 +10,7 @@ class HoseConnection(models.Model):
 	hasName = models.CharField(max_length=80)
 	hasSize = models.FloatField(blank=True)
 	hasSizeUnit = models.CharField(max_length=80)
-	hasType = models.TextField(blank=True)
+	hasType = models.CharField(max_length=80, blank=True)
 
 
 	def serialize(self):

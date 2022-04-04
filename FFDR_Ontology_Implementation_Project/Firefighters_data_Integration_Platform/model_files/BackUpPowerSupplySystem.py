@@ -8,4 +8,4 @@ class BackUpPowerSupplySystem(BuildingUtilitySystem):
 
 	def __str__(self):
 		return f"BackUp Power Supply System"   
-	pass
+	
