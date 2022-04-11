@@ -85,6 +85,9 @@ DATABASES = {
      'default': {
          'ENGINE': 'djongo',
          'NAME': 'firefighter_data_storage',
+         'CLIENT': {
+                'host': 'mongodb+srv://Eyosias:89Fmcl8LQFu5bCOG@cluster0.qs8ly.mongodb.net/test'
+            }  
      }
  }
 
