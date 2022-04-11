@@ -1,3 +1,4 @@
+from opcode import hasname
 from django.db import models
 from .BuildingSafetySystem import BuildingSafetySystem
 from .WaterSource import WaterSource
@@ -12,6 +13,7 @@ system of pipes within a building that provides water to fire hose
 connections and, in some cases, to sprinkler systems (NFPA 14).
 '''
 class StandpipeSystem(BuildingSafetySystem):
+	hasName = models.CharField(max_length=65, blank=True)
 	hasWaterSource = models.ForeignKey(WaterSource, on_delete=models.DO_NOTHING, blank=True, null=True)	
 	hasClass = models.CharField(max_length=65, blank=True)
 	hasCoverageZone = models.TextField(blank=True)
@@ -23,10 +25,11 @@ class StandpipeSystem(BuildingSafetySystem):
 	hasIsolationValveLocation = models.CharField(max_length=65, blank=True)
 	isIsolationValveOpen = models.BooleanField(blank=True)
 
-
+ 
 	def serialize(self):
 		return {
-			'hasWaterSource': self.hasWaterSource, 
+			'hasName': self.hasName, 
+			'hasWaterSource': self.hasWaterSource.serialize() if not self.hasWaterSource == None else '', 
 			'hasClass': self.hasClass, 
 			'hasCoverageZone': self.hasCoverageZone, 
 			'hasIsolationValveLocation': self.hasIsolationValveLocation, 
@@ -36,4 +39,7 @@ class StandpipeSystem(BuildingSafetySystem):
 			'hasType': self.hasType, 
 			'hasIsolationValveLocation': self.hasIsolationValveLocation, 
 			'isIsolationValveOpen': self.isIsolationValveOpen, 
-		} 
+		} | super().serialize() 
+
+	def __str__(self):
+		return f"Standpipe System : {self.hasName}"   

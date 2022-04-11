@@ -11,7 +11,7 @@ class SmokeBarrier(FireandSmokeProtectionElement):
 	def serialize(self):
 		return {
 			'hasOnFloor': self.hasOnFloor
-		}
+		} | super().serialize()  
 
 	def __str__(self):
 		return f"Smoke Barrier : {self.hasOnFloor}"      

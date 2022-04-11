@@ -5,4 +5,5 @@ The 'OwnerContactAddress' class represents a building owner's contact
 address.
 '''
 class OwnerContactAddress(ContactAddress):
-	pass
+	def serialize(self):
+		return  super().serialize() 

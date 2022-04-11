@@ -14,6 +14,7 @@ class FireDepartmentConnection(BuildingSafetySystem):
 	hasDistanceFromWaterSource = models.FloatField(blank=True)
 	hasLocation = models.TextField(blank=True)
 	hasNumberOfInlet = models.IntegerField(blank=True)
+	isFunctional = models.BooleanField(blank=True)
 
 
 	def serialize(self):
@@ -24,4 +25,5 @@ class FireDepartmentConnection(BuildingSafetySystem):
 			'hasDistanceFromWaterSource': self.hasDistanceFromWaterSource, 
 			'hasLocation': self.hasLocation, 
 			'hasNumberOfInlet': self.hasNumberOfInlet, 
-		} 
+			'isFunctional': self.isFunctional, 
+		} | super().serialize() 

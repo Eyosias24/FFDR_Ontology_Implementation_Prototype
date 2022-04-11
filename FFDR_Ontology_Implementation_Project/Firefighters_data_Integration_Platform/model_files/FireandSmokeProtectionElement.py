@@ -19,4 +19,4 @@ class FireandSmokeProtectionElement(BuildingSafetySystem):
 			'hasLocation': self.hasLocation, 
 			'hasFireResistanceRating': self.hasFireResistanceRating, 
 			'hasFireResistanceRatingUnit': self.hasFireResistanceRatingUnit, 
-		} 
+		} | super().serialize()  

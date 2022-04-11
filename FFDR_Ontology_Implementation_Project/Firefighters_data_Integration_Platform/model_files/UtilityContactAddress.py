@@ -6,4 +6,4 @@ that manage the utilities in a building.
 '''
 class UtilityContactAddress(ContactAddress):
 	def serialize(self):
-		return super().serialize() 
+		return  super().serialize()  

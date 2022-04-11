@@ -13,14 +13,14 @@ class FireHoseConnection(BuildingSafetySystem):
 	hasLocation = models.TextField(blank=True)
 	hasFloorsServed = models.CharField(max_length=65)
 
-
+ 
 	def serialize(self):
 		return {
 			'hasHoseConnection': self.hasHoseConnection.serialize() if not self.hasHoseConnection == None else '', 
 			'hasWaterSource': self.hasWaterSource.serialize() if not self.hasWaterSource == None else '', 
 			'hasLocation': self.hasLocation,
 			'hasFloorsServed': self.hasFloorsServed,  
-		} 
+		} | super().serialize() 
 
 	def __str__(self):
 		return f"Fire Hose Connection: {self.hasFloorsServed}"  

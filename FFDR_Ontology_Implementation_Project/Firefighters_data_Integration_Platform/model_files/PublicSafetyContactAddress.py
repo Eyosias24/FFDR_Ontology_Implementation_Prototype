@@ -5,4 +5,7 @@ The 'PublicSafetyAgencyContactAddress' class represents public safety
 agencies's contact address.
 '''
 class PublicSafetyContactAddress(ContactAddress):
-	pass
+	
+	def __str__(self):
+		return f"Utility Control Panel: {self.hasName}" 
+

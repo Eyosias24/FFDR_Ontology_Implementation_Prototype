@@ -5,4 +5,5 @@ The 'ShaftEnclosure' class represents a shaft enclosure that protects
 vertical openings.
 '''
 class ShaftEnclosure(FireandSmokeProtectionElement):
-	pass
+	def serialize(self):
+		return super().serialize()  

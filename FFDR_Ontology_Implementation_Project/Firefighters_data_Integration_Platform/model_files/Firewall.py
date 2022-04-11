@@ -8,5 +8,6 @@ or through the roof. It has sufficient structural stability under fire
 conditions to allow the structure to collapse without the collapse of
 the wall (IFC, 2018).
 '''
-class Firewall(FireandSmokeProtectionElement):
-	pass   
+class Firewall(FireandSmokeProtectionElement): 
+	def serialize(self):
+		return super().serialize()  

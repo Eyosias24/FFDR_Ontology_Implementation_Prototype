@@ -5,4 +5,5 @@ The 'BuildingManagerContactAddress' class represents a building
 manager's contact address.
 '''
 class BuildingManagerContactAddress(ContactAddress):
-	pass
+	def serialize(self):
+		return  super().serialize() 

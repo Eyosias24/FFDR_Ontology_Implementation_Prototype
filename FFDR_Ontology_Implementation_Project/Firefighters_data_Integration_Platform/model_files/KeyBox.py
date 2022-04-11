@@ -10,12 +10,10 @@ class KeyBox(BuildingComponent):
 	hasKeyFor = models.TextField()
 	hasLocation = models.CharField(max_length=255, blank=True)
 
-
-
 	def serialize(self):
 		return {
-			'hasKey': self.hasKey, 
+			'hasKey': self.hasKeyFor, 
 			'hasLocation': self.hasLocation, 
-		} 
+		} | super().serialize() 
 	def __str__(self):
 		return  f"KeyBox: {self.hasLocation}"  

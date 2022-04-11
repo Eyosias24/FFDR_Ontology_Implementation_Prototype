@@ -13,6 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
       getIncidentBuilding(projectTitle);
     });
 
+  // Contact Addresses view
+  document
+    .querySelector("#contact-addresses")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getContactAddresses(projectTitle);
+    });
+
   // Automatic fire extinguishing system view
   document
     .querySelector("#automatic-fire-extinguishing-system")
@@ -44,6 +52,101 @@ document.addEventListener("DOMContentLoaded", function () {
       changeActiveButton(event.target);
       getBuildingUtilitySystems(projectTitle);
     });
+
+  // Fire alarm system view
+  document
+    .querySelector("#fire-alarm-system")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+
+      getFireAlarmSystem(projectTitle);
+    });
+
+  // Fire Department Connections view
+  document
+    .querySelector("#fire-department-connections")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getFireDepartmentConnections(projectTitle);
+    });
+
+  // Fire hose connections view
+  document
+    .querySelector("#fire-hose-connections")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getFireHoseConnections(projectTitle);
+    });
+
+  // Standpipe system view
+  document
+    .querySelector("#standpipe-system")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getStandpipeSystem(projectTitle);
+    });
+
+  // Sensors and detectors view
+  document
+    .querySelector("#sensors-and-detectors")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getSensorsAndDetectors(projectTitle);
+    });
+
+  // Fire and smoke protection elements view
+  document
+    .querySelector("#fire-and-smoke-protection-elements")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getFireAndSmokeProtectionElements(projectTitle);
+    });
+
+  // Facade view
+  document.querySelector("#facade").addEventListener("click", function (event) {
+    changeActiveButton(event.target);
+    getFacade(projectTitle);
+  });
+
+  // Hazardous materials view
+  document
+    .querySelector("#hazardous-materials")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getHazardousMaterials(projectTitle);
+    });
+
+  // Keybox view
+  document.querySelector("#keybox").addEventListener("click", function (event) {
+    changeActiveButton(event.target);
+    getKeybox(projectTitle);
+  });
+
+  // Concealed spaces view
+  document
+    .querySelector("#concealed-spaces")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getConcealedSpaces(projectTitle);
+    });
+
+  // Vertical openings view
+  document
+    .querySelector("#vertical-openings")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getVerticalOpenings(projectTitle);
+    });
+
+  // Roof top element view
+  document
+    .querySelector("#roof-top-element")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getRoofTopElement(projectTitle);
+    });
+
+  document.querySelector("#incident-building").click();
 });
 
 function changeActiveButton(newActiveButton) {
@@ -64,7 +167,7 @@ function loadNavPanels() {
   topNavItems = [
     "Incident Site",
     "Incident Building",
-    "Addresses",
+    "Contact Addresses",
     "Building Plans",
     "Fire Command Center",
   ];
@@ -190,3 +293,5 @@ function weatherCondition() {
       console.log(hasWindSpeed);
     });
 }
+var buildingCoordinate = [];
+var buildingAddress;

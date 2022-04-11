@@ -7,7 +7,6 @@ by firefighters during building fire emergencies.
 Type could be threaded or quick- connect.
 '''
 class HoseConnection(models.Model):
-	hasName = models.CharField(max_length=80)
 	hasSize = models.FloatField(blank=True)
 	hasSizeUnit = models.CharField(max_length=80)
 	hasType = models.CharField(max_length=80, blank=True)
@@ -15,7 +14,6 @@ class HoseConnection(models.Model):
 
 	def serialize(self):
 		return {
-			'hasName': self.hasName, 
 			'hasSize': self.hasSize, 
 			'hasSizeUnit': self.hasSizeUnit, 
 			'hasType': self.hasType, 

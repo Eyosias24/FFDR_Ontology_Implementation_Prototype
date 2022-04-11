@@ -8,7 +8,7 @@ The 'BuildingUtilitySystem' class represents utilities found in a
 building.
 '''
 class BuildingUtilitySystem(BuildingComponent):
-	hasAddress = models.ForeignKey(UtilityContactAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
+	hasAddress = models.ForeignKey(UtilityContactAddress, on_delete=models.DO_NOTHING, blank=True, null=True, related_name="addressOf")
 	hasControlPanel = models.ForeignKey(UtilityControlPanel, on_delete=models.DO_NOTHING, blank=True, null=True)
 	isUtilityRunning = models.BooleanField(blank=True)
 

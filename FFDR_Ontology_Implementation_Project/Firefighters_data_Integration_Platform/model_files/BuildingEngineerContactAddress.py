@@ -5,6 +5,7 @@ The 'BuildingEngineerContactAddress' class represents a building
 engineer's contact address.
 '''
 class BuildingEngineerContactAddress(ContactAddress):
-	pass
+	def serialize(self):
+		return  super().serialize() 
 
 

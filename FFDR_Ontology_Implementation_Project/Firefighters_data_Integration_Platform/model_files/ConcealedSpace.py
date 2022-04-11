@@ -16,6 +16,6 @@ class ConcealedSpace(BuildingComponent):
 			'hasLocation': self.hasLocation, 
 			'hasDescription': self.hasDescription, 
 			'hasFireExtinguishingSystem': self.hasFireExtinguishingSystem.serialize() if not self.hasFireExtinguishingSystem == None else '',
-			}
+			} | super().serialize() 
 	def __str__(self):
 		return  f"Concealed Space: {self.hasLocation}"  

@@ -5,4 +5,7 @@ The 'ESP or EmergencyServiceProviderContactAddress' class represents
 different emergency service provider's contact address.
 '''
 class ESPContactAddress(ContactAddress):
-	pass
+	
+	def __str__(self):
+		return f"Utility Control Panel: {self.hasName}" 
+

@@ -3,16 +3,20 @@ html,
 body {
   display: flex;
   margin: 0px;
-  height: 100%;
   flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
 }
 #body-container {
   width: 100%;
+
+  /* overflow-y: hidden; */
 }
 
 #left-main-right-container {
   height: 100%;
   display: flex;
+  flex: 1 1 auto;
 }
 /* Main menu */
 
@@ -105,7 +109,11 @@ body {
   height: fit-content;
   min-height: 50px;
 }
-
+#bottom-nav-menu {
+  position: fixed;
+  bottom: 0px;
+  width: inherit;
+}
 @media screen and (min-width: 1024px) {
   #bottom-nav-menu nav,
   #top-nav-menu nav {
@@ -158,18 +166,23 @@ body {
 
 /* main view menu property */
 
-#main-view {
+.main-view {
   flex-grow: 1;
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
 
   background-color: #f8f9fa;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 550px;
+  height: 70%;
 }
 
 /* Containers in main view */
 
-#main-view #header {
+.main-view #header {
   font-weight: 500;
   font-size: large;
 }
@@ -191,7 +204,7 @@ body {
   border: solid 1px rgba(172, 170, 170, 0.342);
   background-color: white;
 }
-#main-view #header:hover {
+.main-view #header:hover {
   box-shadow: none;
   background-color: #f8f9fa;
   border-left: none;
@@ -199,7 +212,9 @@ body {
   border-top: solid 1px rgba(172, 170, 170, 0.342);
   border-bottom: solid 1px rgba(172, 170, 170, 0.342);
 }
-
+#back-button {
+  margin-left: auto;
+}
 .parent-container .first-child {
   width: 40%;
   pointer-events: none;
@@ -236,7 +251,6 @@ body {
 }
 
 .more-content-container {
-  width: 900px;
   display: flex;
 }
 .more-link {
@@ -249,8 +263,8 @@ body {
 
 #more-container {
   width: 100%;
-  height: 100%;
   background-color: white;
+  height: 100%;
 }
 
 /* More content */
@@ -267,7 +281,8 @@ body {
 
 #graphic-data-container {
   display: block;
-  height: 400px;
+  height: 100%;
+  min-height: fit-content;
   border: 1px solid #dae0e5;
   padding: 5px;
 }
@@ -290,4 +305,30 @@ body {
 }
 #data-container .data-item #off {
   color: red;
+}
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.collapse,
+.show {
+  flex-grow: 1;
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.image-container {
+  width: 100%;
+  height: 100%;
+  /* justify-content: space-evenly; */
+  display: flex;
+  justify-content: center;
+}
+
+#contact-address .third-child a {
+  pointer-events: painted;
 }
