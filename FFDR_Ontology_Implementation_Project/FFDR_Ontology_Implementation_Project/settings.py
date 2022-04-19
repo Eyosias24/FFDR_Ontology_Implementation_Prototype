@@ -74,22 +74,22 @@ WSGI_APPLICATION = 'FFDR_Ontology_Implementation_Project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#           'ENGINE': 'djongo',
-#           'NAME': 'firefighter_data_storage',
-#     }
-# }
-
 DATABASES = {
-     'default': {
-         'ENGINE': 'djongo',
-         'NAME': 'firefighter_data_storage',
-         'CLIENT': {
-                'host': 'mongodb+srv://Eyosias:89Fmcl8LQFu5bCOG@cluster0.qs8ly.mongodb.net/test'
-            }  
-     }
- }
+    'default': {
+          'ENGINE': 'djongo',
+          'NAME': 'firefighter_data_storage',
+    }
+}
+
+# DATABASES = {
+#      'default': {
+#          'ENGINE': 'djongo',
+#          'NAME': 'firefighter_data_storage',
+#          'CLIENT': {
+#                 'host': 'mongodb+srv://Eyosias:89Fmcl8LQFu5bCOG@cluster0.qs8ly.mongodb.net/test'
+#             }  
+#      }
+#  }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
