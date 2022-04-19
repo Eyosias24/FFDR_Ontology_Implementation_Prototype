@@ -1,4 +1,5 @@
 function getIncidentBuilding(projectTitle) {
+  LoadingPage()
   // Fetch IncidentBuilding
   fetch("/incident_building/" + projectTitle)
     .then((response) => response.json())
@@ -9,6 +10,7 @@ function getIncidentBuilding(projectTitle) {
 }
 
 function getContactAddresses() {
+  LoadingPage()
   // Fetch BuildingManagerContactAddress
   fetch("/contact_addresses/" + projectTitle)
     .then((response) => response.json())
@@ -19,6 +21,7 @@ function getContactAddresses() {
 }
 
 function getAutomaticFireExtinguishingSystem(projectTitle) {
+  LoadingPage()
   // Fetch AutomaticSprinklerSystem
   fetch("/automatic_fire_extinguishing_system/" + projectTitle)
     .then((response) => response.json())
@@ -29,6 +32,7 @@ function getAutomaticFireExtinguishingSystem(projectTitle) {
 }
 
 function getPortableFireExtinguishers(projectTitle) {
+  LoadingPage()
   // Fetch PortableFireExtinguisher
   fetch("/portable_fire_extinguisher/" + projectTitle)
     .then((response) => response.json())
@@ -39,6 +43,7 @@ function getPortableFireExtinguishers(projectTitle) {
 }
 
 function getFireAlarmSystem(projectTitle) {
+  LoadingPage()
   // Fetch FireAlarmSystem
   fetch("/fire_alarm_system/" + projectTitle)
     .then((response) => response.json())
@@ -49,6 +54,7 @@ function getFireAlarmSystem(projectTitle) {
 }
 
 function getFireDepartmentConnections(projectTitle) {
+  LoadingPage()
   // Fetch FireDepartmentConnection
   fetch("/fire_department_connection/" + projectTitle)
     .then((response) => response.json())
@@ -59,6 +65,7 @@ function getFireDepartmentConnections(projectTitle) {
 }
 
 function getFireHoseConnections(projectTitle) {
+  LoadingPage()
   // Fetch FireHoseConnection
   fetch("/fire_hose_connection/" + projectTitle)
     .then((response) => response.json())
@@ -68,6 +75,7 @@ function getFireHoseConnections(projectTitle) {
     });
 }
 function getStandpipeSystem(projectTitle) {
+  LoadingPage()
   // Fetch StandpipeSystem
   fetch("/standpipe_system/" + projectTitle)
     .then((response) => response.json())
@@ -78,6 +86,7 @@ function getStandpipeSystem(projectTitle) {
 }
 
 function getSensorsAndDetectors(projectTitle) {
+  LoadingPage()
   // Fetch CbrSensor
   fetch("/sensors_and_detectors/" + projectTitle)
     .then((response) => response.json())
@@ -88,6 +97,7 @@ function getSensorsAndDetectors(projectTitle) {
 }
 
 function getFireAndSmokeProtectionElements(projectTitle) {
+  LoadingPage()
   // Fetch FireBarrier
   fetch("/fire-and-smoke-protection-elements/" + projectTitle)
     .then((response) => response.json())
@@ -98,6 +108,7 @@ function getFireAndSmokeProtectionElements(projectTitle) {
 }
 
 function getFireHydrant(projectTitle) {
+  LoadingPage()
   // Fetch FireHydrant
   fetch("/fire_hydrant/" + projectTitle)
     .then((response) => response.json())
@@ -108,6 +119,7 @@ function getFireHydrant(projectTitle) {
 }
 
 function getBuildingUtilitySystems(projectTitle) {
+  LoadingPage()
   // Fetch Building Utility Systems
   fetch("/building_utility_systems/" + projectTitle)
     .then((response) => response.json())
@@ -118,6 +130,7 @@ function getBuildingUtilitySystems(projectTitle) {
 }
 
 function getFacade(projectTitle) {
+  LoadingPage()
   // Fetch SmokeControlSystem
   fetch("/facade/" + projectTitle)
     .then((response) => response.json())
@@ -128,12 +141,14 @@ function getFacade(projectTitle) {
 }
 
 function getNonStructuralElements(projectTitle) {
+  LoadingPage()
   // Fetch non structural elements
 
   showNonStructuralElements(projectTitle);
 }
 
 function getStructuralElements(projectTitle) {
+  LoadingPage()
   // Fetch structural elements
 
   // Fetch KeyBox
@@ -145,6 +160,7 @@ function getStructuralElements(projectTitle) {
     });
 }
 function getKeybox(projectTitle) {
+  LoadingPage()
   // Fetch KeyBox
   fetch("/key_box/" + projectTitle)
     .then((response) => response.json())
@@ -155,6 +171,7 @@ function getKeybox(projectTitle) {
 }
 
 function getHazardousMaterials() {
+  LoadingPage()
   // Fetch HazardousMaterial
   fetch("/hazardous_material/" + projectTitle)
     .then((response) => response.json())
@@ -165,6 +182,7 @@ function getHazardousMaterials() {
 }
 
 function getConcealedSpaces(projectTitle) {
+  LoadingPage()
   // Fetch ConcealedSpace
   fetch("/concealed_space/" + projectTitle)
     .then((response) => response.json())
@@ -175,6 +193,7 @@ function getConcealedSpaces(projectTitle) {
 }
 
 function getVerticalOpenings(projectTitle) {
+  LoadingPage()
   // Fetch VerticalOpening
   fetch("/vertical_opening/" + projectTitle)
     .then((response) => response.json())
@@ -185,6 +204,7 @@ function getVerticalOpenings(projectTitle) {
 }
 
 function getRoofTopElement(projectTitle) {
+  LoadingPage()
   // Fetch RoofTopElement
   fetch("/roof_top_element/" + projectTitle)
     .then((response) => response.json())
@@ -192,4 +212,14 @@ function getRoofTopElement(projectTitle) {
       showRoofTopElement(results);
       // do things
     });
+}
+
+function LoadingPage(){
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.innerHTML = `<div id="container">
+  <div id="loader"></div>  
+</div>
+<h4>Loader #4</h4>`
 }
