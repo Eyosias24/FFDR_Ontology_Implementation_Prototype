@@ -24,4 +24,4 @@ class Window(NonStructuralElement):
 			'isFunctional': self.isFunctional, 
 			'isOnExterior': self.isOnExterior, 
 			'isShaftway': self.isShaftway, 
-		} 
+		}  |  super().serialize() 

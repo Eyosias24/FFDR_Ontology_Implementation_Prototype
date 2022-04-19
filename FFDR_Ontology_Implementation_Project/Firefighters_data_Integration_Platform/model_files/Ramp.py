@@ -12,7 +12,9 @@ class Ramp(NonStructuralElement):
 	isRoofAccess = models.BooleanField(blank=True)
 	hasCapacity = models.IntegerField(blank=True)
 	hasExitTravelDistances = models.FloatField(blank=True)
+	hasDistancesUnit = models.CharField(blank=True, max_length=255)
 	hasWidth = models.FloatField(blank=True)
+	hasWidthUnit = models.CharField(blank=True, max_length=255)
 	isExit = models.BooleanField(blank=True)
 
 
@@ -25,6 +27,8 @@ class Ramp(NonStructuralElement):
 			'isRoofAccess': self.isRoofAccess, 
 			'hasCapacity': self.hasCapacity, 
 			'hasExitTravelDistances': self.hasExitTravelDistances, 
+			'hasDistancesUnit': self.hasDistancesUnit, 
 			'hasWidth': self.hasWidth, 
+			'hasWidthUnit': self.hasWidthUnit, 
 			'isExit': self.isExit, 
-		} 
+		} | super().serialize()

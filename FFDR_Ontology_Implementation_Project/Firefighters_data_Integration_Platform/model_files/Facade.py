@@ -4,4 +4,6 @@ from .BuildingComponent import BuildingComponent
 The 'Facade' class represents the facade of a building.
 '''
 class Facade(BuildingComponent):
-	pass
+	def serialize(self):
+		return  super().serialize() 
+ 

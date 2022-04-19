@@ -5,4 +5,5 @@ The 'ExteriorDoor' class represents doors found on the exterior of a
 building.
 '''
 class ExteriorDoor(Door):
-	pass
+	def serialize(self):
+		return  super().serialize() 

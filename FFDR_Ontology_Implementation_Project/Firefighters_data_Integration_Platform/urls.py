@@ -4,9 +4,14 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
 
+    # Trimble connect
+    path("trim", views.trim, name="trim"),
+
 # Get single IncidentBuilding item API route
 path('incident_building/<str:projectName>', views.get_incident_building, name='get_incident_building'),
-# path('add', views.add, name='add')
+
+
+# path('add', views.add, name='add'),
 
 
 # Get single contact_addresses item API route
@@ -61,4 +66,37 @@ path('vertical_opening/<str:projectName>', views.get_vertical_opening, name='get
 
 # Get single HazardousMaterial item API route
 path('hazardous_material/<str:projectName>', views.get_hazardous_material, name='get_hazardous_material'),
+
+# Get single door item API route
+path('door/<str:projectName>', views.get_door, name='get_door'),
+
+# Get single windows item API route
+path('windows/<str:projectName>', views.get_window, name='get_window'),
+
+# Get single elevator item API route
+path('elevator/<str:projectName>', views.get_elevator, name='get_elevator'),
+
+# Get single stairway item API route
+path('stairway/<str:projectName>', views.get_stairway, name='get_stairway'),
+
+# Get single ramp item API route
+path('ramp/<str:projectName>', views.get_ramp, name='get_ramp'),
+
+# Get single wall item API route
+path('wall/<str:projectName>', views.get_wall, name='get_wall'),
+
+# Get single floor assembly item API route
+path('floor-assembly/<str:projectName>', views.get_floor_assembly, name='get_floor_assembly'),
+
+# Get single roof assembly item API route
+path('roof-assembly/<str:projectName>', views.get_roof_assembly, name='get_roof_assembly'),
+
+# Get single balcony item API route
+path('balcony/<str:projectName>', views.get_balcony, name='get_balcony'),
+
+# Get single hallway item API route
+path('hallway/<str:projectName>', views.get_hallway, name='get_hallway'),
+
+# Get single hallway item API route
+path('structural-elements/<str:projectName>', views.get_structural_elements, name='get_structural_elements'),
 ]  

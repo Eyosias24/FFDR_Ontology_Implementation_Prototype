@@ -19,8 +19,8 @@ class NonStructuralElement(BuildingComponent):
 			'hasMaterial': self.hasMaterial.serialize() if not self.hasMaterial == None else '',
 			'hasLocation': self.hasLocation, 
 			'hasFireResistanceRating': self.hasFireResistanceRating, 
-			'hasFireResistanceRatingUnit': self.hasFireResistanceRatingUnit, 
-		}
+			'hasFireResistanceRatingUnit': self.hasFireResistanceRatingUnit,
+		}  |  super().serialize() 
 
 	def __str__(self):
 		return f"{self.__class__.__name__}: {self.hasId}"  

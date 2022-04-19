@@ -32,4 +32,4 @@ class Stairway(NonStructuralElement):
 			'hasWidth': self.hasWidth,
 			'hasWidthUnit': self.hasWidthUnit,  
 			'isExit': self.isExit, 
-		} 
+		} | super().serialize()

@@ -5,4 +5,5 @@ The 'ExteriorWindow' class represents windows found on the exterior of
 a building.
 '''
 class ExteriorWindow(Window):
-	pass
+	def serialize(self):
+		return super().serialize() 

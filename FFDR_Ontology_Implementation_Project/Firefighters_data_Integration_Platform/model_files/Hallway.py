@@ -16,4 +16,4 @@ class Hallway(NonStructuralElement):
 			'hasWidth': self.hasWidth,
 			'hasWidthUnit': self.hasWidthUnit,  
 			'hasOnFloor': self.hasOnFloor, 
-		} 
+		} | super().serialize()

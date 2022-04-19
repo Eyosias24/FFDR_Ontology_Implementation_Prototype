@@ -491,12 +491,15 @@ function populateESPContactAddressElements(
 
   containerClass = "contact-address";
   containerID = "header";
+  
+  secondCellStatus = "neutral",
   thirdCellStatus = "neutral";
 
   createThreeColumnContainer(
     subSubMainView,
     firstTitle,
     secondTitle,
+    secondCellStatus,
     thirdTitle,
     thirdCellStatus,
     containerID,
@@ -520,6 +523,7 @@ function populateESPContactAddressElements(
       subSubMainView,
       firstCell,
       secondCell,
+      secondCellStatus,
       thirdCell,
       thirdCellStatus,
       containerID,
@@ -579,11 +583,13 @@ function populateContactAddressElements(
     containerClass = "contact-address";
     containerID = "header";
     thirdCellStatus = "neutral";
+  secondCellStatus = "neutral",
 
     createThreeColumnContainer(
       subMainView,
       firstTitle,
       secondTitle,
+      secondCellStatus,
       thirdTitle,
       thirdCellStatus,
       containerID,
@@ -606,6 +612,7 @@ function populateContactAddressElements(
         subMainView,
         firstCell,
         secondCell,
+        secondCellStatus,
         thirdCell,
         thirdCellStatus,
         containerID,
@@ -712,11 +719,13 @@ function showFireExtinguishingSystem(results) {
   containerClass = "automatic-fire-extinguishing-system";
   containerID = "header";
   thirdCellStatus = "neutral";
+  secondCellStatus = "neutral",
 
   createThreeColumnContainer(
     mainView,
     firstTitle,
     secondTitle,
+    secondCellStatus,
     thirdTitle,
     thirdCellStatus,
     containerID,
@@ -747,6 +756,7 @@ function showFireExtinguishingSystem(results) {
       mainView,
       firstCell,
       secondCell,
+    secondCellStatus,
       thirdCell,
       thirdCellStatus,
       containerID,
@@ -909,11 +919,13 @@ function showFireHydrant(unsortedResults) {
   containerClass = "fire-hydrant";
   containerID = "header";
   thirdCellStatus = "neutral";
+  secondCellStatus = "neutral",
 
   createThreeColumnContainer(
     mainView,
     firstTitle,
     secondTitle,
+    secondCellStatus,
     thirdTitle,
     thirdCellStatus,
     containerID,
@@ -945,6 +957,7 @@ function showFireHydrant(unsortedResults) {
       mainView,
       firstCell,
       secondCell,
+    secondCellStatus,
       thirdCell,
       thirdCellStatus,
       containerID,
@@ -1429,10 +1442,10 @@ function createThreeColumnContainer(
   mainView,
   firstCell,
   secondCell,
+  secondCellStatus = "neutral",
   thirdCell,
   thirdCellStatus = "neutral",
-  containerID,
-  containerClass,
+  containerID
 ) {
   parentContainer = document.createElement("div");
   parentContainer.id = containerID;
@@ -1446,6 +1459,7 @@ function createThreeColumnContainer(
 
   secondChildContainer = document.createElement("div");
   secondChildContainer.className = "second-child";
+  secondChildContainer.id = secondCellStatus;
 
   if (secondCell != null) secondChildContainer.innerText = secondCell;
   else secondChildContainer.innerText = "N/A";
@@ -1454,7 +1468,6 @@ function createThreeColumnContainer(
   thirdChildContainer.className = "third-child";
   thirdChildContainer.innerHTML = thirdCell;
   thirdChildContainer.id = thirdCellStatus;
-   
 
   parentContainer.appendChild(firstChildContainer);
   parentContainer.appendChild(secondChildContainer);
@@ -1463,6 +1476,53 @@ function createThreeColumnContainer(
   mainView.appendChild(parentContainer);
 }
 
+// prettier-ignore
+function createFourColumnContainer(
+  mainView,
+  firstCell,
+  secondCell,
+  secondCellStatus,
+  thirdCell,
+  thirdCellStatus,
+  fourthCell,
+  fourthCellStatus,
+  containerID
+) {
+  parentContainer = document.createElement("div");
+  parentContainer.id = containerID;
+  parentContainer.setAttribute("status", "less");
+
+  parentContainer.className = "parent-container";
+
+  firstChildContainer = document.createElement("div");
+  firstChildContainer.className = "first-child";
+  firstChildContainer.innerText = firstCell;
+
+  secondChildContainer = document.createElement("div");
+  secondChildContainer.className = "second-child";
+  secondChildContainer.id = secondCellStatus;
+
+  if (secondCell != null) secondChildContainer.innerText = secondCell;
+  else secondChildContainer.innerText = "N/A";
+
+  thirdChildContainer = document.createElement("div");
+  thirdChildContainer.className = "third-child";
+  thirdChildContainer.innerHTML = thirdCell;
+  thirdChildContainer.id = thirdCellStatus;
+  
+
+  fourthChildContainer = document.createElement("div");
+  fourthChildContainer.className = "fourth-child";
+  fourthChildContainer.innerHTML = fourthCell;
+  fourthChildContainer.id = fourthCellStatus;
+
+  parentContainer.appendChild(firstChildContainer);
+  parentContainer.appendChild(secondChildContainer);
+  parentContainer.appendChild(thirdChildContainer);
+  parentContainer.appendChild(fourthChildContainer);
+
+  mainView.appendChild(parentContainer);
+}
 // prettier-ignore
 function createContainer(mainView, subjectLabel, subjectValue, containerID="",containerClass="", isMore=false, moreContent = "") {
   parentContainer = document.createElement("div");
@@ -1520,21 +1580,23 @@ function showPortableFireExtinguisher(results) {
 
   // Set title
   firstTitle = "Fire Extinguisher Type";
-  secondTitle = "Fire flow";
+  secondTitle = "Rating";
   thirdTitle = "Location";
 
   containerClass = "portable-fire-extinguisher";
   containerID = "header";
+
+  secondCellStatus = "neutral";
   thirdCellStatus = "neutral";
 
   createThreeColumnContainer(
     mainView,
     firstTitle,
     secondTitle,
+    secondCellStatus,
     thirdTitle,
     thirdCellStatus,
-    containerID,
-    containerClass
+    containerID
   );
 
   for (i = 0; i < results.length; i++) {
@@ -1553,6 +1615,7 @@ function showPortableFireExtinguisher(results) {
       mainView,
       firstCell,
       secondCell,
+      secondCellStatus,
       thirdCell,
       thirdCellStatus,
       containerID,
@@ -1607,7 +1670,9 @@ function addMoreContentContainer(
     }
 
     // Show more content
-    document.querySelector("#more-container").style.display = "block";
+
+    moreContainer = document.querySelector("#more-container");
+    moreContainer.style.display = "block";
 
     // Create data containers
     if (additionalWrittenData) {
@@ -1727,6 +1792,7 @@ function showFireAlarmSystem(results) {
       typeOfSignalInitiator = moreData["hasTypeOfSignalInitiator"];
       controlPanel = moreData["hasControlPanel"]["hasName"];
       controlPanelLocation = moreData["hasControlPanel"]["hasLocation"];
+
       // Get data container
       dataContainer = document.querySelector("#data-container");
       dataContainer.innerHTML = `
@@ -1776,12 +1842,15 @@ function showFireDepartmentConnections(results) {
 
   containerClass = "fire-department-connection";
   containerID = "header";
+
+  secondCellStatus = "neutral";
   thirdCellStatus = "neutral";
 
   createThreeColumnContainer(
     mainView,
     firstTitle,
     secondTitle,
+    secondCellStatus,
     thirdTitle,
     thirdCellStatus,
     containerID,
@@ -1819,6 +1888,7 @@ function showFireDepartmentConnections(results) {
         mainView,
         firstCell,
         secondCell,
+        secondCellStatus,
         thirdCell,
         thirdCellStatus,
         containerID,
@@ -2008,12 +2078,15 @@ function showStandpipeSystem(results) {
 
   containerClass = "standpipe-system";
   containerID = "header";
+
+  secondCellStatus = "neutral";
   thirdCellStatus = "neutral";
 
   createThreeColumnContainer(
     mainView,
     firstTitle,
     secondTitle,
+    secondCellStatus,
     thirdTitle,
     thirdCellStatus,
     containerID,
@@ -2044,6 +2117,7 @@ function showStandpipeSystem(results) {
         mainView,
         firstCell,
         secondCell,
+        secondCellStatus,
         thirdCell,
         thirdCellStatus,
         containerID,
@@ -2222,12 +2296,15 @@ function populateSensorAndDetector(event, allNavigationContainers, inputData) {
 
   containerClass = "sensors-and-detectors";
   containerID = "header";
+
+  secondCellStatus = "neutral";
   thirdCellStatus = "neutral";
 
   createThreeColumnContainer(
     subMainView,
     firstTitle,
     secondTitle,
+    secondCellStatus,
     thirdTitle,
     thirdCellStatus,
     containerID,
@@ -2256,6 +2333,7 @@ function populateSensorAndDetector(event, allNavigationContainers, inputData) {
       subMainView,
       firstCell,
       secondCell,
+      secondCellStatus,
       thirdCell,
       thirdCellStatus,
       containerID,
@@ -2417,52 +2495,50 @@ function populateFireAndSmokeProtectionElements(
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
+  subMainView.className = "fire-and-smoke-protection-elements";
 
   // Set title
   firstTitle = "Name";
   secondTitle = "Floor Location";
-  thirdTitle = "Status";
+  thirdTitle = "Material";
+  fourthTitle = "Fire Resistance Rating";
 
-  containerClass = "sensors-and-detectors";
   containerID = "header";
   thirdCellStatus = "neutral";
 
-  createThreeColumnContainer(
+  createFourColumnContainer(
     subMainView,
     firstTitle,
     secondTitle,
     thirdTitle,
-    thirdCellStatus,
-    containerID,
-    containerClass
+    fourthTitle,
+    containerID
   );
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
     hasName = inputData[i]["hasName"];
     floorLocation = inputData[i]["hasOnFloor"];
-    isInAlarm = inputData[i]["isInAlarm"];
+    hasMaterial = inputData[i]["hasMaterial"]["hasName"];
+    fireResistanceRating =
+      inputData[i]["hasFireResistanceRating"] +
+      " " +
+      inputData[i]["hasFireResistanceRatingUnit"];
 
     firstCell = hasName;
     secondCell = floorLocation;
-    if (isInAlarm) {
-      thirdCell = "Activated";
-      thirdCellStatus = "negative";
-    } else {
-      thirdCell = "Off";
-      thirdCellStatus = "positive";
-    }
+    thirdCell = hasMaterial;
+    fourthCell = fireResistanceRating;
 
     containerID = i;
 
-    createThreeColumnContainer(
+    createFourColumnContainer(
       subMainView,
       firstCell,
       secondCell,
       thirdCell,
-      thirdCellStatus,
-      containerID,
-      containerClass
+      fourthCell,
+      containerID
     );
   }
 
@@ -2490,6 +2566,456 @@ function populateFireAndSmokeProtectionElements(
   }
 }
 
+function populateExteriorDoor(event, allNavigationContainers, inputData) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "exterior-door";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Primary Fire Service Entry Point";
+  thirdTitle = "Exit";
+  fourthTitle = "Functional";
+
+  containerID = "header";
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    isPrimaryFireServiceEntryPoint =
+      inputData[i]["isPrimaryFireServiceEntryPoint"];
+    isExit = inputData[i]["isExit"];
+    isFunctional = inputData[i]["isFunctional"];
+
+    firstCell = hasName;
+    if (isPrimaryFireServiceEntryPoint) {
+      secondCell = "Yes";
+      secondCellStatus = "positive";
+    } else {
+      secondCell = "No";
+      secondCellStatus = "negative";
+    }
+
+    if (isExit) {
+      thirdCell = "Yes";
+      thirdCellStatus = "positive";
+    } else {
+      thirdCell = "No";
+      thirdCellStatus = "negative";
+    }
+
+    if (isFunctional) {
+      fourthCell = "Yes";
+      fourthCellStatus = "positive";
+    } else {
+      fourthCell = "No";
+      fourthCellStatus = "negative";
+    }
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+      hasMaterial = moreData["hasMaterial"]["hasName"];
+      hasWidth = moreData["hasWidth"] + " " + moreData["hasWidthUnit"];
+      openingDirection = moreData["hasOpeningDirection"];
+
+      fireResistanceRating =
+        moreData["hasFireResistanceRating"] +
+        " " +
+        moreData["hasFireResistanceRatingUnit"];
+
+      controlPanel = moreData["hasControlPanel"]["hasName"];
+      controlPanelLocation = moreData["hasControlPanel"]["hasLocation"];
+
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="material">
+          <div class = "data-item-label"> Material: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="width">
+          <div class = "data-item-label"> Width: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="fire-resistance-rating">
+          <div class = "data-item-label"> Fire Resistance Rating: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="opening-direction">
+          <div class = "data-item-label"> Opening Direction: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="control-panel">
+          <div class = "data-item-label"> Control Panel: </div> 
+          <div class = "data-item-value">  <a href="#"></a> </div> 
+        </div>
+        <div class = "data-item" id="control-Panel-location">
+          <div class = "data-item-label"> Control Panel Location: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#material .data-item-value").innerText =
+        hasMaterial;
+
+      dataContainer.querySelector("#width .data-item-value").innerText =
+        hasWidth;
+
+      dataContainer.querySelector(
+        "#fire-resistance-rating .data-item-value"
+      ).innerText = fireResistanceRating;
+
+      dataContainer.querySelector(
+        "#opening-direction .data-item-value"
+      ).innerText = openingDirection;
+
+      dataContainer.querySelector(
+        "#control-panel .data-item-value a"
+      ).innerText = controlPanel;
+
+      dataContainer.querySelector(
+        "#control-Panel-location .data-item-value"
+      ).innerText = controlPanelLocation;
+    });
+  }
+}
+
+function populateExteriorWindow(event, allNavigationContainers, inputData) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "exterior-window";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Floor";
+  thirdTitle = "Shaftway";
+  fourthTitle = "Functional";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    hasFloor = inputData[i]["hasOnFloor"];
+    isShaftway = inputData[i]["isShaftway"];
+    isFunctional = inputData[i]["isFunctional"];
+
+    firstCell = hasName;
+    secondCell = hasFloor;
+    if (isShaftway) {
+      thirdCell = "Yes";
+      thirdCellStatus = "negative";
+    } else {
+      thirdCell = "No";
+      thirdCellStatus = "positive";
+    }
+
+    if (isFunctional) {
+      fourthCell = "Yes";
+      fourthCellStatus = "positive";
+    } else {
+      fourthCell = "No";
+      fourthCellStatus = "negative";
+    }
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+
+      hasWidth = moreData["hasWidth"] + " " + moreData["hasMeasurementUnit"];
+      hasHeight = moreData["hasHeight"] + " " + moreData["hasMeasurementUnit"];
+      openingDirection = moreData["hasOpeningDirection"];
+
+      fireResistanceRating =
+        moreData["hasFireResistanceRating"] +
+        " " +
+        moreData["hasFireResistanceRatingUnit"];
+
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="width">
+          <div class = "data-item-label"> Width: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="height">
+          <div class = "data-item-label"> Height: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="fire-resistance-rating">
+          <div class = "data-item-label"> Fire Resistance Rating: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="opening-direction">
+          <div class = "data-item-label"> Opening Direction: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#height .data-item-value").innerText =
+        hasHeight;
+
+      dataContainer.querySelector("#width .data-item-value").innerText =
+        hasWidth;
+
+      dataContainer.querySelector(
+        "#fire-resistance-rating .data-item-value"
+      ).innerText = fireResistanceRating;
+
+      dataContainer.querySelector(
+        "#opening-direction .data-item-value"
+      ).innerText = openingDirection;
+    });
+  }
+}
+
+function populateExteriorWall(event, allNavigationContainers, inputData) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "exterior-window";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Floor";
+  thirdTitle = "FireResistanceRating";
+  fourthTitle = "Material";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    hasFloor = inputData[i]["hasOnFloor"];
+    fireResistanceRatingUnit =
+      inputData[i]["hasFireResistanceRating"] +
+      " " +
+      inputData[i]["hasFireResistanceRatingUnit"];
+    hasMaterial = inputData[i]["hasMaterial"]["hasName"];
+
+    firstCell = hasName;
+    secondCell = hasFloor;
+    thirdCell = fireResistanceRatingUnit;
+    fourthCell = hasMaterial;
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+
+      hasThickness =
+        moreData["hasThickness"] + " " + moreData["hasThicknessUnit"];
+
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="thickness">
+          <div class = "data-item-label"> Thickness: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#thickness .data-item-value").innerText =
+        hasThickness;
+    });
+  }
+}
 // Roof top Element
 function showRoofTopElement(results) {
   console.log(results);
@@ -2498,6 +3024,1946 @@ function showRoofTopElement(results) {
 // Facade
 function showFacade(results) {
   console.log(results);
+
+  // Get data
+  exteriorDoor = results["exteriorDoor"];
+  exteriorWall = results["exteriorWall"];
+  exteriorWindow = results["exteriorWindow"];
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "facade";
+  mainView.innerHTML = `
+  <ul class="nav nav-tabs">
+    <li class="nav-item" id="exterior-door">
+      <a class="nav-link active" href="#">Exterior Door</a>
+    </li>
+    <li class="nav-item" id="exterior-window">
+      <a class="nav-link" href="#">Exterior Window</a>
+    </li>
+    <li class="nav-item" id="exterior-wall">
+      <a class="nav-link" href="#">Exterior Wall</a>
+    </li>  
+</ul>
+  `;
+
+  // Creat sub main view
+  subMainView = document.createElement("div");
+  subMainView.id = "sub-main-view";
+  mainView.appendChild(subMainView);
+  subMainView.innerHTML = "";
+
+  exteriorDoorContainer = document.querySelector("#exterior-door");
+  exteriorWindowContainer = document.querySelector("#exterior-window");
+  exteriorWallContainer = document.querySelector("#exterior-wall");
+
+  allNavigationContainers = document.querySelectorAll(".nav a");
+
+  //  exteriorDoor Container
+  exteriorDoorContainer.addEventListener("click", function (event) {
+    // Populate data
+    populateExteriorDoor(event, allNavigationContainers, exteriorDoor);
+  });
+
+  //  exterior Window Container
+  exteriorWindowContainer.addEventListener("click", function (event) {
+    // Populate data
+    populateExteriorWindow(event, allNavigationContainers, exteriorWindow);
+  });
+  //  exterior Wall Container
+  exteriorWallContainer.addEventListener("click", function (event) {
+    // Populate data
+    populateExteriorWall(event, allNavigationContainers, exteriorWall);
+  });
+
+  document.querySelector("#exterior-door a").click();
+}
+
+
+function populateDoor(inputData){
+  
+// Add view
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "door";
+
+  console.log(inputData)
+  
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Floor";
+  thirdTitle = "Distance to Exit";
+  fourthTitle = "Fire Resistance Rating";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    hasFloor = inputData[i]["hasOnFloor"];
+    
+    if(inputData[i]["hasExitTravelDistances"] == "0")
+      exitDistance = 0
+    else
+      exitDistance = inputData[i]["hasExitTravelDistances"] + " " +
+                   inputData[i]["hasExitTravelDistancesUnit"];
+
+    fireResistanceRating = inputData[i]["hasFireResistanceRating"] + " " +
+                   inputData[i]["hasFireResistanceRatingUnit"];
+
+    firstCell = hasName;
+    secondCell = hasFloor;
+    thirdCell = exitDistance;
+    fourthCell = fireResistanceRating;
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+      hasMaterial = moreData["hasMaterial"]["hasName"];
+      hasWidth = moreData["hasWidth"] + " " + moreData["hasWidthUnit"];
+      openingDirection = moreData["hasOpeningDirection"];
+      
+      isFunctional = "No";
+      if(moreData["isFunctional"])
+      isFunctional = "Yes";
+
+      isExit = "No";
+      if(moreData["isExit"])
+      isExit = "Yes";
+
+      isShaftway = "No";
+      if(moreData["isShaftway"])
+      isShaftway = "Yes";
+
+      primaryFireServiceEntryPoint = "No";
+      if(moreData["isPrimaryFireServiceEntryPoint"])
+      primaryFireServiceEntryPoint = "Yes";
+      
+      controlPanel = moreData["hasControlPanel"]["hasName"];
+      controlPanelLocation = moreData["hasControlPanel"]["hasLocation"];
+
+
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="width">
+          <div class = "data-item-label"> Width: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="material">
+          <div class = "data-item-label"> Material: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="opening-direction">
+          <div class = "data-item-label"> Opening Direction: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="control-panel">
+          <div class = "data-item-label"> Control Panel: </div> 
+          <div class = "data-item-value"> <a href=""> </a>  </div> 
+        </div>
+        <div class = "data-item" id="control-panel-location">
+          <div class = "data-item-label"> Control Panel Location: </div> 
+          <div class = "data-item-value"> </div> 
+        </div>
+        <div class = "data-item" id="primary-fire-service-entry-point">
+          <div class = "data-item-label"> Primary Fire Service Entry Point: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="exit">
+          <div class = "data-item-label"> Exit: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="functional">
+          <div class = "data-item-label"> Functional: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="Shaftway">
+          <div class = "data-item-label"> Shaftway: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#material .data-item-value").innerText =
+        hasMaterial;
+
+      dataContainer.querySelector("#width .data-item-value").innerText =
+        hasWidth;
+
+      dataContainer.querySelector(
+        "#opening-direction .data-item-value"
+      ).innerText = openingDirection;
+      
+
+      dataContainer.querySelector("#control-panel .data-item-value a").innerText =
+        controlPanel;
+
+      dataContainer.querySelector("#control-panel-location .data-item-value").innerText =
+        controlPanelLocation;
+
+      dataContainer.querySelector("#exit .data-item-value").innerText =
+        isExit;
+
+      dataContainer.querySelector("#primary-fire-service-entry-point .data-item-value").innerText =
+        primaryFireServiceEntryPoint;
+
+      dataContainer.querySelector("#functional .data-item-value").innerText =
+        isFunctional;
+
+      dataContainer.querySelector("#Shaftway .data-item-value").innerText =
+        isShaftway;
+
+
+
+    });
+  }
+}
+
+function populateWindow(inputData){
+  
+// Add view
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "window";
+
+  console.log(inputData)
+  
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Floor";
+  thirdTitle = "Shaftway";
+  fourthTitle = "Fire Resistance Rating";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    hasFloor = inputData[i]["hasOnFloor"];
+    isShaftway = inputData[i]["isShaftway"];
+
+    fireResistanceRating = inputData[i]["hasFireResistanceRating"] + " " +
+                   inputData[i]["hasFireResistanceRatingUnit"];
+
+    firstCell = hasName;
+    secondCell = hasFloor;
+    if (isShaftway) {
+      thirdCell = "Yes";
+      thirdCellStatus = "negative";
+    } else {
+      thirdCell = "No";
+      thirdCellStatus = "positive";
+    }
+
+    fourthCell = fireResistanceRating;
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+      
+      hasWidth = moreData["hasWidth"] + " " + moreData["hasMeasurementUnit"];
+      hasHeight = moreData["hasHeight"] + " " + moreData["hasMeasurementUnit"];
+      openingDirection = moreData["hasOpeningDirection"];
+      
+      isFunctional = "No";
+      if(moreData["isFunctional"])
+      isFunctional = "Yes";
+
+      isOnExterior = "No";
+      if(moreData["isOnExterior"])
+      isOnExterior = "Yes";
+
+
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="width">
+          <div class = "data-item-label"> Width: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="height">
+          <div class = "data-item-label"> Height: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="opening-direction">
+          <div class = "data-item-label"> Opening Direction: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="on-exterior">
+          <div class = "data-item-label"> On Exterior: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="functional">
+          <div class = "data-item-label"> Functional: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#width .data-item-value").innerText =
+        hasWidth;
+
+      dataContainer.querySelector("#height .data-item-value").innerText =
+        hasHeight;
+
+      dataContainer.querySelector(
+        "#opening-direction .data-item-value"
+      ).innerText = openingDirection;
+
+      dataContainer.querySelector("#on-exterior .data-item-value").innerText =
+        isOnExterior;
+
+      dataContainer.querySelector("#functional .data-item-value").innerText =
+        isFunctional;
+
+    });
+  }
+}
+
+function populateElevator(inputData){
+  
+// Add view
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "elevator";
+
+  console.log(inputData)
+  
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Discharge Level";
+  thirdTitle = "Functional";
+  fourthTitle = "Qualified For Evacuation";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    dischargeLevel = inputData[i]["hasDischargeLevel"];
+    isFunctional = inputData[i]["isFunctional"];
+    isQualifiedForEvacuation = inputData[i]["isQualifiedForEvacuation"];
+
+    firstCell = hasName;
+    secondCell = dischargeLevel;
+    
+    if (isFunctional) {
+      thirdCell = "Yes";
+      thirdCellStatus = "positive";
+    } else {
+      thirdCell = "No";
+      thirdCellStatus = "negative";
+    }
+    
+    if (isQualifiedForEvacuation) {
+      fourthCell = "Yes";
+     fourthCellStatus = "positive";
+    } else {
+      fourthCell = "No";
+     fourthCellStatus = "negative";
+    }
+
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.className = "elevator";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+      hasMaterial = moreData["hasMaterial"]["hasName"];
+      hasCapacity = moreData["hasCapacity"]
+      floorsServed = moreData["hasFloorsServed"]
+      distanceToExit = moreData["hasExitTravelDistances"] + " " + moreData["hasDistancesUnit"];
+      fireResistanceRating = moreData["hasFireResistanceRating"] + " " + moreData["hasFireResistanceRatingUnit"];
+      
+
+      fireExtinguishingSystem = moreData["hasFireExtinguishingSystem"]["hasSystem"];
+      controlPanel = moreData["hasControlPanel"]["hasName"];
+      controlPanelLocation = moreData["hasControlPanel"]["hasLocation"];
+      machineRoomLocation = moreData["hasMachineRoomLocation"]
+
+
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="capacity">
+          <div class = "data-item-label"> Capacity: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="material">
+          <div class = "data-item-label"> Material: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="fire-resistance-rating">
+          <div class = "data-item-label"> Fire Resistance Rating: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="distance-to-exit">
+          <div class = "data-item-label"> Distance to Exit: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="control-panel">
+          <div class = "data-item-label"> Control Panel: </div> 
+          <div class = "data-item-value"> <a href=""> </a>  </div> 
+        </div>
+        <div class = "data-item" id="control-panel-location">
+          <div class = "data-item-label"> Control Panel Location: </div> 
+          <div class = "data-item-value"> </div> 
+        </div>
+        <div class = "data-item" id="machine-room-location">
+          <div class = "data-item-label"> Machine Room Location: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="fire-extinguishing-system">
+          <div class = "data-item-label"> fireExtinguishingSystem: </div> 
+          <div class = "data-item-value"> <a href=""> </a> </div> 
+        </div>
+        <div class = "data-item" id="floors-served">
+          <div class = "data-item-label"> Floors Served: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#capacity .data-item-value").innerText =
+        hasCapacity;
+
+      dataContainer.querySelector("#material .data-item-value").innerText =
+        hasMaterial;
+
+      dataContainer.querySelector("#control-panel .data-item-value a").innerText =
+        controlPanel;
+
+      dataContainer.querySelector("#control-panel-location .data-item-value").innerText =
+        controlPanelLocation;
+
+      dataContainer.querySelector("#fire-resistance-rating .data-item-value").innerText =
+        fireResistanceRating;
+
+      dataContainer.querySelector("#distance-to-exit .data-item-value").innerText =
+        distanceToExit;
+
+      dataContainer.querySelector("#machine-room-location .data-item-value").innerText =
+        machineRoomLocation;
+
+      dataContainer.querySelector("#fire-extinguishing-system .data-item-value a").innerText =
+        fireExtinguishingSystem;
+
+      dataContainer.querySelector("#floors-served .data-item-value").innerText =
+        floorsServed;
+
+    });
+  }
+}
+
+
+function populateStairway(inputData){
+  
+// Add view
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "stairway";
+
+  console.log(inputData)
+  
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Discharge Level";
+  thirdTitle = "Leads to Exit";
+  fourthTitle = "Roof Access";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    dischargeLevel = inputData[i]["hasDischargeLevel"];
+    isExit = inputData[i]["isExit"];
+    isRoofAccess = inputData[i]["isRoofAccess"];
+
+    firstCell = hasName;
+    secondCell = dischargeLevel;
+    
+    if (isExit) {
+      thirdCell = "Yes";
+      thirdCellStatus = "positive";
+    } else {
+      thirdCell = "No";
+      thirdCellStatus = "negative";
+    }
+    
+    if (isRoofAccess) {
+      fourthCell = "Yes";
+     fourthCellStatus = "positive";
+    } else {
+      fourthCell = "No";
+     fourthCellStatus = "negative";
+    }
+
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.className = "stairway";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+      hasMaterial = moreData["hasMaterial"]["hasName"];
+      directionToExit = moreData["hasDirectionToExit"]
+      distanceToExit = moreData["hasExitTravelDistances"] + " " + moreData["hasDistancesUnit"];
+      fireExtinguishingSystem = moreData["hasFireExtinguishingSystem"]["hasSystem"];
+      fireResistanceRating = moreData["hasFireResistanceRating"] + " " + moreData["hasFireResistanceRatingUnit"];
+      floorsServed = moreData["hasFloorsServed"]
+      hasWidth = moreData["hasWidth"]+ " " + moreData["hasWidthUnit"];
+
+
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="material">
+          <div class = "data-item-label"> Material: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="width">
+          <div class = "data-item-label"> Width: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="fire-resistance-rating">
+          <div class = "data-item-label"> Fire Resistance Rating: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="distance-to-exit">
+          <div class = "data-item-label"> Distance to Exit: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="direction-to-exit">
+          <div class = "data-item-label"> Discharge Direction: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="fire-extinguishing-system">
+          <div class = "data-item-label"> Fire Extinguishing System: </div> 
+          <div class = "data-item-value"> <a href=""> </a> </div> 
+        </div>
+        <div class = "data-item" id="floors-served">
+          <div class = "data-item-label"> Floors Served: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#width .data-item-value").innerText =
+        hasWidth;
+
+      dataContainer.querySelector("#material .data-item-value").innerText =
+        hasMaterial;
+
+      dataContainer.querySelector("#fire-resistance-rating .data-item-value").innerText =
+        fireResistanceRating;
+
+      dataContainer.querySelector("#distance-to-exit .data-item-value").innerText =
+        distanceToExit;
+
+      dataContainer.querySelector("#direction-to-exit .data-item-value").innerText =
+        directionToExit;
+
+      dataContainer.querySelector("#fire-extinguishing-system .data-item-value a").innerText =
+        fireExtinguishingSystem;
+
+      dataContainer.querySelector("#floors-served .data-item-value").innerText =
+        floorsServed;
+
+    });
+  }
+}
+
+function populateRamp(inputData){
+  
+// Add view
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "ramp";
+
+  console.log(inputData)
+  
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Discharge Level";
+  thirdTitle = "Leads to Exit";
+  fourthTitle = "Roof Access";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    dischargeLevel = inputData[i]["hasDischargeLevel"];
+    isExit = inputData[i]["isExit"];
+    isRoofAccess = inputData[i]["isRoofAccess"];
+
+    firstCell = hasName;
+    secondCell = dischargeLevel;
+    
+    if (isExit) {
+      thirdCell = "Yes";
+      thirdCellStatus = "positive";
+    } else {
+      thirdCell = "No";
+      thirdCellStatus = "negative";
+    }
+    
+    if (isRoofAccess) {
+      fourthCell = "Yes";
+     fourthCellStatus = "positive";
+    } else {
+      fourthCell = "No";
+     fourthCellStatus = "negative";
+    }
+
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.className = "stairway";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+      hasMaterial = moreData["hasMaterial"]["hasName"];
+      directionToExit = moreData["hasDirectionToExit"]
+      distanceToExit = moreData["hasExitTravelDistances"] + " " + moreData["hasDistancesUnit"];
+      fireExtinguishingSystem = moreData["hasFireExtinguishingSystem"]["hasSystem"];
+      fireResistanceRating = moreData["hasFireResistanceRating"] + " " + moreData["hasFireResistanceRatingUnit"];
+      floorsServed = moreData["hasFloorsServed"]
+      hasWidth = moreData["hasWidth"]+ " " + moreData["hasWidthUnit"];
+
+
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="material">
+          <div class = "data-item-label"> Material: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="width">
+          <div class = "data-item-label"> Width: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="fire-resistance-rating">
+          <div class = "data-item-label"> Fire Resistance Rating: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="distance-to-exit">
+          <div class = "data-item-label"> Distance to Exit: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="direction-to-exit">
+          <div class = "data-item-label"> Discharge Direction </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="fire-extinguishing-system">
+          <div class = "data-item-label"> Fire Extinguishing System: </div> 
+          <div class = "data-item-value"> <a href=""> </a> </div> 
+        </div>
+        <div class = "data-item" id="floors-served">
+          <div class = "data-item-label"> Floors Served: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#width .data-item-value").innerText =
+        hasWidth;
+
+      dataContainer.querySelector("#material .data-item-value").innerText =
+        hasMaterial;
+
+      dataContainer.querySelector("#fire-resistance-rating .data-item-value").innerText =
+        fireResistanceRating;
+
+      dataContainer.querySelector("#distance-to-exit .data-item-value").innerText =
+        distanceToExit;
+
+      dataContainer.querySelector("#direction-to-exit .data-item-value").innerText =
+        directionToExit;
+
+      dataContainer.querySelector("#fire-extinguishing-system .data-item-value a").innerText =
+        fireExtinguishingSystem;
+
+      dataContainer.querySelector("#floors-served .data-item-value").innerText =
+        floorsServed;
+
+    });
+  }
+}
+
+function populateWall(inputData){
+  
+// Add view
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "wall";
+
+  console.log(inputData)
+  
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Floor";
+  thirdTitle = "Material";
+  fourthTitle = "Fire Resistance Rating";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    hasFloor = inputData[i]["hasOnFloor"];
+    hasMaterial = inputData[i]["hasMaterial"]["hasName"];
+
+    fireResistanceRating = inputData[i]["hasFireResistanceRating"] + " " +
+                   inputData[i]["hasFireResistanceRatingUnit"];
+
+    firstCell = hasName;
+    secondCell = hasFloor;
+    thirdCell = hasMaterial
+    fourthCell = fireResistanceRating;
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+      
+      hasThickness = moreData["hasThickness"] + " " + moreData["hasThicknessUnit"];
+     
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="thickness">
+          <div class = "data-item-label"> Thickness: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#thickness .data-item-value").innerText =
+        hasThickness;
+
+    });
+  }
+}
+
+function populateFloorAssembly(inputData){
+  
+// Add view
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "floor-assembly";
+
+  console.log(inputData)
+  
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Floor";
+  thirdTitle = "Type";
+  fourthTitle = "Lightweight";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    hasFloor = inputData[i]["hasOnFloor"];
+    hasType = inputData[i]["hasType"];
+    isLightweightConstruction = inputData[i]["isLightweightConstruction"];
+
+    firstCell = hasName;
+    secondCell = hasFloor;
+    thirdCell = hasType
+    
+    if (isLightweightConstruction) {
+      fourthCell = "Yes";
+     fourthCellStatus = "negative";
+    } else {
+      fourthCell = "No";
+     fourthCellStatus = "positive";
+    }
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+      
+   
+    fireResistanceRating = moreData["hasFireResistanceRating"] + " " +
+                   moreData["hasFireResistanceRatingUnit"]; 
+    hasMaterial = moreData["hasMaterial"]["hasName"];
+
+      hasThickness = moreData["hasThickness"] + " " + moreData["hasThicknessUnit"];
+     
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="fire-resistance-rating">
+          <div class = "data-item-label"> Fire Resistance Rating: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="material">
+          <div class = "data-item-label"> Material: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="thickness">
+          <div class = "data-item-label"> Thickness: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#fire-resistance-rating .data-item-value").innerText =
+        fireResistanceRating;
+
+      dataContainer.querySelector("#material .data-item-value").innerText =
+        hasMaterial;
+
+      dataContainer.querySelector("#thickness .data-item-value").innerText =
+        hasThickness;
+
+    });
+  }
+}
+
+function populateRoofAssembly(inputData){
+  
+// Add view
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "roof-assembly";
+
+  console.log(inputData)
+  
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Material";
+  thirdTitle = "Accessible";
+  fourthTitle = "Lightweight";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    hasMaterial = inputData[i]["hasMaterial"]["hasName"];
+    isAccessible = inputData[i]["isAccessible"];
+    isLightweightConstruction = inputData[i]["isLightweightConstruction"];
+
+    firstCell = hasName;
+    secondCell = hasMaterial;
+
+    if (isAccessible) {
+      thirdCell = "Yes";
+     thirdCellStatus = "positive";
+    } else {
+      thirdCell = "No";
+     thirdCellStatus = "negative";
+    }
+
+    
+    if (isLightweightConstruction) {
+      fourthCell = "Yes";
+     fourthCellStatus = "negative";
+    } else {
+      fourthCell = "No";
+     fourthCellStatus = "positive";
+    }
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+      
+   
+    fireResistanceRating = moreData["hasFireResistanceRating"] + " " +
+                   moreData["hasFireResistanceRatingUnit"]; 
+    
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="fire-resistance-rating">
+          <div class = "data-item-label"> Fire Resistance Rating: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#fire-resistance-rating .data-item-value").innerText =
+        fireResistanceRating;
+
+      dataContainer.querySelector("#material .data-item-value").innerText =
+        hasMaterial;
+
+      dataContainer.querySelector("#thickness .data-item-value").innerText =
+        hasThickness;
+
+    });
+  }
+}
+
+function populateBalcony(inputData){
+  
+// Add view
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "balcony";
+
+  console.log(inputData)
+  
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Floor";
+  thirdTitle = "Material";
+  fourthTitle = "Fire Resistance Rating";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    hasMaterial = inputData[i]["hasMaterial"]["hasName"];
+    hasOnFloor = inputData[i]["hasOnFloor"];
+    fireResistanceRating = inputData[i]["hasFireResistanceRating"] + " " +
+                   inputData[i]["hasFireResistanceRatingUnit"]; 
+    
+    firstCell = hasName;
+    secondCell = hasMaterial;
+      thirdCell = hasOnFloor;
+      fourthCell = fireResistanceRating;
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      additionalWrittenData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = inputData[index];
+
+      // Get data
+      
+   
+    hasWidth = moreData["hasWidth"] + " " +
+                   moreData["hasWidthUnit"]; 
+    
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="width">
+          <div class = "data-item-label"> Width: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#width .data-item-value").innerText =
+        hasWidth;
+
+
+    });
+  }
+}
+
+function populateHallway(inputData){
+  
+// Add view
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "hallway";
+
+  console.log(inputData)
+  
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Floor";
+  thirdTitle = "Width";
+  fourthTitle = "Fire Resistance Rating";
+
+  containerID = "header";
+
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasId"];
+    hasWidth = inputData[i]["hasWidth"]+ " " + inputData[i]["hasWidthUnit"]; 
+    hasOnFloor = inputData[i]["hasOnFloor"];
+    fireResistanceRating = inputData[i]["hasFireResistanceRating"] + " " +
+                   inputData[i]["hasFireResistanceRatingUnit"]; 
+    
+    firstCell = hasName;
+    secondCell = hasOnFloor;
+      thirdCell = hasWidth;
+      fourthCell = fireResistanceRating;
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+    });
+  }
+}
+
+// Non structural elements
+function showNonStructuralElements(projectTitle) {
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "non-structural-elements";
+  mainView.innerHTML = `
+  <ul class="nav nav-tabs">
+    <li class="nav-item" id="door">
+      <a class="nav-link active" href="#">Doors</a>
+    </li>
+    <li class="nav-item" id="window">
+      <a class="nav-link" href="#">Windows</a>
+    </li>
+    <li class="nav-item" id="elevator">
+      <a class="nav-link" href="#">Elevators</a>
+    </li>
+    <li class="nav-item" id="stairway">
+      <a class="nav-link" href="#">Stairways</a>
+    </li>
+    <li class="nav-item" id="ramp">
+      <a class="nav-link" href="#">Ramps</a>
+    </li>
+    <li class="nav-item" id="Wall">
+      <a class="nav-link" href="#">Walls</a>
+    </li>  
+    <li class="nav-item" id="floor-assembly">
+      <a class="nav-link" href="#">Floor Assembly</a>
+    </li>  
+    <li class="nav-item" id="roof-assembly">
+      <a class="nav-link" href="#">Roof Assembly</a>
+    </li>
+    <li class="nav-item" id="balcony">
+      <a class="nav-link" href="#">Balconies</a>
+    </li>
+    <li class="nav-item" id="hallway">
+      <a class="nav-link" href="#">Hallways</a>
+    </li>  
+</ul>
+  `;
+
+  // Creat sub main view
+  subMainView = document.createElement("div");
+  subMainView.id = "sub-main-view";
+  mainView.appendChild(subMainView);
+  subMainView.innerHTML = "";
+
+  doorContainer = document.querySelector("#door");
+  windowContainer = document.querySelector("#window");
+  elevatorContainer = document.querySelector("#elevator");
+  stairwayContainer = document.querySelector("#stairway");
+  rampContainer = document.querySelector("#ramp");
+  WallContainer = document.querySelector("#Wall");
+  floorAssemblyContainer = document.querySelector("#floor-assembly");
+  roofAssemblyContainer = document.querySelector("#roof-assembly");
+  balconyContainer = document.querySelector("#balcony");
+  hallwayContainer = document.querySelector("#hallway");
+
+  allNavigationContainers = document.querySelectorAll(".nav a");
+
+  //  Door Container
+  doorContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  
+  if (doorData.length > 0)
+      populateDoor(doorData)
+  else
+   fetch("/door/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      doorData = results
+      
+      populateDoor(doorData)
+      
+    });
+
+  });
+
+//  Window Container
+  windowContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  
+  if (windowData.length > 0)
+      populateWindow(windowData)
+  else
+   fetch("/windows/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      windowData = results
+      
+      populateWindow(windowData)
+      
+    });
+
+  });
+
+
+//  Elevator Container
+  elevatorContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  
+  if (elevatorData.length > 0)
+      populateElevator(elevatorData)
+  else
+   fetch("/elevator/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      elevatorData = results
+      
+      populateElevator(elevatorData)
+      
+    });
+
+  });
+
+//  Stairway Container
+  stairwayContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  
+  if (stairwayData.length > 0)
+      populateStairway(stairwayData)
+  else
+   fetch("/stairway/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      stairwayData = results
+      
+      populateStairway(stairwayData)
+      
+    });
+
+  });
+
+
+//  Ramp Container
+  rampContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  
+  if (rampData.length > 0)
+      populateRamp(rampData)
+  else
+   fetch("/ramp/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      rampData = results
+      
+      populateRamp(rampData)
+      
+    });
+
+  });
+
+
+
+//  Wall Container
+  WallContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  
+  if (wallData.length > 0)
+      populateWall(wallData)
+  else
+   fetch("/wall/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      wallData = results
+      
+      populateWall(wallData)
+      
+    });
+
+  });
+
+
+
+//  floor Assembly Container
+  floorAssemblyContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  
+  if (floorAssemblyData.length > 0)
+      populateFloorAssembly(floorAssemblyData)
+  else
+   fetch("/floor-assembly/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      floorAssemblyData = results
+      
+      populateFloorAssembly(floorAssemblyData)
+      
+    });
+
+  });
+
+
+
+//  Roof Assembly Container
+  roofAssemblyContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  
+  if (roofAssemblyData.length > 0)
+      populateRoofAssembly(roofAssemblyData)
+  else
+   fetch("/roof-assembly/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      roofAssemblyData = results
+      
+      populateRoofAssembly(roofAssemblyData)
+      
+    });
+
+  });
+
+
+//  Balcony  Container
+  balconyContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  
+  if (balconyData.length > 0)
+      populateBalcony(balconyData)
+  else
+   fetch("/balcony/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      balconyData = results
+      
+      populateBalcony(balconyData)
+      
+    });
+
+  });
+
+
+//  hallway  Container
+  hallwayContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  
+  if (hallwayData.length > 0)
+      populateHallway(hallwayData)
+  else
+   fetch("/hallway/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      hallwayData = results
+      
+      populateHallway(hallwayData)
+      
+    });
+
+  });
+
+
+  document.querySelector("#door a").click();
+
+
+
+}
+
+function  showStructuralElements(results){
+  console.log(results);
+  
+  mainView = document.querySelector(".main-view");
+  mainView.id = "structural-elements";
+  mainView.innerHTML = "";
+
+  // Set title
+  firstTitle = "Elements";
+  secondTitle = "Floor";
+  thirdTitle = "Type";
+  fourthTitle = "Fire Resistance Rating";
+
+  containerClass = "automatic-fire-extinguishing-system";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    mainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID,
+    containerClass
+  );
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    hasName = results[i]["hasName"];
+    hasLocation = results[i]["hasLocation"];
+    hasType = results[i]["hasType"];
+    fireResistanceRating = results[i]["hasFireResistanceRating"] + " " +
+                                    results[i]["hasFireResistanceRatingUnit"]
+    
+    firstCell = hasName;
+    secondCell = hasLocation;
+      thirdCell =hasType;
+      fourthCell = fireResistanceRating;
+
+    containerClass = "structural-elements";
+    containerID = i;
+
+    createFourColumnContainer(
+      mainView,
+      firstCell,
+      secondCell,
+    secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID,
+      containerClass
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+   additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      )})
+  }
+}
+
+function  changeActiveTab(event, allNavigationContainers){
+
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
 }
 
 // KeyBox
@@ -2512,10 +4978,127 @@ function showVerticalOpening(results) {
   console.log(results);
 }
 
-function showHazardousMaterial(results) {
+function  showHazardousMaterial(results){
   console.log(results);
-}
+  
+  mainView = document.querySelector(".main-view");
+  mainView.id = "hazardous-substance";
+  mainView.innerHTML = "";
 
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Floor";
+  thirdTitle = "Decontamination";
+
+  containerClass = "";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+  thirdCellStatus = "neutral";
+
+  createThreeColumnContainer(
+    mainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    containerID,
+    containerClass
+  );
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    hasName = results[i]["hasName"];
+    hasLocation = results[i]["hasLocation"];
+    isDecontaminationRequired = results[i]["isDecontaminationRequired"];
+    
+    firstCell = hasName;
+    secondCell = hasLocation;
+
+      if (isDecontaminationRequired) {
+        thirdCell = "Required";
+        thirdCellStatus = "negative";
+      } else {
+        thirdCell = "Not Required";
+        thirdCellStatus = "positive";
+      }
+
+    containerClass = "";
+    containerID = i;
+
+    createThreeColumnContainer(
+      mainView,
+      firstCell,
+      secondCell,
+    secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      containerClass
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+ 
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalWrittenData = true;
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = results[index];
+
+      // Get data
+      hazardLevel = moreData["hasHazardLevel"];
+      specialHazard = moreData["hasSpecialHazard"];
+      hasDescription = moreData["hasDescription"];
+      
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="hazard-level">
+          <div class = "data-item-label"> Hazard Level: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="special-hazard">
+          <div class = "data-item-label"> Special Hazard: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="description">
+          <div class = "data-item-label"> Description: </div> 
+          <div class = "data-item-value">  <a href="#"></a> </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#hazard-level .data-item-value").innerText = hazardLevel;
+
+      dataContainer.querySelector("#special-hazard .data-item-value").innerText = specialHazard;
+
+      dataContainer.querySelector("#description .data-item-value").innerText = hasDescription;
+
+    });
+  }
+}
 function fetchMap(buildingAddress, addMarker = "none") {
   console.log(addMarker);
   if (buildingCoordinate.length > 0) {

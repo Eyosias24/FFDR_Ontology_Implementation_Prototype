@@ -31,5 +31,5 @@ class Elevator(NonStructuralElement):
 			'isQualifiedForEvacuation': self.isQualifiedForEvacuation, 
 			'hasExitTravelDistances': self.hasExitTravelDistances, 
 			'hasDistancesUnit': self.hasDistancesUnit, 
-		} 
+		} | super().serialize()
 

@@ -5,4 +5,5 @@ The 'ExteriorWall' class represents walls found on the exterior of a
 building.
 '''
 class ExteriorWall(Wall):
-	pass
+	def serialize(self):
+		return super().serialize() 

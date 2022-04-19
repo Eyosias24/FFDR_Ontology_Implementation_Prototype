@@ -108,6 +108,35 @@ document.addEventListener("DOMContentLoaded", function () {
     getFacade(projectTitle);
   });
 
+  // non structural elements view
+  // Define data containers
+  doorData = []
+  windowData = []
+elevatorData = []
+stairwayData = []
+rampData = []
+wallData = []
+floorAssemblyData = []
+roofAssemblyData = []
+balconyData = []
+hallwayData = []
+
+  document
+    .querySelector("#non-structural-elements")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getNonStructuralElements(projectTitle);
+    });
+
+
+  document
+    .querySelector("#structural-elements")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      
+      getStructuralElements(projectTitle);
+    });
+
   // Hazardous materials view
   document
     .querySelector("#hazardous-materials")

@@ -12,4 +12,4 @@ class RoofAssembly(NonStructuralElement):
 		return {
 			'isAccessible': self.isAccessible, 
 			'isLightweightConstruction': self.isLightweightConstruction, 
-		} 
+		} | super().serialize()

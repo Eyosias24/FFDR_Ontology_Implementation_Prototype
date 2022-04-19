@@ -127,6 +127,23 @@ function getFacade(projectTitle) {
     });
 }
 
+function getNonStructuralElements(projectTitle) {
+  // Fetch non structural elements
+
+  showNonStructuralElements(projectTitle);
+}
+
+function getStructuralElements(projectTitle) {
+  // Fetch structural elements
+
+  // Fetch KeyBox
+  fetch("/structural-elements/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      showStructuralElements(results);
+      // do things
+    });
+}
 function getKeybox(projectTitle) {
   // Fetch KeyBox
   fetch("/key_box/" + projectTitle)

@@ -229,7 +229,7 @@ body {
   pointer-events: none;
 }
 .parent-container #negative {
-  width: 20%;
+  /* width: 20%; */
   pointer-events: none;
   color: red;
   font-weight: 600;
@@ -237,7 +237,7 @@ body {
 }
 
 .parent-container #positive {
-  width: 20%;
+  /* width: 20%; */
   pointer-events: none;
   color: green;
   font-weight: 600;
@@ -331,4 +331,36 @@ body {
 
 #contact-address .third-child a {
   pointer-events: painted;
+}
+
+#structural-elements .first-child,
+#structural-elements .second-child,
+#structural-elements .third-child,
+#structural-elements .fourth-child,
+#non-structural-elements .first-child,
+#non-structural-elements .second-child,
+#non-structural-elements .third-child,
+#non-structural-elements .fourth-child,
+#facade .first-child,
+#facade .second-child,
+#facade .third-child,
+#facade .fourth-child {
+  width: 25%;
+  flex-grow: 1;
+}
+#structural-elements .second-child,
+#structural-elements .third-child,
+#structural-elements .fourth-child,
+#non-structural-elements .second-child,
+#non-structural-elements .third-child,
+#non-structural-elements .fourth-child,
+#facade .second-child,
+#facade .third-child,
+#facade .fourth-child {
+  text-align: center;
+}
+
+.stairway #data-container,
+.elevator #data-container{
+  height: 175px;
 }

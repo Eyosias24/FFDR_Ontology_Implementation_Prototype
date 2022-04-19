@@ -1,15 +1,22 @@
-from turtle import width
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 
+
 from .models import *
+import requests
+import json
+
 
 
 # Create your views here.
 
 def index(request):
     return render(request, "Firefighters_data_Integration_Platform/index.html")
+
+
+def trim(request):
+    return render(request, "Firefighters_data_Integration_Platform/trimbleconnect.html")
 
 
 # fetch IncidentBuilding
@@ -300,17 +307,11 @@ def get_key_box(request, projectName):
 
 # fetch HazardousMaterial
 def get_hazardous_material(request, projectName):
-	print("    ")
-	print("  this  ")
-	print(projectName)
-	
-	print("    ")
-	print("    ")
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
 	# Get all hazardousMaterial for the project
-	hazardousMaterial = HazardousMaterial.objects.filter(hasProjectName=incidentBuilding)
+	hazardousMaterial = HazardousSubstance.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in hazardousMaterial], safe=False)
 
 
@@ -342,3 +343,106 @@ def get_roof_top_element(request, projectName):
 	# Get all roofTopElement for the project
 	roofTopElement = RoofTopElement.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in roofTopElement], safe=False)
+
+# Get doors
+def get_door(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all roofTopElement for the project
+	door = Door.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in door], safe=False)
+
+# Get windows
+
+def get_window(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all roofTopElement for the project
+	windows = Window.objects.filter(hasProjectName=incidentBuilding)
+	
+	return JsonResponse([item.serialize() for item in windows], safe=False)
+
+# Get Elevators
+def get_elevator(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all roofTopElement for the project
+	elevators = Elevator.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in elevators], safe=False)
+
+
+# Get stairway
+def get_stairway(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all roofTopElement for the project
+	stairway = Stairway.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in stairway], safe=False)
+
+# Ramp
+def get_ramp(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all roofTopElement for the project
+	ramp = Ramp.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in ramp], safe=False)
+
+# Wall
+def get_wall(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all roofTopElement for the project
+	wall = Wall.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in wall], safe=False)
+
+# Floor Assembly
+def get_floor_assembly(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all roofTopElement for the project
+	floorAssembly = FloorAssembly.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in floorAssembly], safe=False)
+
+
+# Roof Assembly
+def get_roof_assembly(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all roofTopElement for the project
+	roofAssembly = RoofAssembly.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in roofAssembly], safe=False)
+
+# Balcony
+def get_balcony(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all roofTopElement for the project
+	balcony = Balcony.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in balcony], safe=False)
+
+# Hallway
+def get_hallway(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all roofTopElement for the project
+	hallway = Hallway.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in hallway], safe=False)
+
+
+def get_structural_elements(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all structuralElements for the project
+	structuralElements = StructuralElement.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in structuralElements], safe=False)
