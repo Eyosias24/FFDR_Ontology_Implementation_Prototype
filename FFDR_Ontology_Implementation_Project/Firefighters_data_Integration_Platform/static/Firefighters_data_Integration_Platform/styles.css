@@ -184,7 +184,7 @@ height: calc(100% - 150px);
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
-
+    overflow-y: auto;
   background-color: #f8f9fa;
 
   /* min-height: 550px;
