@@ -14,7 +14,7 @@ class Obstruction(SurroundingStructure):
 		return {
 			'hasType': self.hasType, 
 			'hasDescription': self.hasDescription,  
-		} 
+		}  | super().serialize()
 
 	def __str__(self):
 		return f"Obstruction: {self.hasName} " 

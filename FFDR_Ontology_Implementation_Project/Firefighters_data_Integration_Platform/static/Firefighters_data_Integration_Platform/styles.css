@@ -1,26 +1,29 @@
 /* body property */
 html,
 body {
-  display: flex;
   margin: 0px;
   flex-direction: column;
-  height: 100vh;
-  max-height: 100vh;
+  height: 100%;
 }
 #body-container {
+  height: 100%;
   width: 100%;
+display: flex;
+    flex-direction: column;
 
   /* overflow-y: hidden; */
 }
 
 #left-main-right-container {
-  height: 100%;
+height: calc(100% - 150px);
+  padding-bottom: 60px;
   display: flex;
   flex: 1 1 auto;
 }
 /* Main menu */
 
 #main-menu {
+      height: 60px;
   background: #7386d5;
   border-bottom: #fff 2px solid;
 }
@@ -75,8 +78,8 @@ body {
 }
 #left-nav-menu,
 #right-nav-menu {
-  max-width: 250px;
-  height: 100%;
+  max-width: 275px;
+  /* height: 50%; */
 }
 
 #left-nav-menu nav,
@@ -90,9 +93,14 @@ body {
 #right-nav-menu nav div {
   display: flex;
   flex-direction: column;
-  height: 500px;
-  justify-content: space-between;
+  height: 100%;
+  /* justify-content: space-between; */
   color: #fff;
+}
+
+#left-nav-content,
+#right-nav-content{
+  overflow-y: auto;
 }
 
 #left-nav-menu .active,
@@ -101,23 +109,28 @@ body {
   background: #fff;
 }
 /* Top and bottom navigation menu property */
+#top-nav-menu{
+  height: 60px;
+    min-height: fit-content;
 
+}
 #bottom-nav-menu nav,
 #top-nav-menu nav {
   background: #7386d5;
   border-bottom: #fff 2px solid;
-  height: fit-content;
-  min-height: 50px;
+  height: 100%;
 }
 #bottom-nav-menu {
   position: fixed;
   bottom: 0px;
   width: inherit;
+  
+  height: 60px;
 }
 @media screen and (min-width: 1024px) {
   #bottom-nav-menu nav,
   #top-nav-menu nav {
-    padding: 0 250px;
+    padding: 0 275px;
   }
 }
 
@@ -174,11 +187,14 @@ body {
 
   background-color: #f8f9fa;
 
+  /* min-height: 550px;
+  height: 70%; */
+}
+
+ .main-view .content-view{
   overflow-x: hidden;
   overflow-y: auto;
-  min-height: 550px;
-  height: 70%;
-}
+    height: 100%;}
 
 /* Containers in main view */
 
@@ -225,7 +241,7 @@ body {
 }
 
 .parent-container .third-child {
-  width: 20%;
+  
   pointer-events: none;
 }
 .parent-container #negative {
@@ -332,7 +348,26 @@ body {
 #contact-address .third-child a {
   pointer-events: painted;
 }
-
+.water-source .first-child,
+.water-source .second-child,
+.water-source .third-child,
+.water-source .fourth-child,
+.municipal-distribution-system .first-child,
+.municipal-distribution-system .second-child,
+.municipal-distribution-system .third-child,
+.municipal-distribution-system .fourth-child,
+.hazardous-material .first-child,
+.hazardous-material .second-child,
+.hazardous-material .third-child,
+.hazardous-material .fourth-child,
+.vegetation .first-child,
+.vegetation .second-child,
+.vegetation .third-child,
+.vegetation .fourth-child,
+.fire-and-smoke-protection-elements .first-child,
+.fire-and-smoke-protection-elements .second-child,
+.fire-and-smoke-protection-elements .third-child,
+.fire-and-smoke-protection-elements .fourth-child,
 #structural-elements .first-child,
 #structural-elements .second-child,
 #structural-elements .third-child,
@@ -348,6 +383,21 @@ body {
   width: 25%;
   flex-grow: 1;
 }
+.water-source .second-child,
+.water-source .third-child,
+.water-source .fourth-child,
+.municipal-distribution-system .second-child,
+.municipal-distribution-system .third-child,
+.municipal-distribution-system .fourth-child,
+.hazardous-material .second-child,
+.hazardous-material .third-child,
+.hazardous-material .fourth-child,
+.vegetation .second-child,
+.vegetation .third-child,
+.vegetation .fourth-child,
+.fire-and-smoke-protection-elements .second-child,
+.fire-and-smoke-protection-elements .third-child,
+.fire-and-smoke-protection-elements .fourth-child,
 #structural-elements .second-child,
 #structural-elements .third-child,
 #structural-elements .fourth-child,
@@ -359,6 +409,55 @@ body {
 #facade .fourth-child {
   text-align: center;
 }
+
+#three-columns .second-child,
+#three-columns .third-child {
+  text-align: center;
+}
+#three-columns .first-child,
+#three-columns .second-child,
+#three-columns .third-child {
+  width: 25%;
+  flex-grow: 1;
+}
+
+
+#four-columns .second-child,
+#four-columns .third-child,
+#four-columns .fourth-child {
+  text-align: center;
+}
+#four-columns .first-child,
+#four-columns .second-child,
+#four-columns .third-child,
+#four-columns .fourth-child {
+  width: 25%;
+  flex-grow: 1;
+}
+
+#five-columns .second-child,
+#five-columns .third-child,
+#five-columns .fourth-child,
+#five-columns .fifth-child {
+  text-align: center;
+}
+#five-columns .first-child,
+#five-columns .second-child,
+#five-columns .third-child,
+#five-columns .fourth-child,
+#five-columns .fifth-child {
+  width: 25%;
+  flex-grow: 1;
+}
+
+#two-columns .first-child{
+  width: 250px;
+}
+#two-columns .second-child{
+  text-align: center;
+}
+
+
 
 .stairway #data-container,
 .elevator #data-container{
@@ -408,4 +507,72 @@ h4 {
   }
   75% { border-width: 3px;}
   100% { border-width: 10px;}
+}
+
+.disabled-view {
+    pointer-events: none;
+    opacity: 0.4;
+}
+.enabled-view{
+    pointer-events:unset;
+    opacity: 1;
+}
+/* 2D viewer container */
+#graphic-data-container iframe{
+  height: 100%;
+  width: 100%;
+}
+
+#Key-box .second-child{
+  width: auto;
+}
+
+
+
+/* Scroll bar format */
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #738bd5; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #738bd5; 
+}
+
+
+#contain-container{
+  flex-direction: column;height: 160px;
+    padding-bottom: 10px;
+}
+
+#label-container{
+      margin-right: auto;
+      margin-bottom: 5px;
+}
+
+#contain-container .content-item{
+      margin-right: 20px;
+
+}
+
+
+#contain-container #content-container{
+  display: flex;
+    flex-direction: column;
+    margin-right: auto;
+    flex-wrap: wrap;
+    height: 100%;
 }

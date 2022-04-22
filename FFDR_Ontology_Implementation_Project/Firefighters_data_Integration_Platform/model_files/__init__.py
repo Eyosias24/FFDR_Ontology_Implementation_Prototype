@@ -4,6 +4,7 @@ from .BuildingOccupancy import BuildingOccupancy
 from .BuildingPlan import BuildingPlan
 from .ConstructionType import ConstructionType
 from .FireCommandCenter import FireCommandCenter
+# from .Floor import FloorPlan
 from .HoseConnection import HoseConnection
 from .IncidentBuilding import IncidentBuilding
 from .IncidentSite import IncidentSite

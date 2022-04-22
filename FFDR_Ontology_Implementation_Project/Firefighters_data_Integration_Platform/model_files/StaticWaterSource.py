@@ -22,7 +22,7 @@ class StaticWaterSource(WaterSource):
 			'hasDistanceFromFDC': self.hasDistanceFromFDC,
 			'hasDistanceFromIncidentBuilding': self.hasDistanceFromIncidentBuilding, 
 			'hasDistanceUnit': self.hasDistanceUnit, 
-		}
+		} | super().serialize()
 
 	def __str__(self):
 		return f"{self.__class__.__name__}: {self.hasName}" 

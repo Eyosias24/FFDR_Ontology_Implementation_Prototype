@@ -1,3 +1,4 @@
+from operator import contains
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -106,6 +107,40 @@ def get_contact_addresses(request, projectName):
 		"publicSafetyAgencyContactAddress":[item.serialize() for item in publicSafetyAgencyContactAddress ] if publicSafetyAgencyContactAddress.exists() else ''
 		}
 	return JsonResponse(contact_addresses, safe=False)
+
+# fetch building plans
+def get_building_plans(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get building plans
+	buildingPlan = incidentBuilding.hasBuildingPlan.all()
+	# Get building plans
+	return JsonResponse([item.serialize() for item in buildingPlan], safe=False)
+
+
+
+# fetch fire command center
+def get_fire_command_center(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+	
+	# Get all Fire Command Center for the project
+	fireCommandCenter = FireCommandCenter.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all items contained in the Fire Command Center for the project
+	contains = fireCommandCenter[0].contains.all()
+
+	fireCommandCenterData   = {
+		"fireCommandCenter":[item.serialize() for item in fireCommandCenter],
+		"contains":[item.serialize() for item in contains]
+		}
+
+
+	return JsonResponse(fireCommandCenterData, safe=False)
+
+
+
 
 # fetch AlternativeAutomaticFireExtinguishingSystem
 def get_automatic_fire_extinguishing_system(request, projectName):
@@ -269,7 +304,85 @@ def get_fire_and_smoke_protection_elements(request, projectName):
 		}
 	return JsonResponse(fireAndSmokeProtectionElements, safe=False)
 
-	
+
+# fetch Area of refuge
+def get_area_of_refuge(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all Area of Refuge for the project
+	areaOfRefuge = AreaOfRefuge.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in areaOfRefuge], safe=False)
+
+
+# fetch FARS fill stations
+def get_fars_fill_stations(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all FARS Fill Station for the project
+	farsFillStation = FarsFillStation.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in farsFillStation], safe=False)
+
+
+
+# fetch emergency power outlets
+def get_emergency_power_outlets(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all Emergency Power Outlet for the project
+	emergencyPowerOutlet = EmergencyPowerOutlet.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in emergencyPowerOutlet], safe=False)
+
+
+# fetch smoke and heat removal system
+def get_smoke_and_heat_removal_system(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all Smoke and Heat Removal System for the project
+	smokeandHeatRemovalSystem = SmokeandHeatRemovalSystem.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in smokeandHeatRemovalSystem], safe=False)
+
+
+
+# fetch Smoke Control System
+def get_smoke_control_system(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all SmokeControlSystem for the project
+	smokeControlSystem = SmokeControlSystem.objects.filter(hasProjectName=incidentBuilding)
+
+	return JsonResponse([item.serialize() for item in smokeControlSystem], safe=False)
+
+
+# fetch fire pump
+def get_fire_pump(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all Fire Pump for the project
+	firePump = FirePump.objects.filter(hasProjectName=incidentBuilding)
+
+	return JsonResponse([item.serialize() for item in firePump], safe=False)
+
+
+
+# fetch mass notification system
+def get_mass_notification_system(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all Mass Notification System for the project
+	massNotificationSystem = MassNotificationSystem.objects.filter(hasProjectName=incidentBuilding)
+
+	return JsonResponse([item.serialize() for item in massNotificationSystem], safe=False)
+
+
+
+
 
 # fetch facade
 def get_facade(request, projectName):
@@ -335,14 +448,38 @@ def get_vertical_opening(request, projectName):
 	return JsonResponse([item.serialize() for item in verticalOpening], safe=False)
 
 
-# fetch RoofTopElement
+# fetch Roof Top Element
 def get_roof_top_element(request, projectName):
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
-	# Get all roofTopElement for the project
+	# Get all roof Top Element for the project
 	roofTopElement = RoofTopElement.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in roofTopElement], safe=False)
+
+
+
+# fetch extremely valuable materials
+def get_extremely_valuable_materials(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all Extremely Valuable Material for the project
+	extremelyValuableMaterial = ExtremelyValuableMaterial.objects.filter(hasProjectName=incidentBuilding)
+
+	return JsonResponse([item.serialize() for item in extremelyValuableMaterial], safe=False)
+
+
+# fetch helipad
+def get_helipad(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all Extremely Valuable Material for the project
+	helipad = Helipad.objects.filter(hasProjectName=incidentBuilding)
+
+	return JsonResponse([item.serialize() for item in helipad], safe=False)
+
 
 # Get doors
 def get_door(request, projectName):
@@ -446,3 +583,88 @@ def get_structural_elements(request, projectName):
 	# Get all structuralElements for the project
 	structuralElements = StructuralElement.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in structuralElements], safe=False)
+
+# Get surroundings
+def get_surroundings(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all surrounding building for the project
+	surroundingBuilding = Building.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all Surrounding Terrain for the project
+	surroundingTerrain = SurroundingTerrain.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all Vegetation for the project
+	vegetation = Vegetation.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all Hazardous Materials for the project
+	hazardousMaterial = HazardousMaterial.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all Obstructions for the project
+	obstruction = Obstruction.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all Parking Lot for the project
+	parkingLot = ParkingLot.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all Pipeline for the project
+	pipeline = Pipeline.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all PowerLine for the project
+	powerLine = PowerLine.objects.filter(hasProjectName=incidentBuilding)
+
+	# Collect all surroundings
+	surroundings = {
+		"surroundingBuilding":[item.serialize() for item in surroundingBuilding ] if surroundingBuilding else '',
+		"surroundingTerrain":[item.serialize() for item in surroundingTerrain ] if surroundingTerrain else '',
+		"vegetation":[item.serialize() for item in vegetation ] if vegetation else '' ,
+		"hazardousMaterial":[item.serialize() for item in hazardousMaterial ] if hazardousMaterial else '' ,
+		"obstruction":[item.serialize() for item in obstruction ] if obstruction else '' ,
+		"parkingLot":[item.serialize() for item in parkingLot ] if parkingLot else '' ,
+		"pipeline":[item.serialize() for item in pipeline ] if pipeline else '' ,
+		"powerLine":[item.serialize() for item in powerLine ] if powerLine else '' 
+		}
+	return JsonResponse(surroundings, safe=False)
+
+
+# Get water sources
+def get_water_source(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all Static Water Source for the project
+	staticWaterSource = StaticWaterSource.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all Municipal Distribution System for the project
+	municipalDistributionSystem = MunicipalDistributionSystem.objects.filter(hasProjectName=incidentBuilding)
+
+	# Collect all water source
+	waterSource = {
+		"staticWaterSource":[item.serialize() for item in staticWaterSource ] if staticWaterSource else '',
+		"municipalDistributionSystem":[item.serialize() for item in municipalDistributionSystem ] if municipalDistributionSystem else ''
+		}
+	return JsonResponse(waterSource, safe=False)
+
+
+
+# fetch FireLane
+def get_fire_lane(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all fireLane for the project
+	fireLane = FireLane.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in fireLane], safe=False)
+
+
+
+# fetch RoadToIncident
+def get_road_to_incident(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all roadToIncident for the project
+	roadToIncident = RoadToIncident.objects.filter(hasProjectName=incidentBuilding)
+	return JsonResponse([item.serialize() for item in roadToIncident], safe=False)
+
+

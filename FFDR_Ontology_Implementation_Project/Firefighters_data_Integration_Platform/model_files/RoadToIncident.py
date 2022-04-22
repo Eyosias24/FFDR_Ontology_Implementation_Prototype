@@ -8,9 +8,17 @@ site.
 '''
 class RoadToIncident(Road):
 	hasTrafficLevel = models.CharField(blank=True, max_length=80)
+	hasDistance = models.FloatField(blank=True, max_length=80)
+	hasDistanceUnit = models.CharField(blank=True, max_length=80)
+	hasDuration = models.FloatField(blank=True, max_length=80)
+	hasDurationUnit = models.CharField(blank=True, max_length=80)
 
 
 	def serialize(self):
 		return {
 			'hasTrafficLevel': self.hasTrafficLevel, 
-		} 
+			'hasDistance': self.hasDistance, 
+			'hasDistanceUnit': self.hasDistanceUnit, 
+			'hasDuration': self.hasDuration, 
+			'hasDurationUnit': self.hasDurationUnit, 
+		} | super().serialize()

@@ -13,6 +13,7 @@ class ExtremelyValuableMaterial(BuildingComponent):
 		return {
 			'hasLocation': self.hasLocation, 
 			'hasDescription': self.hasDescription, 
-		} 
+		} | super().serialize()
+		
 	def __str__(self):
 		return  f"Extremely Valuable Material: {self.hasLocation}"  

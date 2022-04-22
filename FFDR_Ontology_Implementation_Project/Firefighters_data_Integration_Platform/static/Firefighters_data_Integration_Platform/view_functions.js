@@ -27,6 +27,7 @@ function showIncidentBuilding(results) {
 
   // Get main view
   mainView = document.querySelector(".main-view");
+  mainView.id = ""
   mainView.innerHTML = "";
 
   // Building address
@@ -173,6 +174,9 @@ function showIncidentBuilding(results) {
   additionalGraphicData = false;
   allContainers = document.querySelectorAll(".parent-container");
   for (i = 0; i < allContainers.length; i++) {
+
+    if (allContainers[i].id == "header") continue;
+
     if (allContainers[i].id == "building-address-container") {
       allContainers[i].addEventListener("click", function (event) {
         additionalGraphicData = true;
@@ -207,17 +211,26 @@ function showIncidentBuilding(results) {
         graphicDataContainer = document.querySelector(
           "#graphic-data-container"
         );
-        graphicDataContainer.innerHTML = `
-<div class="image-container">
-<img>
-</div>
-`;
-        imageContainer = document.querySelector(".image-container img");
-        imageContainer.src =
-          "/static/Firefighters_data_Integration_Platform/media/first-floor-plan-exit.png";
+        sources = "/static/Firefighters_data_Integration_Platform/media/typical-building-floor-plan-layout.pdf"
+        add2DViewer(graphicDataContainer)
       });
     }
   }
+  
+enableNavigation()
+
+}
+
+function add2DViewer(graphicDataContainer){
+//  graphicDataContainer.innerHTML = `
+// <iframe src="${sources}#toolbar=0&view=fitH">
+//     </iframe>
+// `;
+viewerContainer = document.getElementById("2d-viewer-container")
+
+copyViewerContainer = viewerContainer.cloneNode(true)
+copyViewerContainer.style.display = "block"
+graphicDataContainer.appendChild(copyViewerContainer)
 }
 
 function showContactAddresses(results) {
@@ -377,6 +390,7 @@ function showContactAddresses(results) {
   });
 
   buildingContactAddressContainer.querySelector("a").click();
+enableNavigation()
 }
 function populateESPContactAddress(
   event,
@@ -542,6 +556,7 @@ function populateESPContactAddressElements(
   allContainers = document.querySelectorAll(".parent-container");
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].id == "header") continue;
+    
     allContainers[i].addEventListener("click", function (event) {
       additionalWrittenData = true;
 
@@ -709,6 +724,7 @@ function showFireExtinguishingSystem(results) {
   console.log(results);
   // Get main view
   mainView = document.querySelector(".main-view");
+  mainView.id = ""
   mainView.innerHTML = "";
 
   // Set title
@@ -792,6 +808,7 @@ function showFireExtinguishingSystem(results) {
         // Add more content
         index = event.target.id;
         moreData = results[index];
+
 
         // Get data
         locationOfControlValve = moreData["hasLocationOfControlValve"];
@@ -900,6 +917,8 @@ function showFireExtinguishingSystem(results) {
       }
     });
   }
+
+enableNavigation()
 }
 
 // Show fire hydrant
@@ -909,6 +928,7 @@ function showFireHydrant(unsortedResults) {
 
   // Get main view
   mainView = document.querySelector(".main-view");
+  mainView.id = ""
   mainView.innerHTML = "";
 
   // Set title
@@ -1071,13 +1091,15 @@ function showFireHydrant(unsortedResults) {
         graphicDataContainer = document.createElement("div");
         graphicDataContainer.id = "graphic-data-container";
         moreContainer.appendChild(graphicDataContainer);
-        console.log(buildingCoordinate);
+        
 
         graphicDataContainer.innerHTML = `
 <div id="map"></div>
 `;
-        fetchMap(buildingAddress, hydrantCoordinate);
-        console.log(hydrantCoordinate);
+
+         isRouting = true
+        fetchMap(buildingAddress, hydrantCoordinate, isRouting);
+        
         // Add a back button
         backButton = document.createElement("a");
         backButton.href = "#";
@@ -1101,6 +1123,8 @@ function showFireHydrant(unsortedResults) {
       }
     });
   }
+
+enableNavigation()
 }
 
 // Populate more building utility data
@@ -1167,6 +1191,7 @@ function showBuildingUtilitySystem(results) {
 
   // Get main view
   mainView = document.querySelector(".main-view");
+  mainView.id = ""
   mainView.innerHTML = "";
 
   // Set title
@@ -1356,6 +1381,8 @@ function showBuildingUtilitySystem(results) {
       populateMoreBuildingUtilityData(waterSupplyAndSewerageSystem);
     }
   });
+
+enableNavigation()
 }
 
 function addMoreContentTwoColumnContainer(selectedContainer, allContainers) {
@@ -1476,7 +1503,6 @@ function createThreeColumnContainer(
   mainView.appendChild(parentContainer);
 }
 
-// prettier-ignore
 function createFourColumnContainer(
   mainView,
   firstCell,
@@ -1520,6 +1546,62 @@ function createFourColumnContainer(
   parentContainer.appendChild(secondChildContainer);
   parentContainer.appendChild(thirdChildContainer);
   parentContainer.appendChild(fourthChildContainer);
+
+  mainView.appendChild(parentContainer);
+}
+function createFiveColumnContainer(
+  mainView,
+  firstCell,
+  secondCell,
+  secondCellStatus,
+  thirdCell,
+  thirdCellStatus,
+  fourthCell,
+  fourthCellStatus,
+  fifthCell,
+  fifthCellStatus,
+  containerID
+) {
+  parentContainer = document.createElement("div");
+  parentContainer.id = containerID;
+  parentContainer.setAttribute("status", "less");
+
+  parentContainer.className = "parent-container";
+
+  firstChildContainer = document.createElement("div");
+  firstChildContainer.className = "first-child";
+  firstChildContainer.innerText = firstCell;
+
+  secondChildContainer = document.createElement("div");
+  secondChildContainer.className = "second-child";
+  secondChildContainer.id = secondCellStatus;
+
+  if (secondCell != null) secondChildContainer.innerText = secondCell;
+  else secondChildContainer.innerText = "N/A";
+
+  thirdChildContainer = document.createElement("div");
+  thirdChildContainer.className = "third-child";
+  thirdChildContainer.innerHTML = thirdCell;
+  thirdChildContainer.id = thirdCellStatus;
+  
+
+  fourthChildContainer = document.createElement("div");
+  fourthChildContainer.className = "fourth-child";
+  fourthChildContainer.innerHTML = fourthCell;
+  fourthChildContainer.id = fourthCellStatus;
+
+  
+
+  fifthChildContainer = document.createElement("div");
+  fifthChildContainer.className = "fourth-child";
+  fifthChildContainer.innerHTML =  fifthCell;
+  fifthChildContainer.id =  fifthCellStatus;
+
+  parentContainer.appendChild(firstChildContainer);
+  parentContainer.appendChild(secondChildContainer);
+  parentContainer.appendChild(thirdChildContainer);
+  parentContainer.appendChild(fourthChildContainer);
+  parentContainer.appendChild(fifthChildContainer);
 
   mainView.appendChild(parentContainer);
 }
@@ -1576,6 +1658,7 @@ function showPortableFireExtinguisher(results) {
 
   // Get main view
   mainView = document.querySelector(".main-view");
+  mainView.id = ""
   mainView.innerHTML = "";
 
   // Set title
@@ -1648,6 +1731,8 @@ function showPortableFireExtinguisher(results) {
       moreData = results[index];
     });
   }
+
+enableNavigation()
 }
 
 function addMoreContentContainer(
@@ -1717,6 +1802,7 @@ function showFireAlarmSystem(results) {
 
   // Get main view
   mainView = document.querySelector(".main-view");
+  mainView.id = ""
   mainView.innerHTML = "";
 
   // Set title
@@ -1825,6 +1911,8 @@ function showFireAlarmSystem(results) {
       ).innerText = controlPanelLocation;
     });
   }
+
+enableNavigation()
 }
 
 // FireDepartmentConnection
@@ -1833,6 +1921,7 @@ function showFireDepartmentConnections(results) {
 
   // Get main view
   mainView = document.querySelector(".main-view");
+  mainView.id = ""
   mainView.innerHTML = "";
 
   // Set title
@@ -1967,12 +2056,15 @@ function showFireDepartmentConnections(results) {
       ).innerText = distanceFromWaterSource;
     });
   }
+
+enableNavigation()
 }
 function showFireHoseConnection(results) {
   console.log(results);
 
   // Get main view
   mainView = document.querySelector(".main-view");
+  mainView.id = ""
   mainView.innerHTML = "";
 
   // Set title
@@ -2062,6 +2154,8 @@ function showFireHoseConnection(results) {
       ).innerText = waterSource;
     });
   }
+
+enableNavigation()
 }
 
 function showStandpipeSystem(results) {
@@ -2069,6 +2163,7 @@ function showStandpipeSystem(results) {
 
   // Get main view
   mainView = document.querySelector(".main-view");
+  mainView.id = ""
   mainView.innerHTML = "";
 
   // Set title
@@ -2215,6 +2310,8 @@ function showStandpipeSystem(results) {
       ).innerText = waterSource;
     });
   }
+
+enableNavigation()
 }
 function showSensorsAndDetectors(results) {
   console.log(results);
@@ -2226,6 +2323,7 @@ function showSensorsAndDetectors(results) {
 
   // Get main view
   mainView = document.querySelector(".main-view");
+  mainView.id = ""
   mainView.innerHTML = `
   <ul class="nav nav-tabs">
     <li class="nav-item" id="carbon-monoxide-detectors">
@@ -2275,6 +2373,8 @@ function showSensorsAndDetectors(results) {
   });
 
   document.querySelector("#carbon-monoxide-detectors a").click();
+
+enableNavigation()
 }
 
 function populateSensorAndDetector(event, allNavigationContainers, inputData) {
@@ -2379,6 +2479,7 @@ function showFireAndSmokeProtectionElements(results) {
 
   // Get main view
   mainView = document.querySelector(".main-view");
+  mainView.id = ""
   mainView.innerHTML = `
   <ul class="nav nav-tabs">
     <li class="nav-item" id="fire-barrier">
@@ -2478,6 +2579,8 @@ function showFireAndSmokeProtectionElements(results) {
   });
 
   document.querySelector("#fire-barrier a").click();
+
+enableNavigation()
 }
 
 function populateFireAndSmokeProtectionElements(
@@ -2505,13 +2608,19 @@ function populateFireAndSmokeProtectionElements(
 
   containerID = "header";
   thirdCellStatus = "neutral";
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
 
   createFourColumnContainer(
     subMainView,
     firstTitle,
     secondTitle,
+    secondCellStatus,
     thirdTitle,
+    thirdCellStatus,
     fourthTitle,
+    fourthCellStatus,
     containerID
   );
 
@@ -2536,8 +2645,11 @@ function populateFireAndSmokeProtectionElements(
       subMainView,
       firstCell,
       secondCell,
+      secondCellStatus,
       thirdCell,
+      thirdCellStatus,
       fourthCell,
+      fourthCellStatus,
       containerID
     );
   }
@@ -2565,6 +2677,842 @@ function populateFireAndSmokeProtectionElements(
     });
   }
 }
+
+function populateSurroundingBuilding(
+  event,
+  allNavigationContainers,
+  inputData
+) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "surrounding-building";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Type";
+  thirdTitle = "Distance from Building";
+  
+  containerID = "header";
+  
+  
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+
+  createThreeColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasName"];
+    hasType = inputData[i]["hasType"];
+    distanceFromBuilding =
+      inputData[i]["hasDistanceFromIncidentBuilding"] +
+      " " +
+      inputData[i]["hasDistanceUnit"];
+
+    firstCell = hasName;
+    secondCell = hasType;
+    thirdCell = distanceFromBuilding;
+
+    containerID = i;
+
+    createThreeColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+        index = event.target.id;
+        moreData = inputData[index];
+
+        // Get data
+        
+        surroundingBuildingCoordinate = moreData["hasLocation"];
+        
+
+        // Create graphic data containers
+
+        graphicDataContainer = document.querySelector("#graphic-data-container");
+      graphicDataContainer.innerHTML = `
+<div id="map"></div>
+`;
+         
+         isRouting = true
+        fetchMap(buildingAddress, surroundingBuildingCoordinate, isRouting);
+
+    });
+  }
+}
+
+function populateSurroundingTerrain(
+  event,
+  allNavigationContainers,
+  inputData
+) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "surrounding-building";
+
+  // Set title
+  firstTitle = "Location";
+  secondTitle = "Slope";
+  
+  
+  containerID = "header";
+  
+  
+  secondCellStatus = "neutral";
+
+  createTwoColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasName"];
+    hasSlope = inputData[i]["hasSlope"];
+
+    firstCell = hasName;
+    secondCell = hasSlope;
+    
+
+    containerID = i;
+
+    createTwoColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+    });
+  }
+}
+
+function populateVegetation(
+  event,
+  allNavigationContainers,
+  inputData
+) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "vegetation";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Species";
+  thirdTitle = "Flammability Level";
+  fourthTitle = "Distance from Building";
+  
+  containerID = "header";
+  
+  
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasName"];
+    hasSpecies = inputData[i]["hasSpecies"];
+    flammabilityLevel = inputData[i]["hasFlammabilityLevel"];
+    distanceFromBuilding =
+      inputData[i]["hasDistanceFromIncidentBuilding"] +
+      " " +
+      inputData[i]["hasDistanceUnit"];
+
+    firstCell = hasName;
+    secondCell = hasSpecies;
+    thirdCell = flammabilityLevel;
+    fourthCell = distanceFromBuilding;
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+        index = event.target.id;
+        moreData = inputData[index];
+
+        // Get data
+        
+        vegetationCoordinate = moreData["hasLocation"];
+        
+
+        // Create graphic data containers
+
+        graphicDataContainer = document.querySelector("#graphic-data-container");
+      graphicDataContainer.innerHTML = `
+<div id="map"></div>
+`;
+         isRouting = false
+        fetchMap(buildingAddress, vegetationCoordinate, isRouting);
+
+    });
+  }
+}
+
+
+function populateHazardousMaterial(
+  event,
+  allNavigationContainers,
+  inputData
+) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "hazardous-material";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Hazard Level";
+  thirdTitle = "Special Hazard";
+  fourthTitle = "Distance from Building";
+  
+  containerID = "header";
+  
+  
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasName"];
+    hazardLevel = inputData[i]["hasHazardLevel"];
+    specialHazard = inputData[i]["hasSpecialHazard"];
+    distanceFromBuilding =
+      inputData[i]["hasDistanceFromIncidentBuilding"] +
+      " " +
+      inputData[i]["hasDistanceUnit"];
+
+    firstCell = hasName;
+    secondCell = hazardLevel;
+    thirdCell = specialHazard;
+    fourthCell = distanceFromBuilding;
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+        index = event.target.id;
+        moreData = inputData[index];
+
+        // Get data
+        
+        HazardousMaterialCoordinate = moreData["hasLocation"];
+        
+
+        // Create graphic data containers
+
+        graphicDataContainer = document.querySelector("#graphic-data-container");
+      graphicDataContainer.innerHTML = `
+<div id="map"></div>
+`;
+         isRouting = false
+        fetchMap(buildingAddress, HazardousMaterialCoordinate, isRouting);
+
+    });
+  }
+}
+
+function populateObstruction(
+  event,
+  allNavigationContainers,
+  inputData
+) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "obstruction";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Type";
+  thirdTitle = "Distance from Building";
+  
+  containerID = "header";
+  
+  
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+
+
+  createThreeColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasName"];
+    hasType = inputData[i]["hasType"];
+    distanceFromBuilding =
+      inputData[i]["hasDistanceFromIncidentBuilding"] +
+      " " +
+      inputData[i]["hasDistanceUnit"];
+
+    firstCell = hasName;
+    secondCell = hasType;
+    thirdCell = distanceFromBuilding;
+
+    containerID = i;
+
+    createThreeColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+        index = event.target.id;
+        moreData = inputData[index];
+
+        // Get data
+        
+        obstructionCoordinate = moreData["hasLocation"];
+        
+
+        // Create graphic data containers
+
+        graphicDataContainer = document.querySelector("#graphic-data-container");
+      graphicDataContainer.innerHTML = `
+<div id="map"></div>
+`;
+         isRouting = false
+        fetchMap(buildingAddress, obstructionCoordinate, isRouting);
+
+    });
+  }
+}
+
+
+function populateParkingLot(
+  event,
+  allNavigationContainers,
+  inputData
+) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "parking-lot";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Area";
+  thirdTitle = "Distance from Building";
+  
+  containerID = "header";
+  
+  
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+
+
+  createThreeColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasName"];
+    hasArea = inputData[i]["hasArea"] +
+      " " +
+      inputData[i]["hasAreaUnit"];
+
+
+    distanceFromBuilding =
+      inputData[i]["hasDistanceFromIncidentBuilding"] +
+      " " +
+      inputData[i]["hasDistanceUnit"];
+
+    firstCell = hasName;
+    secondCell = hasArea;
+    thirdCell = distanceFromBuilding;
+
+    containerID = i;
+
+    createThreeColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+        index = event.target.id;
+        moreData = inputData[index];
+
+        // Get data
+        
+        parkingLotCoordinate = moreData["hasLocation"];
+        
+
+        // Create graphic data containers
+
+        graphicDataContainer = document.querySelector("#graphic-data-container");
+      graphicDataContainer.innerHTML = `
+<div id="map"></div>
+`;
+         isRouting = false
+        fetchMap(buildingAddress, parkingLotCoordinate, isRouting);
+
+    });
+  }
+}
+
+function populatePipeline(
+  event,
+  allNavigationContainers,
+  inputData
+) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "pipeline";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Distance from Building";
+  
+  containerID = "header";
+  
+  
+  secondCellStatus = "neutral";
+
+
+  createTwoColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasName"];
+    distanceFromBuilding =
+      inputData[i]["hasDistanceFromIncidentBuilding"] +
+      " " +
+      inputData[i]["hasDistanceUnit"];
+
+    firstCell = hasName;
+    secondCell = distanceFromBuilding;
+
+    containerID = i;
+
+    createTwoColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+        index = event.target.id;
+        moreData = inputData[index];
+
+        // Get data
+        
+        pipelineCoordinate = moreData["hasLocation"];
+        
+
+        // Create graphic data containers
+
+        graphicDataContainer = document.querySelector("#graphic-data-container");
+      graphicDataContainer.innerHTML = `
+<div id="map"></div>
+`;
+         isRouting = false
+        fetchMap(buildingAddress, pipelineCoordinate, isRouting);
+
+    });
+  }
+}
+
+function populatePowerLine(
+  event,
+  allNavigationContainers,
+  inputData
+) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "power-line";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Distance from Building";
+  
+  containerID = "header";
+  
+  
+  secondCellStatus = "neutral";
+
+
+  createTwoColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasName"];
+    distanceFromBuilding =
+      inputData[i]["hasDistanceFromIncidentBuilding"] +
+      " " +
+      inputData[i]["hasDistanceUnit"];
+
+    firstCell = hasName;
+    secondCell = distanceFromBuilding;
+
+    containerID = i;
+
+    createTwoColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+        index = event.target.id;
+        moreData = inputData[index];
+
+        // Get data
+        
+        powerLineCoordinate = moreData["hasLocation"];
+        
+
+        // Create graphic data containers
+
+        graphicDataContainer = document.querySelector("#graphic-data-container");
+      graphicDataContainer.innerHTML = `
+<div id="map"></div>
+`;
+         isRouting = false
+        fetchMap(buildingAddress, powerLineCoordinate, isRouting);
+
+    });
+  }
+}
+
+
 
 function populateExteriorDoor(event, allNavigationContainers, inputData) {
   // Change active tab
@@ -3019,6 +3967,77 @@ function populateExteriorWall(event, allNavigationContainers, inputData) {
 // Roof top Element
 function showRoofTopElement(results) {
   console.log(results);
+  
+  mainView = document.querySelector(".main-view");
+  mainView.id = "concealed-space";
+  mainView.innerHTML = "";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Description";
+
+  containerClass = "";
+  containerID = "header";
+  secondCellStatus = false
+
+
+  createTwoColumnContainer(
+    mainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    containerID,
+    containerClass
+  );
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    hasType = results[i]["hasType"];
+    hasDescription = results[i]["hasDescription"];
+    
+    firstCell = hasType;
+    secondCell = hasDescription;
+
+    containerClass = "";
+    containerID = i;
+
+    createTwoColumnContainer(
+      mainView,
+      firstCell,
+      secondCell,
+    secondCellStatus,
+      containerID,
+      containerClass
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+ 
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+  
+      
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+    });
+  }
+
+enableNavigation()
 }
 
 // Facade
@@ -3077,6 +4096,8 @@ function showFacade(results) {
   });
 
   document.querySelector("#exterior-door a").click();
+
+enableNavigation()
 }
 
 
@@ -3278,6 +4299,8 @@ function populateDoor(inputData){
 
     });
   }
+
+enableNavigation()
 }
 
 function populateWindow(inputData){
@@ -4866,6 +5889,8 @@ function showNonStructuralElements(projectTitle) {
 
 
 
+
+enableNavigation()
 }
 
 function  showStructuralElements(results){
@@ -4954,6 +5979,8 @@ function  showStructuralElements(results){
         additionalGraphicData
       )})
   }
+
+enableNavigation()
 }
 
 function  changeActiveTab(event, allNavigationContainers){
@@ -4969,13 +5996,217 @@ function  changeActiveTab(event, allNavigationContainers){
 // KeyBox
 function showKeyBox(results) {
   console.log(results);
+  
+  mainView = document.querySelector(".main-view");
+  mainView.id = "Key-box";
+  mainView.innerHTML = "";
+
+  keyBoxLocation = results[0]["hasLocation"];
+
+  subjectLabel = "KeyBox Location:";
+  subjectValue = keyBoxLocation;
+  containerID = "keybox-location-container";
+  isMore = false;
+  moreContent = "";
+  containerClass = "";
+
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+
+
+  keysInsideKeyBox = results[0]["hasKey"];
+
+  subjectLabel = "Keys Inside KeyBox:";
+  subjectValue = keysInsideKeyBox;
+  containerID = "keys-inside-keyBox-container";
+  isMore = false;
+  moreContent = "";
+  containerClass = "";
+
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+
+enableNavigation()
 }
+
 function showConcealedSpace(results) {
   console.log(results);
+  
+  mainView = document.querySelector(".main-view");
+  mainView.id = "concealed-space";
+  mainView.innerHTML = "";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Floor";
+  thirdTitle = "Fire Extinguishing System";
+
+  containerClass = "";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+  thirdCellStatus = "neutral";
+
+  createThreeColumnContainer(
+    mainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    containerID,
+    containerClass
+  );
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    hasName = results[i]["hasName"];
+    hasLocation = results[i]["hasLocation"];
+    fireExtinguishingSystem = results[i]["hasFireExtinguishingSystem"]["hasSystem"];
+    
+    firstCell = hasName;
+    secondCell = hasLocation;
+    thirdCell = "<a href = '#'>" + fireExtinguishingSystem + "</a>";
+    
+
+    containerClass = "";
+    containerID = i;
+
+    createThreeColumnContainer(
+      mainView,
+      firstCell,
+      secondCell,
+    secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      containerClass
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+ 
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalWrittenData = true;
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+      index = event.target.id;
+      moreData = results[index];
+
+      // Get data
+      hasDescription = moreData["hasDescription"];
+       
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="description">
+          <div class = "data-item-label"> Description: </div> 
+          <div class = "data-item-value"> </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#description .data-item-value").innerText = hasDescription;
+
+    });
+  }
+
+enableNavigation()
 }
+
 
 function showVerticalOpening(results) {
   console.log(results);
+  
+  mainView = document.querySelector(".main-view");
+  mainView.id = "vertical-opening";
+  mainView.innerHTML = "";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Location";
+
+  containerClass = "";
+  containerID = "header";
+  secondCellStatus = false
+
+
+  createTwoColumnContainer(
+    mainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    containerID,
+    containerClass
+  );
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    hasName = results[i]["hasName"];
+    hasLocation = results[i]["hasLocation"];
+    
+    firstCell = hasName;
+    secondCell = hasLocation;
+
+    containerClass = "";
+    containerID = i;
+
+    createTwoColumnContainer(
+      mainView,
+      firstCell,
+      secondCell,
+    secondCellStatus,
+      containerID,
+      containerClass
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+ 
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+  
+      
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+    });
+  }
+
+enableNavigation()
 }
 
 function  showHazardousMaterial(results){
@@ -5098,11 +6329,16 @@ function  showHazardousMaterial(results){
 
     });
   }
+
+enableNavigation()
 }
-function fetchMap(buildingAddress, addMarker = "none") {
-  console.log(addMarker);
+
+
+
+function fetchMap(buildingAddress, addMarker = "none", isRouting = "false") {
+  
   if (buildingCoordinate.length > 0) {
-    createMap(addMarker);
+    createMap(addMarker, isRouting);
   } else {
     fetch(
       "https://nominatim.openstreetmap.org/?addressdetails=1&q=" +
@@ -5113,12 +6349,12 @@ function fetchMap(buildingAddress, addMarker = "none") {
         return response.json();
       })
       .then((result) => {
-        console.log(result);
+        
         lon = result[0]["lon"];
         lat = result[0]["lat"];
-        buildingCoordinate = [result[0]["lon"], result[0]["lat"]];
+        buildingCoordinate = [ parseFloat(result[0]["lon"]), parseFloat(result[0]["lat"])];
 
-        createMap(addMarker);
+        createMap(addMarker, isRouting);
       });
   }
 }
@@ -5133,10 +6369,12 @@ function addressToCoordinate(buildingAddress) {
       return response.json();
     })
     .then((result) => {
-      buildingCoordinate = [result[0]["lon"], result[0]["lat"]];
-    });
+      buildingCoordinate = [ parseFloat(result[0]["lon"]), parseFloat(result[0]["lat"])];
+ });
 }
-function createMap(addMarker) {
+function createMap(addMarker, isRouting) {
+  
+// Create map
   mapboxgl.accessToken =
     "pk.eyJ1IjoiZXlvc2lhczEwMSIsImEiOiJjbDFuOHB6MXEwcnNhM3BrcW55ZGh1ZGo4In0.Iq_eA8HIPymBe2LAfWETcw";
   const map = new mapboxgl.Map({
@@ -5146,27 +6384,35 @@ function createMap(addMarker) {
     zoom: 16, // starting zoom
   });
 
-  // add object to the map
-  lon = addMarker.split(",")[1];
-  lat = addMarker.split(",")[0];
 
   // create the popup
   const popup = new mapboxgl.Popup({ offset: 25 }).setText(
     "Construction on the Washington Monument began in 1848."
   );
+  
+
   // create DOM element for the marker
   const el = document.createElement("div");
   el.id = "marker";
 
+// Add marker
   const waypoint1 = new mapboxgl.Marker({ color: "red" })
     .setPopup(popup)
     .setLngLat([buildingCoordinate[0], buildingCoordinate[1]])
     .addTo(map);
+
+    if (addMarker != "none")
+ { // add object to the map
+  lon = addMarker.split(",")[1];
+  lat = addMarker.split(",")[0];
+
+  // Add marker
   const waypoint2 = new mapboxgl.Marker({ color: "blue" })
     .setLngLat([lon, lat])
     .addTo(map);
-
-  accessToken =
+if(isRouting)
+  {
+    accessToken =
     "pk.eyJ1IjoiZXlvc2lhczEwMSIsImEiOiJjbDFuOHB6MXEwcnNhM3BrcW55ZGh1ZGo4In0.Iq_eA8HIPymBe2LAfWETcw";
   fetch(
     `https://api.mapbox.com/directions/v5/mapbox/walking/${buildingCoordinate[0]},${buildingCoordinate[1]};${lon},${lat}?steps=true&geometries=geojson&access_token=${accessToken}`,
@@ -5176,7 +6422,7 @@ function createMap(addMarker) {
       return response.json();
     })
     .then((json) => {
-      console.log(json);
+      
       const data = json.routes[0];
 
       const route = data.geometry.coordinates;
@@ -5209,108 +6455,2293 @@ function createMap(addMarker) {
           },
         });
       });
-    });
+    });}}
 }
-function createMaps(addMarker) {
-  console.log(addMarker);
-  lon = buildingCoordinate[0];
-  lat = buildingCoordinate[1];
-  let mapOptions = {
-    center: [lat, lon],
-    // zoom: 16,
-    zoom: 17,
-  };
 
-  let map = new L.map("map", mapOptions);
-  // add the OpenStreetMap tiles
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution:
-      '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-  }).addTo(map);
 
-  // show the scale bar on the lower left corner
-  L.control.scale({ imperial: true, metric: true }).addTo(map);
+// function createMaps(addMarker) {
+//   console.log(addMarker);
+//   lon = buildingCoordinate[0];
+//   lat = buildingCoordinate[1];
+//   let mapOptions = {
+//     center: [lat, lon],
+//     // zoom: 16,
+//     zoom: 17,
+//   };
 
-  // show a marker on the map
+//   let map = new L.map("map", mapOptions);
+//   // add the OpenStreetMap tiles
+//   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+//     attribution:
+//       '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+//   }).addTo(map);
 
-  marker = new L.Marker([lat, lon]);
-  marker.bindPopup("Incident Building");
-  marker.addTo(map);
-  if (addMarker != "none") {
-    lon = addMarker.split(",")[1];
-    lat = addMarker.split(",")[0];
-    var myIcon = L.icon({
-      iconUrl:
-        "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
-      shadowUrl:
-        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41],
+//   // show the scale bar on the lower left corner
+//   L.control.scale({ imperial: true, metric: true }).addTo(map);
+
+//   // show a marker on the map
+
+//   marker = new L.Marker([lat, lon]);
+//   marker.bindPopup("Incident Building");
+//   marker.addTo(map);
+//   if (addMarker != "none") {
+//     lon = addMarker.split(",")[1];
+//     lat = addMarker.split(",")[0];
+//     var myIcon = L.icon({
+//       iconUrl:
+//         "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
+//       shadowUrl:
+//         "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+//       iconSize: [25, 41],
+//       iconAnchor: [12, 41],
+//       popupAnchor: [1, -34],
+//       shadowSize: [41, 41],
+//     });
+
+//     lon = addMarker.split(",")[1];
+//     lat = addMarker.split(",")[0];
+//     L.marker([lat, lon], { icon: myIcon }).bindPopup("Fire hydrant").addTo(map);
+
+//     myApi = "d19490bd-c0df-47c4-9547-7027ef76c329";
+//     // route = L.routing
+//     //   .control({
+//     //     waypoints: [(lat, lon), (buildingCoordinate[1], buildingCoordinate[0])],
+//     //     router: L.routing.GraphHopper(myApi, {
+//     //       urlParameters: {
+//     //         vehicle: "foot",
+//     //       },
+//     //     }),
+//     //   })
+//     //   .addTo(map);
+//     console.log(lat);
+//     console.log(buildingCoordinate[1]);
+//     apiCall =
+//       "https://api.mapbox.com/directions/v5/mapbox/cycling/-84.518641,39.134270;-84.512023,39.102779?geometries=geojson&access_token=pk.eyJ1IjoiZXlvc2lhczEwMSIsImEiOiJjbDFuOHB6MXEwcnNhM3BrcW55ZGh1ZGo4In0.Iq_eA8HIPymBe2LAfWETcw";
+//     fetch(apiCall).then((result) => {
+//       console.log(result);
+//       L.geoJSON(result["routes"][0]).addTo(map);
+//     });
+
+//     // var ghRouting = new GraphHopper.Routing({
+//     //   key: myApi,
+//     //   vehicle: "car",
+//     //   elevation: false,
+//     // });
+
+//     // ghRouting.addPoint(new GHInput(lat, lon));
+//     // ghRouting.addPoint(
+//     //   new GHInput(buildingCoordinate[1], buildingCoordinate[0])
+//     // );
+
+//     // ghRouting
+//     //   .doRequest()
+//     //   .then(function (json) {
+//     //     // Add your own result handling here
+//     //     console.log(json);
+//     //     L.geoJSON(json["paths"]).addTo(map);
+//     //   })
+//     //   .catch(function (err) {
+//     //     console.error(err.message);
+//     //   });
+
+//     /* L.Routing.control({
+//       waypoints: [
+//         L.latLng(lat, lon),
+//         L.latLng(buildingCoordinate[1], buildingCoordinate[0]),
+//       ],
+//     }).addTo(map); */
+//   }
+// }
+
+// function addMarkerToMap(lon, lat) {
+//   fetchMap(buildingAddress);
+//   lon = coordinates[0];
+//   lat = coordinates[1];
+
+//   marker = L.Marker([lat, lon]);
+//   marker.bindPopup("Incident Building");
+//   marker.addTo(map);
+// }
+
+
+function showSurroundings(results){
+  console.log(results);
+
+  // Get data
+  surroundingBuilding = results["surroundingBuilding"];
+  surroundingTerrain = results["surroundingTerrain"];
+  vegetation = results["vegetation"];
+  hazardousMaterial = results["hazardousMaterial"];
+  obstruction = results["obstruction"];
+  parkingLot = results["parkingLot"];
+  pipeline = results["pipeline"];
+  powerLine = results["powerLine"];
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = ""
+  mainView.innerHTML = `
+  <ul class="nav nav-tabs">
+    <li class="nav-item" id="surrounding-building">
+      <a class="nav-link active" href="#">Surrounding Building</a>
+    </li>  
+    <li class="nav-item" id="surrounding-terrain">
+      <a class="nav-link" href="#">Surrounding Terrain</a>
+    </li>  
+    <li class="nav-item" id="vegetation">
+      <a class="nav-link" href="#">Vegetation</a>
+    </li>  
+    <li class="nav-item" id="hazardous-material">
+      <a class="nav-link" href="#">Hazardous Material</a>
+    </li>
+    <li class="nav-item" id="obstruction">
+      <a class="nav-link" href="#">Obstruction</a>
+    </li>
+    <li class="nav-item" id="parking-lot">
+      <a class="nav-link" href="#">Parking Lot</a>
+    </li>  
+    <li class="nav-item" id="pipeline">
+      <a class="nav-link" href="#">Pipeline</a>
+    </li>
+    <li class="nav-item" id="powerLine">
+      <a class="nav-link" href="#">Power Line</a>
+    </li>
+</ul>
+  `;
+
+  // Creat sub main view
+  subMainView = document.createElement("div");
+  subMainView.id = "sub-main-view";
+  mainView.appendChild(subMainView);
+  subMainView.innerHTML = "";
+
+  hazardousMaterialContainer = document.querySelector("#hazardous-material");
+  obstructionContainer = document.querySelector("#obstruction");
+  parkingLotContainer = document.querySelector("#parking-lot");
+  pipelineContainer = document.querySelector("#pipeline");
+  powerLineContainer = document.querySelector("#powerLine");
+  surroundingBuildingContainer = document.querySelector("#surrounding-building");
+  surroundingTerrainContainer = document.querySelector("#surrounding-terrain");
+  vegetationContainer = document.querySelector("#vegetation");
+
+  allNavigationContainers = document.querySelectorAll(".nav a");
+
+  
+
+  // surrounding Building Container
+  surroundingBuildingContainer.addEventListener("click", function (event) {
+    // Populate data
+    populateSurroundingBuilding(
+      event,
+      allNavigationContainers,
+      surroundingBuilding
+    );
+  });
+
+
+  // surrounding Terrain Container
+  surroundingTerrainContainer.addEventListener("click", function (event) {
+    // Populate data
+    populateSurroundingTerrain(
+      event,
+      allNavigationContainers,
+      surroundingTerrain
+    );
+  });
+
+  // vegetation Container
+  vegetationContainer.addEventListener("click", function (event) {
+    // Populate data
+    populateVegetation(
+      event,
+      allNavigationContainers,
+      vegetation
+    );
+  });
+
+  // hazardous Material Container
+  hazardousMaterialContainer.addEventListener("click", function (event) {
+    // Populate data
+    populateHazardousMaterial(
+      event,
+      allNavigationContainers,
+      hazardousMaterial
+    );
+  });
+
+  // obstruction Container
+  obstructionContainer.addEventListener("click", function (event) {
+    // Populate data
+    populateObstruction(
+      event,
+      allNavigationContainers,
+      obstruction
+    );
+  });
+
+  // parking Lot Container
+  parkingLotContainer.addEventListener("click", function (event) {
+    // Populate data
+    populateParkingLot(
+      event,
+      allNavigationContainers,
+      parkingLot
+    );
+  });
+
+  // pipeline Container
+  pipelineContainer.addEventListener("click", function (event) {
+    // Populate data
+    populatePipeline(
+      event,
+      allNavigationContainers,
+      pipeline
+    );
+  });
+
+  // power Line Container
+  powerLineContainer.addEventListener("click", function (event) {
+    // Populate data
+    populatePowerLine(
+      event,
+      allNavigationContainers,
+      powerLine
+    );
+  });
+  document.querySelector("#surrounding-building a").click();
+
+enableNavigation()
+}
+
+
+function showWeatherCondition(results){
+
+results = results.getElementsByTagName("current")[0]
+
+      console.log(results);
+      
+      // hasPrecipitationValue = result.FloatField();
+
+
+      getLastUpdate = results.getElementsByTagName("lastupdate")[0]
+      hasLastUpdate = getLastUpdate.getAttribute("value").split("T")[1]
+ 
+      getTemperature = results.getElementsByTagName("temperature")[0]
+      hasTemperature = getTemperature.getAttribute("value") +
+                        " " + getTemperature.getAttribute("unit")
+      
+                        
+     getRelativeHumidity = results.getElementsByTagName("humidity")[0]
+     hasRelativeHumidity = getRelativeHumidity.getAttribute("value") +
+                        " " + getRelativeHumidity.getAttribute("unit")
+      
+                        
+     getPressure = results.getElementsByTagName("pressure")[0]
+     hasPressure = getPressure.getAttribute("value") +
+                        " " + getPressure.getAttribute("unit")
+      
+                        
+     getWindSpeed = results.getElementsByTagName("wind")[0].getElementsByTagName("speed")[0]
+
+     hasWindSpeed = getWindSpeed.getAttribute("name") +
+                        " (" + getWindSpeed.getAttribute("value") +
+                        " " + getWindSpeed.getAttribute("unit") + ")"
+      
+                        
+     getWindDirection = results.getElementsByTagName("wind")[0].getElementsByTagName("direction")[0]
+
+     hasWindDirection = getWindDirection.getAttribute("name") +
+                        " (" + getWindDirection.getAttribute("value") +
+                        " " + getWindDirection.getAttribute("code") + ")"
+      
+                        
+     getClouds = results.getElementsByTagName("clouds")[0]
+
+     hasClouds = getClouds.getAttribute("name") +
+                        " (" + getClouds.getAttribute("value") +
+                        ")" 
+      
+hasClouds = hasClouds.charAt(0).toUpperCase() + hasClouds.slice(1);
+
+
+
+     getPrecipitation = results.getElementsByTagName("precipitation")[0]
+
+     hasSnow = "No Snow"
+     hasRain = "No Rain"
+     if(getPrecipitation.getAttribute("mode") == "snow")
+     hasSnow = getPrecipitation.getAttribute("mode") +
+                        " (" + getPrecipitation.getAttribute("value") +
+                        " mm for last " + getPrecipitation.getAttribute("unit") + ")"
+      else  if(getPrecipitation.getAttribute("mode") == "rain")
+     hasRain = getPrecipitation.getAttribute("mode") +
+                        " (" + getPrecipitation.getAttribute("value") +
+                        " mm for last " + getPrecipitation.getAttribute("unit") + ")"
+      
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = ""
+  mainView.innerHTML = "";
+
+  // Time Mark
+
+  subjectLabel = "Last Update:";
+  subjectValue = hasLastUpdate;
+  containerID = "last-update-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+
+  // Wind Speed
+
+  subjectLabel = "Wind Speed:";
+  subjectValue = hasWindSpeed;
+  containerID = "wind-speed-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+
+  // Wind Speed
+
+  subjectLabel = "Wind Direction:";
+  subjectValue = hasWindDirection;
+  containerID = "wind-direction-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Relative Humidity
+
+  subjectLabel = "Relative Humidity:";
+  subjectValue = hasRelativeHumidity;
+  containerID = "relative-humidity-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Pressure
+
+  subjectLabel = "Pressure:";
+  subjectValue = hasPressure;
+  containerID = "pressure-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Temperature
+
+  subjectLabel = "Temperature:";
+  subjectValue = hasTemperature;
+  containerID = "temperature-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Cloud
+  subjectLabel = "Cloud:";
+  subjectValue = hasClouds 
+  containerID = "cloud-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  
+  // Rain
+
+  subjectLabel = "Rain:";
+  subjectValue = hasRain;
+  containerID = "rain-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Snow
+
+  subjectLabel = "Snow:";
+  subjectValue = hasSnow;
+  containerID = "snow-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+enableNavigation()
+
+    }
+
+
+function showWaterSource(results) {
+  console.log(results);
+
+  // Get data
+  
+  staticWaterSource = results["staticWaterSource"];
+  municipalDistributionSystem = results["municipalDistributionSystem"];
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "water-source";
+  mainView.innerHTML = `
+  <ul class="nav nav-tabs">
+    <li class="nav-item" id="municipal-distribution-system">
+      <a class="nav-link active" href="#">Municipal Distribution System</a>
+    </li>
+    <li class="nav-item" id="static-water-source">
+      <a class="nav-link" href="#">Static Water Source</a>
+    </li>  
+</ul>
+  `;
+
+  // Creat sub main view
+  subMainView = document.createElement("div");
+  subMainView.id = "sub-main-view";
+  mainView.appendChild(subMainView);
+  subMainView.innerHTML = "";
+
+  municipalDistributionSystemContainer = document.querySelector(
+    "#municipal-distribution-system"
+  );
+  staticWaterSourceContainer = document.querySelector(
+    "#static-water-source"
+  );
+  
+
+  allNavigationContainers = document.querySelectorAll(".nav a");
+
+  // Municipal Distribution System Container
+  municipalDistributionSystemContainer.addEventListener("click", function (event) {
+    // Populate data
+    
+    populateMunicipalDistributionSystem(
+      event,
+      allNavigationContainers,
+      municipalDistributionSystem
+    );
+  });
+
+  // static Water Source Container
+  staticWaterSourceContainer.addEventListener("click", function (event) {
+    // Populate data
+    
+    populateStaticWaterSource(
+      event,
+      allNavigationContainers,
+      staticWaterSource
+    );
+  });
+
+
+  municipalDistributionSystemContainer.querySelector("a").click();
+enableNavigation()
+}
+
+
+function populateMunicipalDistributionSystem(
+  event,
+  allNavigationContainers,
+  inputData
+) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "municipal-distribution-system";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Pressure";
+  thirdTitle = "FireFlow";
+  fourthTitle = "State";
+  
+  containerID = "header";
+  
+  
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasName"];
+    hasPressure =
+      inputData[i]["hasPressure"] +
+      " " +
+      inputData[i]["hasPressureUnit"];
+    
+      fireFlow =
+      inputData[i]["hasFireFlow"] +
+      " " +
+      inputData[i]["hasFireFlowUnit"];
+    isFunctional = inputData[i]["isFunctional"];
+
+    firstCell = hasName;
+    secondCell = hasPressure;
+    thirdCell = fireFlow;
+    if (isFunctional) {
+      fourthCell = "Functional";
+      fourthCellStatus = "positive";
+    } else {
+      fourthCell = "Not Functional";
+      fourthCellStatus = "negative";
+    }
+
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+}
+
+
+
+
+function populateStaticWaterSource(
+  event,
+  allNavigationContainers,
+  inputData
+) {
+  // Change active tab
+  event.target.className = "nav-link active";
+
+  for (i = 0; i < allNavigationContainers.length; i++) {
+    if (allNavigationContainers[i] == event.target) continue;
+    allNavigationContainers[i].className = "nav-link";
+  }
+
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = ``;
+  subMainView.className = "static-water-source";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Type";
+  thirdTitle = "Distance from Building";
+  fourthTitle = "State";
+  
+  containerID = "header";
+  
+  
+  secondCellStatus = "neutral";
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+
+  createFourColumnContainer(
+    subMainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID
+  );
+
+  for (i = 0; i < inputData.length; i++) {
+    // Get data
+    hasName = inputData[i]["hasName"];
+    hasType = inputData[i]["hasType"];
+    distanceFromBuilding =
+      inputData[i]["hasDistanceFromIncidentBuilding"] +
+      " " +
+      inputData[i]["hasDistanceUnit"];
+    isFunctional = inputData[i]["isFunctional"];
+
+    firstCell = hasName;
+    secondCell = hasType;
+    thirdCell = distanceFromBuilding;
+    if (isFunctional) {
+      fourthCell = "Usable";
+      fourthCellStatus = "positive";
+    } else {
+      fourthCell = "Not Usable";
+      fourthCellStatus = "negative";
+    }
+
+
+    containerID = i;
+
+    createFourColumnContainer(
+      subMainView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalWrittenData = true;
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+
+        index = event.target.id;
+        moreData = inputData[index];
+
+        // Get data
+        
+        staticWaterCoordinate = moreData["hasLocation"];
+        fireFlow = moreData["hasFireFlow"] + 
+                  " " + moreData["hasFireFlowUnit"]
+        
+
+        // Create data containers
+
+        dataContainer = document.createElement("div");
+        dataContainer.id = "data-container";
+        moreContainer.appendChild(dataContainer);
+        dataContainer.innerHTML = `
+        <div class = "data-item" id="fire-flow">
+          <div class = "data-item-label"> Fire Flow: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+        // Insert values
+        
+        dataContainer.querySelector(
+          "#fire-flow .data-item-value"
+        ).innerText = fireFlow;
+
+
+
+        // Create graphic data containers
+
+        graphicDataContainer = document.querySelector("#graphic-data-container");
+      graphicDataContainer.innerHTML = `
+<div id="map"></div>
+`;
+         isRouting = false
+        fetchMap(buildingAddress, staticWaterCoordinate, isRouting);
+
     });
-
-    lon = addMarker.split(",")[1];
-    lat = addMarker.split(",")[0];
-    L.marker([lat, lon], { icon: myIcon }).bindPopup("Fire hydrant").addTo(map);
-
-    myApi = "d19490bd-c0df-47c4-9547-7027ef76c329";
-    // route = L.routing
-    //   .control({
-    //     waypoints: [(lat, lon), (buildingCoordinate[1], buildingCoordinate[0])],
-    //     router: L.routing.GraphHopper(myApi, {
-    //       urlParameters: {
-    //         vehicle: "foot",
-    //       },
-    //     }),
-    //   })
-    //   .addTo(map);
-    console.log(lat);
-    console.log(buildingCoordinate[1]);
-    apiCall =
-      "https://api.mapbox.com/directions/v5/mapbox/cycling/-84.518641,39.134270;-84.512023,39.102779?geometries=geojson&access_token=pk.eyJ1IjoiZXlvc2lhczEwMSIsImEiOiJjbDFuOHB6MXEwcnNhM3BrcW55ZGh1ZGo4In0.Iq_eA8HIPymBe2LAfWETcw";
-    fetch(apiCall).then((result) => {
-      console.log(result);
-      L.geoJSON(result["routes"][0]).addTo(map);
-    });
-
-    // var ghRouting = new GraphHopper.Routing({
-    //   key: myApi,
-    //   vehicle: "car",
-    //   elevation: false,
-    // });
-
-    // ghRouting.addPoint(new GHInput(lat, lon));
-    // ghRouting.addPoint(
-    //   new GHInput(buildingCoordinate[1], buildingCoordinate[0])
-    // );
-
-    // ghRouting
-    //   .doRequest()
-    //   .then(function (json) {
-    //     // Add your own result handling here
-    //     console.log(json);
-    //     L.geoJSON(json["paths"]).addTo(map);
-    //   })
-    //   .catch(function (err) {
-    //     console.error(err.message);
-    //   });
-
-    /* L.Routing.control({
-      waypoints: [
-        L.latLng(lat, lon),
-        L.latLng(buildingCoordinate[1], buildingCoordinate[0]),
-      ],
-    }).addTo(map); */
   }
 }
 
-function addMarkerToMap(lon, lat) {
-  fetchMap(buildingAddress);
-  lon = coordinates[0];
-  lat = coordinates[1];
 
-  marker = L.Marker([lat, lon]);
-  marker.bindPopup("Incident Building");
-  marker.addTo(map);
+function showFireLane(results){
+results = results[0]
+  console.log(results);
+
+  // Get data 
+  
+  hasType = results["hasType"];
+  hasMaterial = results["hasMaterial"]["hasName"];
+  hasCondition = results["hasCondition"];
+  hasWidth = results["hasWidth"] + " " + results["hasWidthUnit"];
+  hasSlope = results["hasSlope"];
+  turningRadius = results["hasTurningRadius"] + " " + results["hasTurningRadiusUnit"];
+  verticalClearance = results["hasVerticalClearance"] + " " + results["hasVerticalClearanceUnit"];
+  angleOfApproach = results["hasAngleOfApproach"] + " degrees"
+  accessBarrierType = results["hasAccessBarrierType"]
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = ""
+  mainView.innerHTML = "";
+
+  // Road type
+  subjectLabel = "Type:";
+  subjectValue = hasType;
+  containerID = "type-container";
+  isMore = false;
+  moreContent = "";
+  containerClass = "";
+
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Material
+  subjectLabel = "Material:";
+  subjectValue = hasMaterial;
+  containerID = "material-container";
+  isMore = false;
+
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Road Condition
+  subjectLabel = "Road Condition:";
+  subjectValue = hasCondition;
+  containerID = "road-condition-container";
+  isMore = false;
+
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Road width
+
+  subjectLabel = "Road width:";
+  subjectValue = hasWidth ;
+  containerID = "road-width-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Road Slope
+
+  subjectLabel = "Road Slope:";
+  subjectValue = hasSlope ;
+  containerID = "road-slope-container";
+  isMore = false;
+
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Turning Radius
+
+  subjectLabel = "Turning Radius:";
+  subjectValue = turningRadius;
+  containerID = "turning-radius-container";
+  isMore = false;
+
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Vertical Clearance
+
+  subjectLabel = "Vertical Clearance:";
+  subjectValue = verticalClearance;
+  containerID = "vertical-clearance-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Angles of Approach
+
+  subjectLabel = "Angle of Approach:";
+  subjectValue = angleOfApproach;
+  containerID = "angle-of-approach-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Access Barrier Type
+
+  subjectLabel = "Access Barrier Type:";
+  subjectValue = accessBarrierType;
+  containerID = "access-barrier-type-container";
+  isMore = false;
+  
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  
+enableNavigation()
+
+}
+
+
+function showRoadToIncident(results){
+  console.log(results)
+  currentLocation = [24.94530997613723, 60.16532759718519]
+
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = ""
+  mainView.innerHTML = "";
+
+  // Set title
+  firstTitle = "Route";
+  secondTitle = "Distance";
+  thirdTitle = "Duration";
+  fourthTitle = "Traffic Level";
+
+  containerClass = "road-to-incident";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+
+  createFourColumnContainer(
+    mainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    fourthTitle,
+    fourthCellStatus,
+    containerID,
+    containerClass
+  );
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    hasTrafficLevel = results[i]["hasTrafficLevel"];
+        hasDistance = results[i]["hasDistance"] + " " + results[i]["hasDistanceUnit"]
+        hasDuration = results[i]["hasDuration"] + " " + results[i]["hasDurationUnit"]
+
+    firstCell = i + 1;
+    secondCell = hasDistance;
+      thirdCell = hasDuration;
+      fourthCell = hasTrafficLevel;
+      
+
+    containerID = i;
+
+    createFourColumnContainer(
+      mainView,
+      firstCell,
+      secondCell,
+    secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
+      containerID,
+      containerClass
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+
+  allContainers = document.querySelectorAll(".parent-container");
+  
+
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    
+    allContainers[i].addEventListener("click", function (event) {
+
+      additionalWrittenData = true;
+      additionalGraphicData = true;
+
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+
+      // Add additional data
+      
+        // Add more content
+        index = event.target.id;
+        moreData = results[index];
+
+
+        // Get data
+    hasType = moreData["hasType"];
+    hasCondition = moreData["hasCondition"];
+        hasMaterial = moreData["hasMaterial"]["hasName"];
+        hasWidth = moreData["hasWidth"] + " " + moreData["hasWidthUnit"]
+        hasSlope = moreData["hasSlope"] 
+    
+
+      // Get data container
+      dataContainer = document.querySelector("#data-container");
+        dataContainer.innerHTML = `
+        <div class = "data-item" id="type">
+          <div class = "data-item-label"> Type: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="road-condition">
+          <div class = "data-item-label"> Road Condition: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="Material">
+          <div class = "data-item-label"> material: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="width">
+          <div class = "data-item-label"> Width: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="slope">
+          <div class = "data-item-label"> Slope: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+        // Insert values
+
+        dataContainer.querySelector(
+          "#material .data-item-value"
+        ).innerText = hasMaterial;
+
+        dataContainer.querySelector(
+          "#road-condition .data-item-value"
+        ).innerText = hasCondition;
+
+        dataContainer.querySelector(
+          "#width .data-item-value"
+        ).innerText = hasWidth;
+
+        dataContainer.querySelector(
+          "#type .data-item-value"
+        ).innerText = hasType;
+
+        dataContainer.querySelector(
+          "#slope .data-item-value"
+        ).innerText = hasSlope;
+
+      // Get data container
+      dataContainer = document.querySelector("#graphic-data-container");
+
+        graphicDataContainer.innerHTML = `
+<div id="map"></div>
+`;
+
+         isRouting = true
+  mapRoadToIncident(buildingAddress, currentLocation, index)
+        
+    });
+  }
+  
+       
+
+enableNavigation()
+}
+
+function mapRoadToIncident(buildingAddress, currentLocation, index){
+
+  if (buildingCoordinate.length > 0) {
+    drawMapToIncident(buildingCoordinate, currentLocation, index);
+  } else {
+    fetch(
+      "https://nominatim.openstreetmap.org/?addressdetails=1&q=" +
+        buildingAddress +
+        "&format=json"
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => {
+        
+        lon = result[0]["lon"];
+        lat = result[0]["lat"];
+        buildingCoordinate = [result[0]["lon"], result[0]["lat"]];
+
+    drawMapToIncident(buildingCoordinate, currentLocation, index);
+      });
+  }
+
+}
+
+function drawMapToIncident(buildingCoordinate, currentLocation, index){
+
+// Create map
+  mapboxgl.accessToken =
+    "pk.eyJ1IjoiZXlvc2lhczEwMSIsImEiOiJjbDFuOHB6MXEwcnNhM3BrcW55ZGh1ZGo4In0.Iq_eA8HIPymBe2LAfWETcw";
+  const map = new mapboxgl.Map({
+    container: "map", // container ID
+    style: "mapbox://styles/mapbox/streets-v11", // style URL
+    center: [buildingCoordinate[0], buildingCoordinate[1]], // starting position [lng, lat]
+    zoom: 16, // starting zoom
+  });
+
+
+  // create the popup
+  const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+    "Construction on the Washington Monument began in 1848."
+  );
+  
+// Add marker
+  const waypoint1 = new mapboxgl.Marker({ color: "red" })
+    .setPopup(popup)
+    .setLngLat([buildingCoordinate[0], buildingCoordinate[1]])
+    .addTo(map);
+
+  // add current location to the map
+  lon = currentLocation[0];
+  lat = currentLocation[1];
+
+  // create DOM element for the marker
+  const el = document.createElement("div");
+  el.id = "marker";
+
+  // Add marker
+  const waypoint2 = new mapboxgl.Marker({ color: "blue" })
+    .setLngLat([lon, lat])
+    .addTo(map);
+
+    // Get route
+
+    accessToken =
+    "pk.eyJ1IjoiZXlvc2lhczEwMSIsImEiOiJjbDFuOHB6MXEwcnNhM3BrcW55ZGh1ZGo4In0.Iq_eA8HIPymBe2LAfWETcw";
+  fetch(
+    `https://api.mapbox.com/directions/v5/mapbox/driving/${buildingCoordinate[0]},${buildingCoordinate[1]};${lon},${lat}?steps=true&geometries=geojson&alternatives=true&access_token=${accessToken}`,
+    { method: "GET" }
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      console.log(json)
+      const data = json.routes[index];
+
+      const route = data.geometry.coordinates;
+      const geojson = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "LineString",
+          coordinates: route,
+        },
+      };
+
+      // add line as geojson
+      // geometry is in routes variable imported above in script
+      map.on("load", () => {
+        map.addLayer({
+          id: "route",
+          type: "line",
+          source: {
+            type: "geojson",
+            data: geojson,
+          },
+          layout: {
+            "line-join": "round",
+            "line-cap": "round",
+          },
+          paint: {
+            "line-color": "#ff0000",
+            "line-width": 8,
+          },
+        });
+      });
+buildingCoordinateEdge = [0,0]
+currentLocationEdge = [0,0]
+
+if( buildingCoordinate[0] > currentLocation[0]){
+buildingCoordinateEdge[0] = buildingCoordinate[0] + 0.01
+currentLocationEdge[0] = currentLocation[0] - 0.01
+}
+else{
+buildingCoordinateEdge[0] = buildingCoordinate[0] - 0.01
+currentLocationEdge[0] = currentLocation[0] - 0.01
+}
+
+
+if( buildingCoordinate[1] > currentLocation[1]){
+buildingCoordinateEdge[1] = buildingCoordinate[1] + 0.01
+currentLocationEdge[1] = currentLocation[1] - 0.01
+}
+else{
+buildingCoordinateEdge[1] = buildingCoordinate[1] - 0.01
+currentLocationEdge[1] = currentLocation[1] - 0.01
+}
+
+      
+      map.fitBounds([
+buildingCoordinateEdge,
+currentLocationEdge 
+]);
+
+    });
+    }
+
+// Area of refuge
+
+function showAreaOfRefuge(results){
+  
+  console.log(results);
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = ""
+  mainView.innerHTML = "";
+
+  // Set title
+  firstTitle = "Name";
+  secondTitle = "Capacity";
+  thirdTitle = "Location";
+
+  containerClass = "area-of-refuge";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+  thirdCellStatus = "neutral";
+
+  createThreeColumnContainer(
+    mainView,
+    firstTitle,
+    secondTitle,
+    secondCellStatus,
+    thirdTitle,
+    thirdCellStatus,
+    containerID,
+    containerClass
+  );
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    hasName = results[i]["hasName"];
+    hasCapacity = results[i]["hasCapacity"] + " People";
+    hasLocation = results[i]["hasLocation"];
+
+    firstCell = hasName
+    secondCell = hasCapacity
+    thirdCell = hasLocation
+console.log(firstCell)
+
+    containerID = i;
+
+    createThreeColumnContainer(
+      mainView,
+      firstCell,
+      secondCell,
+    secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      containerClass
+    );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      add2DViewer(graphicDataContainer)
+    });
+  }
+
+enableNavigation()
+}
+
+
+
+// FARS Fill Stations
+
+function showFarsFillStations(results){
+  
+  console.log(results);
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "five-columns"
+  mainView.innerHTML = "";
+
+  // Set title
+  firstCell = "FARS Fill Station";
+  secondCell = "Floor";
+  thirdCell = "Fill Pressure";
+  fourthCell = "Fill Time";
+ fifthCell = "Simultaneous Fills";
+
+  containerClass = "area-of-refuge";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+  thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
+  fifthCellStatus = "neutral";
+
+  createFiveColumnContainer(
+    mainView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+    fifthCell,
+    fifthCellStatus,
+    containerID,
+    containerClass
+  );
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    hasName = i + 1;
+    hasOnFloor = results[i]["hasOnFloor"] ;
+    fillPressure = results[i]["hasFillPressure"] + 
+                      " " + results[i]["hasFillPressureUnit"]
+ 
+    fillTime = results[i]["hasFillTime"] + 
+                      " " + results[i]["hasFillTimeUnit"]
+    numberOfSimultaneousFill = results[i]["hasNumberOfSimultaneousFill"] ;
+
+    firstCell = hasName
+    secondCell = hasOnFloor
+    thirdCell = fillPressure
+    fourthCell = fillTime
+    fifthCell = numberOfSimultaneousFill
+    
+
+    containerID = i;
+
+    
+  createFiveColumnContainer(
+    mainView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+    fifthCell,
+    fifthCellStatus,
+    containerID,
+    containerClass
+  );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      add2DViewer(graphicDataContainer)
+    });
+  }
+
+enableNavigation()
+}
+
+// Emergency Power Outlets
+
+function showEmergencyPowerOutlets(results){
+  
+  console.log(results);
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "two-columns"
+  mainView.innerHTML = "";
+
+
+  // Set title
+  firstCell = "Floor";
+  secondCell = "Outlet Type";
+
+  containerClass = "area-of-refuge";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+
+  createTwoColumnContainer(
+    mainView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    containerID,
+    containerClass
+  );
+
+
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    
+    hasLocation = results[i]["hasLocation"] ;
+    hasType = results[i]["hasType"] 
+
+    firstCell = hasLocation
+    secondCell = hasType
+    
+
+    containerID = i;
+    
+  createTwoColumnContainer(
+    contentView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    containerID,
+    containerClass
+  );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      add2DViewer(graphicDataContainer)
+    });
+  }
+
+enableNavigation()
+}
+
+
+// Smoke And Heat Removal System
+
+function showSmokeAndHeatRemovalSystem(results){
+  
+  console.log(results);
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "three-columns"
+  mainView.innerHTML = "";
+
+
+  // Set title
+  firstCell = "Floor";
+  secondCell = "System Type";
+  thirdCell = "State";
+
+  containerClass = "area-of-refuge";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+  thirdCellStatus = "neutral",
+
+  createThreeColumnContainer(
+    mainView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    containerID,
+    containerClass
+  );
+
+
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    
+    hasLocation = results[i]["hasLocation"] 
+    hasType = results[i]["hasType"] 
+    isSystemActivated = results[i]["isSystemActivated"] 
+
+    firstCell = hasLocation
+    secondCell = hasType
+    if (isSystemActivated) {
+      thirdCell = "Activated";
+      thirdCellStatus = "positive";
+    } else {
+      thirdCell = "Not Activated";
+      thirdCellStatus = "negative";
+    }
+    
+
+    containerID = i;
+    
+  createThreeColumnContainer(
+    contentView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    containerID,
+    containerClass
+  );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      add2DViewer(graphicDataContainer)
+    });
+  }
+
+enableNavigation()
+}
+
+// Smoke Control System
+
+function showSmokeControlSystem(results){
+  
+  console.log(results);
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "four-columns"
+  mainView.innerHTML = "";
+
+
+  // Set title
+  firstCell = "Coverage Zone";
+  secondCell = "System Type";
+  thirdCell = "Control Panel";
+  fourthCell = "State";
+
+  containerClass = "area-of-refuge";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+  thirdCellStatus = "neutral",
+  fourthCellStatus = "neutral",
+
+  createFourColumnContainer(
+    mainView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+    containerID,
+    containerClass
+  );
+
+
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    
+    coverageZone = results[i]["hasCoverageZone"] 
+    hasType = results[i]["hasType"] 
+    isSystemActivated = results[i]["isSystemActivated"] 
+    controlPanel =  results[i]["hasControlPanel"]["hasName"] 
+
+    firstCell = coverageZone
+    secondCell = hasType
+    thirdCell = "<a href '#'>"+ controlPanel + "<a/>"
+
+    if (isSystemActivated) {
+      fourthCell = "Activated";
+      fourthCellStatus = "negative";
+    } else {
+      fourthCell = "Not Activated";
+      fourthCellStatus = "positive";
+    }
+    
+
+    containerID = i;
+    
+  createFourColumnContainer(
+    contentView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+    containerID,
+    containerClass
+  );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      add2DViewer(graphicDataContainer)
+    });
+  }
+
+enableNavigation()
+}
+
+// Fire Pump
+
+function showFirePump(results){
+  
+  console.log(results);
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "two-columns"
+  mainView.innerHTML = "";
+
+
+  // Set title
+  firstCell = "Fire Pump";
+  secondCell = "Location";
+
+  containerClass = "fire-pump";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+
+  createTwoColumnContainer(
+    mainView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    containerID,
+    containerClass
+  );
+
+
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    
+    hasLocation = results[i]["hasLocation"] 
+
+    firstCell = i + 1
+    secondCell = hasLocation
+    
+
+    containerID = i;
+    
+  createTwoColumnContainer(
+    contentView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    containerID,
+    containerClass
+  );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      add2DViewer(graphicDataContainer)
+    });
+  }
+
+enableNavigation()
+}
+
+
+// Mass Notification System
+
+function showMassNotificationSystem(results){
+  
+  console.log(results);
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "three-columns"
+  mainView.innerHTML = "";
+
+
+  // Set title
+  firstCell = "Coverage Zone";
+  secondCell = "System Type";
+  thirdCell = "Control Panel";
+
+  containerClass = "mass-notification-system";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+  thirdCellStatus = "neutral",
+
+  createThreeColumnContainer(
+    mainView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    containerID,
+    containerClass
+  );
+
+  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    
+    coverageZone = results[i]["hasCoverageZone"] 
+    hasType = results[i]["hasType"] 
+    controlPanel =  results[i]["hasControlPanel"]["hasName"] 
+
+    firstCell = coverageZone
+    secondCell = hasType
+    thirdCell = "<a href '#'>"+ controlPanel + "<a/>"
+
+
+    containerID = i;
+    
+  createThreeColumnContainer(
+    contentView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    containerID,
+    containerClass
+  );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      add2DViewer(graphicDataContainer)
+    });
+  }
+
+enableNavigation()
+}
+
+
+// Extremely Valuable Materials
+
+function showExtremelyValuableMaterials(results){
+  
+  console.log(results);
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "three-columns"
+  mainView.innerHTML = "";
+
+
+  // Set title
+  firstCell = "Location";
+  secondCell = "Description";
+
+  containerClass = "extremely-valuable-materials";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+
+  createTwoColumnContainer(
+    mainView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    containerID,
+    containerClass
+  );
+
+  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    
+    hasLocation = results[i]["hasLocation"] 
+    hasDescription = results[i]["hasDescription"] 
+
+    firstCell = hasLocation
+    secondCell = hasDescription
+
+
+    containerID = i;
+    
+  createTwoColumnContainer(
+    contentView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    containerID,
+    containerClass
+  );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      add2DViewer(graphicDataContainer)
+    });
+  }
+
+enableNavigation()
+}
+
+
+// Helipad
+
+function showHelipad(results){
+  
+  console.log(results);
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "three-columns"
+  mainView.innerHTML = "";
+
+
+  // Set title
+  firstCell = "Location";
+  secondCell = "Description";
+
+  containerClass = "extremely-valuable-materials";
+  containerID = "header";
+
+  secondCellStatus = "neutral",
+
+  createTwoColumnContainer(
+    mainView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    containerID,
+    containerClass
+  );
+
+  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    
+    hasLocation = results[i]["hasLocation"] 
+    hasDescription = results[i]["hasDescription"] 
+
+    firstCell = hasLocation
+    secondCell = hasDescription
+
+
+    containerID = i;
+    
+  createTwoColumnContainer(
+    contentView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    containerID,
+    containerClass
+  );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      add2DViewer(graphicDataContainer)
+    });
+  }
+
+enableNavigation()
+}
+
+// Building Plans
+
+function showBuildingPlans(results){
+  
+  console.log(results);
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "three-columns"
+  mainView.innerHTML = "";
+
+
+  // Set title
+  firstCell = "Floor";
+  secondCell = "Plan Type";
+  threeCell = "Location of Plan";
+
+  containerClass = "building-plans";
+  containerID = "header";
+
+    secondCellStatus = "neutral"
+  threeCellStatus = "neutral"
+
+  createThreeColumnContainer(
+    mainView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    threeCell,
+    threeCellStatus,
+    containerID,
+    containerClass
+  );
+
+  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    
+    hasFloor = results[i]["hasFloor"] 
+    hasType = results[i]["hasType"] 
+    planLocation = results[i]["hasPlanLocation"] 
+
+    firstCell = hasFloor
+    secondCell = hasType
+    threeCell = planLocation
+
+
+    containerID = i;
+    
+  createThreeColumnContainer(
+    contentView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    threeCell,
+    threeCellStatus,
+    containerID,
+    containerClass
+  );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      add2DViewer(graphicDataContainer)
+    });
+  }
+
+enableNavigation()
+}
+
+// Fire Command Center
+
+function showFireCommandCenter(results){
+  
+  console.log(results);
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "three-columns"
+  mainView.innerHTML = "";
+
+
+  // Set title
+  firstCell = "Floor";
+  secondCell = "Plan Type";
+  threeCell = "Location of Plan";
+
+  containerClass = "building-plans";
+  containerID = "header";
+
+    secondCellStatus = "neutral"
+  threeCellStatus = "neutral"
+
+  createThreeColumnContainer(
+    mainView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    threeCell,
+    threeCellStatus,
+    containerID,
+    containerClass
+  );
+
+  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    
+    hasFloor = results[i]["hasFloor"] 
+    hasType = results[i]["hasType"] 
+    planLocation = results[i]["hasPlanLocation"] 
+
+    firstCell = hasFloor
+    secondCell = hasType
+    threeCell = planLocation
+
+
+    containerID = i;
+    
+  createThreeColumnContainer(
+    contentView,
+    firstCell,
+    secondCell,
+    secondCellStatus,
+    threeCell,
+    threeCellStatus,
+    containerID,
+    containerClass
+  );
+  }
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].id == "header") continue;
+    allContainers[i].addEventListener("click", function (event) {
+      additionalGraphicData = true;
+      addMoreContentContainer(
+        event,
+        allContainers,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+      // Add additional data
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      add2DViewer(graphicDataContainer)
+    });
+  }
+
+enableNavigation()
+}
+
+
+
+// Show fire Incident Building
+function showFireCommandCenter(results) {
+
+  console.log(results["contains"]);
+  // Get data
+
+  keyLocated = results["fireCommandCenter"][0]["hasKeyLocated"];
+  hasLocation = results["fireCommandCenter"][0]["hasLocation"];
+  contains = results["contains"];
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  
+  mainView.id = ""
+  mainView.innerHTML = "";
+
+  // Location
+  subjectLabel = "Location:";
+  subjectValue = hasLocation;
+  containerID = "location-container";
+  isMore = false;
+
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // key Located
+  subjectLabel = "Location of Key:";
+  subjectValue = keyLocated;
+  containerID = "key-located-container";
+  isMore = false;
+
+  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+  // Contain list
+  
+  containContainer = document.createElement("div");
+  containContainer.id = "contain-container";
+  containContainer.className = "parent-container";
+  mainView.appendChild(containContainer);
+  
+  labelContainer = document.createElement("div");
+  labelContainer.id = "label-container";
+  labelContainer.innerText = "Contains:"
+  containContainer.appendChild(labelContainer);
+  
+  contentContainer = document.createElement("div");
+  contentContainer.id = "content-container";
+  containContainer.appendChild(contentContainer);
+
+  for (i = 0; i < contains.length; i++)
+  {
+  itemContainer = document.createElement("a");
+  itemContainer.href = "#"
+  itemContainer.className = "content-item";
+  itemContainer.innerHTML = contains[i]["hasName"]
+  contentContainer.appendChild(itemContainer);
+
+  }
+
+
+  // More container
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  mainView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  allContainers = document.querySelectorAll(".parent-container");
+  
+  for (i = 0; i < allContainers.length; i++) {
+
+    if (allContainers[i].id == "location-container") {
+      allContainers[i].addEventListener("click", function (event) {
+        
+        additionalGraphicData = true;
+        addMoreContentContainer(
+          event,
+          allContainers,
+          additionalWrittenData,
+          additionalGraphicData
+        );
+        // Get graphical data container
+        graphicDataContainer = document.querySelector(
+          "#graphic-data-container"
+        );
+        
+        add2DViewer(graphicDataContainer)
+      });
+    }
+  }
+  
+enableNavigation()
+
 }

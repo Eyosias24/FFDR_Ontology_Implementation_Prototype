@@ -11,7 +11,7 @@ class FirePump(BuildingSafetySystem):
 	def serialize(self):
 		return {
 			'hasLocation': self.hasLocation, 
-		} 
+		} | super().serialize()
 
 	def __str__(self):
 		return f"Fire Pump: {self.hasLocation}"   

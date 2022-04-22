@@ -14,4 +14,4 @@ class EmergencyPowerOutlet(BuildingSafetySystem):
 		return {
 			'hasLocation': self.hasLocation, 
 			'hasType': self.hasType, 
-		} 
+		} | super().serialize()

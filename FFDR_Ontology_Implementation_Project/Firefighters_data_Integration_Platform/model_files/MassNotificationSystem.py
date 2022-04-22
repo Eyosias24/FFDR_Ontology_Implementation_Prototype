@@ -19,7 +19,7 @@ class MassNotificationSystem(BuildingSafetySystem):
 			'hasControlPanel': self.hasControlPanel.serialize() if not self.hasControlPanel == None else '', 
 			'hasCoverageZone': self.hasCoverageZone, 
 			'hasType': self.hasType, 
-		}
+		} | super().serialize()
 
 	def __str__(self):
 		return f"Fire Pump: {self.hasCoverageZone}"    

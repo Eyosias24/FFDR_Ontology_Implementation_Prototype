@@ -12,7 +12,7 @@ class ParkingLot(SurroundingStructure):
 		return {
 			'hasArea': self.hasArea, 
 			'hasAreaUnit': self.hasAreaUnit, 
-		}
+		} | super().serialize()
 
 	def __str__(self):
 		return f"Parking Lot: {self.hasName} "  

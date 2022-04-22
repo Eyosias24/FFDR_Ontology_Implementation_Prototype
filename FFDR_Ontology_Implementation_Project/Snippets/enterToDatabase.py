@@ -1,4 +1,6 @@
 
+
+
 data = Door(
 								hasProjectName=project[0],
 								hasMaterial = material,
@@ -317,4 +319,91 @@ def testApi(request):
 
 	print(response.text)
 	return HttpResponse(response.text)
+
+
+
+# Hallway
+
+
+def add (request):	
+	
+	project = IncidentBuilding.objects.all()
+
+	FloorsNumber = [
+			  {"floor":"First Floor",
+			  "floorNumber":"1"},
+			  {"floor":"Second Floor",
+			  "floorNumber":"2"},
+			  {"floor":"Third Floor",
+			  "floorNumber":"3"},
+			  {"floor":"Fourth Floor",
+			  "floorNumber":"4"},
+			  {"floor":"Fifth Floor",
+			  "floorNumber":"5"},
+			  {"floor":"Sixth Floor",
+			  "floorNumber":"6"},
+			  {"floor":"Seventh Floor",
+			  "floorNumber":"7"},
+			  {"floor":"Eighth Floor",
+			  "floorNumber":"8"}
+			]
+
+	
+	Types = ["Type A", "Type F"]
+	
+	for Floor in FloorsNumber:
+			for Type in Types:
+
+				data = EmergencyPowerOutlet(
+				hasProjectName=project[0],
+				hasType=Type, 
+				hasLocation=Floor["floor"]
+							)
+				data.save()
+	
+	return HttpResponse("Success!")
+
+
+
+
+def add (request):	
+	
+	project = IncidentBuilding.objects.all()
+	fireCommandCenter = FireCommandCenter.objects.all()
+
+	FloorsNumber = [
+			  {"floor":"Basement",
+			  "floorNumber":"-1"},
+			  {"floor":"First Floor",
+			  "floorNumber":"1"},
+			  {"floor":"Second Floor",
+			  "floorNumber":"2"},
+			  {"floor":"Third Floor",
+			  "floorNumber":"3"},
+			  {"floor":"Fourth Floor",
+			  "floorNumber":"4"},
+			  {"floor":"Fifth Floor",
+			  "floorNumber":"5"},
+			  {"floor":"Sixth Floor",
+			  "floorNumber":"6"},
+			  {"floor":"Seventh Floor",
+			  "floorNumber":"7"},
+			  {"floor":"Eighth Floor",
+			  "floorNumber":"8"}
+			]
+
+	
+	Types = ["Architectural Plan", "Structural Plan"]
+	
+	for Floor in FloorsNumber:
+			for Type in Types:			
+
+				data = BuildingPlan(
+				hasFloor=Floor["floor"],
+				hasType = Type,
+				hasPlanLocation=fireCommandCenter[0], 
+							)
+				data.save()
+	
+	return HttpResponse("Success!")
 

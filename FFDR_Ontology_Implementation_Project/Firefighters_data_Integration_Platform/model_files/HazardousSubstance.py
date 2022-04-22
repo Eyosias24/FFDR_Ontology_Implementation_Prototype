@@ -21,6 +21,6 @@ class HazardousSubstance(BuildingComponent):
 			'hasLocation': self.hasLocation, 
 			'hasSpecialHazard': self.hasSpecialHazard, 
 			'isDecontaminationRequired': self.isDecontaminationRequired, 
-		} 
+		}  | super().serialize()
 	def __str__(self):
 		return  f"Hazardous Substance: {self.hasName}"  

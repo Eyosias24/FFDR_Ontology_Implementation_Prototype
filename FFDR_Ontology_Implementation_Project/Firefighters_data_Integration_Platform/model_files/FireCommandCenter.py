@@ -15,8 +15,7 @@ class FireCommandCenter(models.Model):
 
 	def serialize(self):
 		return {
-			'hasProjectName': self.hasProjectName,
-			'contains': self.contains.serialize() if not self.contains == None else '', 
+			'hasProjectName': self.hasProjectName.serialize() if not self.hasProjectName == None else '', 			
 			'hasKeyLocated': self.hasKeyLocated, 
 			'hasLocation': self.hasLocation, 
 		}

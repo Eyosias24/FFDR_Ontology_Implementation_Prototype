@@ -22,10 +22,12 @@ class FarsFillStation(BuildingSafetySystem):
 			'hasControlPanel': self.hasControlPanel.serialize() if not self.hasControlPanel == None else '', 
 			'hasOnFloor': self.hasOnFloor, 
 			'hasFillPressure': self.hasFillPressure, 
+			'hasFillPressureUnit': self.hasFillPressureUnit, 
 			'hasFillTime': self.hasFillTime, 
+			'hasFillTimeUnit': self.hasFillTimeUnit, 
 			'hasLocation': self.hasLocation, 
 			'hasNumberOfSimultaneousFill': self.hasNumberOfSimultaneousFill, 
-		} 
+		} | super().serialize()
 
 	def __str__(self):
 		return f"FARS Fill Station: On {self.hasOnFloor}"  

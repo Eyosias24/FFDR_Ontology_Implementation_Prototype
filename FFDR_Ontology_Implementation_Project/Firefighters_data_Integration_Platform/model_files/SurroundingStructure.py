@@ -7,7 +7,7 @@ incident building (the building with a fire emergency).
 '''
 class SurroundingStructure(models.Model):
 	hasProjectName = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING) 
-	hasName = models.CharField(max_length=80)
+	hasName = models.CharField(max_length=80) 
 	hasDistanceFromIncidentBuilding = models.FloatField(blank=True)
 	hasDistanceUnit = models.CharField(max_length=80, blank=True)
 	hasLocation = models.TextField(blank=True)

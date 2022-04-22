@@ -16,7 +16,7 @@ class SmokeandHeatRemovalSystem(BuildingSafetySystem):
 			'hasType': self.hasType, 
 			'hasLocation': self.hasLocation, 
 			'isSystemActivated': self.isSystemActivated, 
-		}
+		} | super().serialize()
 
 	def __str__(self):
 		return f"Smoke Control System: {self.hasLocation}"      

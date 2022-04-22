@@ -6,7 +6,7 @@ designated for fire apparatus (NFPA 1).
 '''
 class FireLane(Road):
 	hasAccessBarrierType = models.CharField(blank=True, max_length=80)
-	hasAnglesOfApproach = models.FloatField(blank=True)
+	hasAngleOfApproach = models.FloatField(blank=True)
 	hasTurningRadius = models.FloatField(blank=True)
 	hasTurningRadiusUnit = models.CharField(blank=True, max_length=80)
 	hasVerticalClearance = models.FloatField(blank=True)
@@ -16,9 +16,9 @@ class FireLane(Road):
 	def serialize(self):
 		return {
 			'hasAccessBarrierType': self.hasAccessBarrierType, 
-			'hasAnglesOfApproach': self.hasAnglesOfApproach, 
+			'hasAngleOfApproach': self.hasAngleOfApproach, 
 			'hasTurningRadius': self.hasTurningRadius, 
 			'hasTurningRadiusUnit': self.hasTurningRadiusUnit, 
 			'hasVerticalClearance': self.hasVerticalClearance, 
-			'hasVerticalClearanceUnit': self.hasVerticalClearance, 
-		} 
+			'hasVerticalClearanceUnit': self.hasVerticalClearanceUnit, 
+		} | super().serialize()

@@ -4,18 +4,23 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
 
-    # Trimble connect
-    path("trim", views.trim, name="trim"),
+    
+    # path("add", views.add, name="add"),
+
 
 # Get single IncidentBuilding item API route
 path('incident_building/<str:projectName>', views.get_incident_building, name='get_incident_building'),
 
 
-# path('add', views.add, name='add'),
-
 
 # Get single contact_addresses item API route
 path('contact_addresses/<str:projectName>', views.get_contact_addresses, name='get_contact_addresses'),
+
+# Get single contact addresses item API route
+path('building_plans/<str:projectName>', views.get_building_plans, name='get_building_plans'),
+
+# Get single fire command center item API route
+path('fire_command_center/<str:projectName>', views.get_fire_command_center, name='get_fire_command_center'),
 
 # Get AutomaticFireExtinguishingSystem for a project API route
 path('automatic_fire_extinguishing_system/<str:projectName>', views.get_automatic_fire_extinguishing_system, name='get_automatic_fire_extinguishing_system'),
@@ -46,13 +51,42 @@ path('standpipe_system/<str:projectName>', views.get_standpipe_system, name='get
 path('sensors_and_detectors/<str:projectName>', views.get_sensor_and_detector, name='get_sensor_and_detector'),
 
 # Get single fire and smoke protection elements item API route
-path('fire-and-smoke-protection-elements/<str:projectName>', views.get_fire_and_smoke_protection_elements, name='get_fire_and_smoke_protection_elements'),
+path('fire_and_smoke_protection_elements/<str:projectName>', views.get_fire_and_smoke_protection_elements, name='get_fire_and_smoke_protection_elements'),
+
+
+# Get single area of refuge item API route
+path('area_of_refuge/<str:projectName>', views.get_area_of_refuge, name='get_area_of_refuge'),
+
+# Get single FARS fill stations item API route
+path('fars_fill_stations/<str:projectName>', views.get_fars_fill_stations, name='get_fars_fill_stations'),
+
+# Get single emergency power outlets item API route
+path('emergency_power_outlets/<str:projectName>', views.get_emergency_power_outlets, name='get_emergency_power_outlets'),
+
+# Get single smoke and heat removal system item API route
+path('smoke_and_heat_removal_system/<str:projectName>', views.get_smoke_and_heat_removal_system, name='get_smoke_and_heat_removal_system'),
+
+# Get single smoke control system item API route
+path('smoke_control_system/<str:projectName>', views.get_smoke_control_system, name='get_smoke_control_system'),
+
+# Get single smoke control system item API route
+path('fire_pump/<str:projectName>', views.get_fire_pump, name='get_fire_pump'),
+
+# Get single mass notification system item API route
+path('mass_notification_system/<str:projectName>', views.get_mass_notification_system, name='get_mass_notification_system'),
 
 # Get single Facade item API route
 path('facade/<str:projectName>', views.get_facade, name='get_facade'),
 
-# Get single RoofTopElement item API route
+# Get single Roof Top Element item API route
 path('roof_top_element/<str:projectName>', views.get_roof_top_element, name='get_roof_top_element'),
+
+# Get single extremely valuable materials item API route
+path('extremely_valuable_materials/<str:projectName>', views.get_extremely_valuable_materials, name='get_extremely_valuable_materials'),
+
+
+# Get single helipad item API route
+path('helipad/<str:projectName>', views.get_helipad, name='get_helipad'),
 
 # Get single KeyBox item API route
 path('key_box/<str:projectName>', views.get_key_box, name='get_key_box'),
@@ -99,4 +133,17 @@ path('hallway/<str:projectName>', views.get_hallway, name='get_hallway'),
 
 # Get single hallway item API route
 path('structural-elements/<str:projectName>', views.get_structural_elements, name='get_structural_elements'),
+
+# Get single surroundings item API route
+path('surroundings/<str:projectName>', views.get_surroundings, name='get_surroundings'),
+
+# Get single WaterSource item API route
+path('water_source/<str:projectName>', views.get_water_source, name='get_water_source'),
+
+# Get single FireLane item API route
+path('fire_lane/<str:projectName>', views.get_fire_lane, name='get_fire_lane'),
+
+# Get single RoadToIncident item API route
+path('road_to_incident/<str:projectName>', views.get_road_to_incident, name='get_road_to_incident'),
+
 ]  

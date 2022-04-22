@@ -5,4 +5,5 @@ The 'Pipeline' class represents pipelines located near an incident
 building.
 '''
 class Pipeline(SurroundingStructure):
-	pass
+	def serialize(self):
+		return super().serialize()

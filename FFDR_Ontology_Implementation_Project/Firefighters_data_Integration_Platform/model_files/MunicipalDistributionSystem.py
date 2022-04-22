@@ -13,8 +13,8 @@ class MunicipalDistributionSystem(WaterSource):
 	def serialize(self):
 		return {
 			'hasPressure': self.hasPressure, 
-			'hasPressureUnit': self.hasPressure, 
-		}
+			'hasPressureUnit': self.hasPressureUnit, 
+		} | super().serialize()
 
 	def __str__(self):
 		return f"{self.hasName}"  

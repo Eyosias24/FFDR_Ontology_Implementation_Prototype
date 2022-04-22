@@ -5,4 +5,5 @@ The 'PowerLine' class represents power lines located near an incident
 building.
 '''
 class PowerLine(SurroundingStructure):
-	pass
+	def serialize(self):
+		return super().serialize()

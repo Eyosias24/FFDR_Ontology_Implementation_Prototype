@@ -13,7 +13,7 @@ class Vegetation(SurroundingStructure):
 		return {
 			'hasFlammabilityLevel': self.hasFlammabilityLevel, 
 			'hasSpecies': self.hasSpecies, 
-		} 
+		} | super().serialize()
 
 	def __str__(self):
 		return f"{self.__class__.__name__}: {self.hasName}" 

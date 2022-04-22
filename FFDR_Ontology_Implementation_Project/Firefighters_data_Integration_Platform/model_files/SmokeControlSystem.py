@@ -22,7 +22,7 @@ class SmokeControlSystem(BuildingSafetySystem):
 			'hasCoverageZone': self.hasCoverageZone, 
 			'hasType': self.hasType, 
 			'isSystemActivated': self.isSystemActivated, 
-		}
-
+		} | super().serialize()
+		
 	def __str__(self):
 		return f"Smoke Control System: {self.hasCoverageZone}"      

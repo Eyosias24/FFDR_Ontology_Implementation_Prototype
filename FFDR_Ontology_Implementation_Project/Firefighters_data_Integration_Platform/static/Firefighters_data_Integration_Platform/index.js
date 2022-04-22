@@ -21,6 +21,27 @@ document.addEventListener("DOMContentLoaded", function () {
       getContactAddresses(projectTitle);
     });
 
+
+  // building plans view
+  document
+    .querySelector("#building-plans")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getBuildingPlans(projectTitle);
+    });
+
+
+
+
+  // fire command center view
+  document
+    .querySelector("#fire-command-center")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getFireCommandCenter(projectTitle);
+    });
+
+
   // Automatic fire extinguishing system view
   document
     .querySelector("#automatic-fire-extinguishing-system")
@@ -102,12 +123,118 @@ document.addEventListener("DOMContentLoaded", function () {
       getFireAndSmokeProtectionElements(projectTitle);
     });
 
+
+  // Area of refuge view
+  document
+    .querySelector("#area-of-refuge")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getAreaOfRefuge(projectTitle);
+    });
+
+
+  // FARS fill stations view
+  document
+    .querySelector("#fars-fill-stations")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getFarsFillStations(projectTitle);
+    });
+
+  // emergency power outlets view
+  document
+    .querySelector("#emergency-power-outlets")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getEmergencyPowerOutlets(projectTitle);
+    });
+
+
+  // smoke and heat removal system view
+  document
+    .querySelector("#smoke-and-heat-removal-system")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getSmokeAndHeatRemovalSystem(projectTitle);
+    });
+
+
+  // Smoke control system view
+  document
+    .querySelector("#smoke-control-system")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getSmokeControlSystem(projectTitle);
+    });
+
+
+
+
+  // fire pump view
+  document
+    .querySelector("#fire-pump")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getFirePump(projectTitle);
+    });
+
+   
+
+  // Mass notification system view
+  document
+    .querySelector("#mass-notification-system")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getMassNotificationSystem(projectTitle);
+    });
+
+
   // Facade view
   document.querySelector("#facade").addEventListener("click", function (event) {
     changeActiveButton(event.target);
     getFacade(projectTitle);
   });
 
+// Define result containers
+
+contactAddressResults = {}
+incidentBuildingResults = {}
+BuildingPlansResults = {}
+fireCommandCenterResults = {}
+
+fireExtinguishingSystemResults = {}
+portableFireExtinguisherResults = {}
+fireAlarmSystemResults={}
+fireDepartmentConnectionsResults = {}
+fireHoseConnectionResults = {}
+standpipeSystemResults = {}
+sensorsAndDetectorsResults = {}
+fireAndSmokeProtectionElementsResults = {}
+areaOfRefugeResults = {}
+farsFillStationsResults = {}
+EmergencyPowerOutletsResults = {}
+smokeAndHeatRemovalSystemResults = {}
+smokeControlSystemResults = {}
+firePumpResults = {}
+massNotificationSystemResults = {}
+
+fireHydrantResults = {}
+buildingUtilitySystemResults = {}
+structuralElementsResults = {}
+keyBoxResults = {}
+hazardousMaterialResults = {}
+concealedSpaceResults = {}
+verticalOpeningResults = {}
+roofTopElementResults = {}
+extremelyValuableMaterialsResults  = {}
+helipadResults  = {}
+
+facadeResults = {}
+weatherConditionResults= {}
+surroundingsResults = {}
+waterSourceResults= {}
+fireLaneResults  = {}
+roadToIncidentResults = {}
   // non structural elements view
   // Define data containers
   doorData = []
@@ -175,11 +302,76 @@ hallwayData = []
       getRoofTopElement(projectTitle);
     });
 
+
+
+  // extremely valuable materials view
+  document
+    .querySelector("#extremely-valuable-materials")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getExtremelyValuableMaterials(projectTitle);
+    });
+
+
+
+  // helipad view
+  document
+    .querySelector("#helipad")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getHelipad(projectTitle);
+    });
+
+
+// Road to incident view
+document
+  .querySelector("#road-to-incident")
+  .addEventListener("click", function (event) {
+    changeActiveButton(event.target);
+    getRoadToIncident(projectTitle);
+  });
+
+    
+  // fire lane view
+  document
+    .querySelector("#fire-lane")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getFireLane(projectTitle);
+    });
+
+
+  // Water source view
+  document
+    .querySelector("#water-source")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getWaterSource(projectTitle);
+    });
+
+  // Weather Condition view
+  document
+    .querySelector("#weather-condition")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getWeatherCondition(projectTitle);
+    });
+
+    
+
+  // Surrounding structures view
+  document
+    .querySelector("#surroundings")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getSurroundings(projectTitle);
+    });
+
   document.querySelector("#incident-building").click();
 });
 
 function changeActiveButton(newActiveButton) {
-  currentActiveButton = document.getElementsByClassName("active");
+  currentActiveButton = document.getElementsByClassName("button active");
   if (currentActiveButton.length > 0)
     currentActiveButton[0].className = "button";
   newActiveButton.className += " active";
@@ -194,7 +386,6 @@ function loadNavPanels() {
 
   // List of items to be placed on the navigation panels
   topNavItems = [
-    "Incident Site",
     "Incident Building",
     "Contact Addresses",
     "Building Plans",
@@ -211,10 +402,11 @@ function loadNavPanels() {
     "Concealed Spaces",
     "Vertical Openings",
     "Roof Top Element",
+    "Extremely Valuable Materials",
+    "Helipad",
   ];
   moreRightNavItems = [
     "Extremely Valuable Materials",
-    "Area of Refuge",
     "Helipad",
   ];
 
@@ -233,7 +425,6 @@ function loadNavPanels() {
     "Vegetation",
     "Hazardous Materials",
     "Obstructions",
-    "Fire Hydrant",
     "Parking Lot",
     "Pipeline",
     "PowerLine",
@@ -248,6 +439,13 @@ function loadNavPanels() {
     "Standpipe System",
     "Sensors and Detectors",
     "Fire and Smoke Protection Elements",
+    "Area of Refuge",
+    "FARS Fill Stations",
+    "Emergency Power Outlets",
+    "Smoke and Heat Removal System",
+    "Smoke Control System",
+    "Fire Pump",
+    "Mass Notification System",
   ];
   moreLeftNavItems = [
     "FARS Fill Stations",
@@ -263,18 +461,27 @@ function loadNavPanels() {
   headingItem.id = "right-nav-heading";
   headingItem.innerText = "Building Components";
   rightNav.appendChild(headingItem);
+
+  var rightNavContentContainer = document.createElement("div");
+  rightNavContentContainer.id = "right-nav-content";
+  rightNav.appendChild(rightNavContentContainer);
+
   // Left navigation panel
   var headingItem = document.createElement("p");
   headingItem.id = "left-nav-heading";
   headingItem.innerText = "Building Safety Systems";
   leftNav.appendChild(headingItem);
 
+  var leftNavContentContainer = document.createElement("div");
+  leftNavContentContainer.id = "left-nav-content";
+  leftNav.appendChild(leftNavContentContainer);
+
   // Add items to the navigation panels
   for (i = 0; i < topNavItems.length; i++) {
     addItemToNav(topNav, topNavItems[i]);
   }
   for (i = 0; i < rightNavItems.length; i++) {
-    addItemToNav(rightNav, rightNavItems[i]);
+    addItemToNav(rightNavContentContainer, rightNavItems[i]);
   }
 
   for (i = 0; i < bottomNavItems.length; i++) {
@@ -282,7 +489,7 @@ function loadNavPanels() {
   }
 
   for (i = 0; i < leftNavItems.length; i++) {
-    addItemToNav(leftNav, leftNavItems[i]);
+    addItemToNav(leftNavContentContainer, leftNavItems[i]);
   }
 }
 function addItemToNav(nav, item) {
@@ -298,8 +505,7 @@ function addItemToNav(nav, item) {
 }
 
 function weatherCondition() {
-  // Get main container
-  WeatherConditionContainer = document.querySelector("#main_container");
+  
   fetch(
     "https://api.openweathermap.org/data/2.5/weather?q=Portland&units=metric&appid=0fa663749dc11a9e6dcec438f2679b2d"
   )
