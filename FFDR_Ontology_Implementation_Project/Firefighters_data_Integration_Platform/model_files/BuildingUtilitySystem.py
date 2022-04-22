@@ -1,4 +1,4 @@
-from asyncio.windows_events import NULL
+
 from django.db import models
 from .BuildingComponent import BuildingComponent
 from .UtilityContactAddress import UtilityContactAddress
