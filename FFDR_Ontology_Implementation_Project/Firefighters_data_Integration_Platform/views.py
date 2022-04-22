@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 
-
 from .models import *
 import requests
 import json
@@ -486,7 +485,7 @@ def get_door(request, projectName):
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
-	# Get all roofTopElement for the project
+	# Get all Door for the project
 	door = Door.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in door], safe=False)
 
@@ -496,7 +495,7 @@ def get_window(request, projectName):
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
-	# Get all roofTopElement for the project
+	# Get all Window for the project
 	windows = Window.objects.filter(hasProjectName=incidentBuilding)
 	
 	return JsonResponse([item.serialize() for item in windows], safe=False)
@@ -506,7 +505,7 @@ def get_elevator(request, projectName):
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
-	# Get all roofTopElement for the project
+	# Get all Elevator for the project
 	elevators = Elevator.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in elevators], safe=False)
 
@@ -516,7 +515,7 @@ def get_stairway(request, projectName):
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
-	# Get all roofTopElement for the project
+	# Get all Stairway for the project
 	stairway = Stairway.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in stairway], safe=False)
 
@@ -525,7 +524,7 @@ def get_ramp(request, projectName):
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
-	# Get all roofTopElement for the project
+	# Get all Ramp for the project
 	ramp = Ramp.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in ramp], safe=False)
 
@@ -534,7 +533,7 @@ def get_wall(request, projectName):
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
-	# Get all roofTopElement for the project
+	# Get all Wall for the project
 	wall = Wall.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in wall], safe=False)
 
@@ -543,7 +542,7 @@ def get_floor_assembly(request, projectName):
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
-	# Get all roofTopElement for the project
+	# Get all Floor Assembly for the project
 	floorAssembly = FloorAssembly.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in floorAssembly], safe=False)
 
@@ -553,7 +552,7 @@ def get_roof_assembly(request, projectName):
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
-	# Get all roofTopElement for the project
+	# Get all Roof Assembly for the project
 	roofAssembly = RoofAssembly.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in roofAssembly], safe=False)
 
@@ -562,7 +561,7 @@ def get_balcony(request, projectName):
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
-	# Get all roofTopElement for the project
+	# Get all Balcony for the project
 	balcony = Balcony.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in balcony], safe=False)
 
@@ -571,7 +570,7 @@ def get_hallway(request, projectName):
 	# Get current project
 	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
 
-	# Get all roofTopElement for the project
+	# Get all Hallway for the project
 	hallway = Hallway.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in hallway], safe=False)
 
@@ -583,6 +582,57 @@ def get_structural_elements(request, projectName):
 	# Get all structuralElements for the project
 	structuralElements = StructuralElement.objects.filter(hasProjectName=incidentBuilding)
 	return JsonResponse([item.serialize() for item in structuralElements], safe=False)
+
+# Non structural elements
+def get_non_structural_elements(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+
+	# Get all Door for the project
+	door = Door.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get all Window for the project
+	windows = Window.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get all Elevator for the project
+	elevators = Elevator.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get all Stairway for the project
+	stairway = Stairway.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get all Ramp for the project
+	ramp = Ramp.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get all Wall for the project
+	wall = Wall.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get all Floor Assembly for the project
+	floorAssembly = FloorAssembly.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all Roof Assembly for the project
+	roofAssembly = RoofAssembly.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all Balcony for the project
+	balcony = Balcony.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get all Hallway for the project
+	hallway = Hallway.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Collect all surroundings
+	nonStructuralElement = {
+		"door":[item.serialize() for item in door ] if door else '',
+		"windows":[item.serialize() for item in windows ] if windows else '',
+		"elevators":[item.serialize() for item in elevators ] if elevators else '' ,
+		"stairway":[item.serialize() for item in stairway ] if stairway else '' ,
+		"ramp":[item.serialize() for item in ramp ] if ramp else '' ,
+		"wall":[item.serialize() for item in wall ] if wall else '' ,
+		"floorAssembly":[item.serialize() for item in floorAssembly ] if floorAssembly else '' ,
+		"roofAssembly":[item.serialize() for item in roofAssembly ] if roofAssembly else '' ,
+		"balcony":[item.serialize() for item in balcony ] if balcony else '' ,
+		"hallway":[item.serialize() for item in hallway ] if hallway else '' 
+		}
+	return JsonResponse(nonStructuralElement, safe=False)
+
 
 # Get surroundings
 def get_surroundings(request, projectName):

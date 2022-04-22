@@ -381,11 +381,31 @@ function getFacade(projectTitle) {
     });
 }
 
+// function getNonStructuralElements(projectTitle) {
+//   LoadingPage()
+//   // Fetch non structural elements
+
+//   showNonStructuralElements(projectTitle);
+// }
+
+
 function getNonStructuralElements(projectTitle) {
   LoadingPage()
   // Fetch non structural elements
 
-  showNonStructuralElements(projectTitle);
+
+  if(Object.keys(nonStructuralElementsResults).length > 0)
+   showNonStructuralElements(nonStructuralElementsResults);
+  else
+  // Fetch structural elements
+  fetch("/non_structural_elements/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      nonStructuralElementsResults = results
+      showNonStructuralElements(nonStructuralElementsResults);
+      // do things
+    });
+
 }
 
 function getStructuralElements(projectTitle) {
@@ -395,7 +415,7 @@ function getStructuralElements(projectTitle) {
    showStructuralElements(structuralElementsResults);
   else
   // Fetch structural elements
-  fetch("/structural-elements/" + projectTitle)
+  fetch("/structural_elements/" + projectTitle)
     .then((response) => response.json())
     .then((results) => {
       structuralElementsResults = results

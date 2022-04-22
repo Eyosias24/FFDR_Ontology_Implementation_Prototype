@@ -131,8 +131,11 @@ path('balcony/<str:projectName>', views.get_balcony, name='get_balcony'),
 # Get single hallway item API route
 path('hallway/<str:projectName>', views.get_hallway, name='get_hallway'),
 
-# Get single hallway item API route
-path('structural-elements/<str:projectName>', views.get_structural_elements, name='get_structural_elements'),
+# Get single structural item API route
+path('structural_elements/<str:projectName>', views.get_structural_elements, name='get_structural_elements'),
+
+# Get single non structural elements item API route
+path('non_structural_elements/<str:projectName>', views.get_non_structural_elements, name='get_non_structural_elements'),
 
 # Get single surroundings item API route
 path('surroundings/<str:projectName>', views.get_surroundings, name='get_surroundings'),

@@ -5991,8 +5991,328 @@ function populateHallway(inputData){
   }
 }
 
+
+// // Non structural elements
+// function showNonStructuralElements(results) {
+
+// console.log(results)
+
+//   // Get data
+//   carbonMonoxideDetector = results["carbonMonoxideDetector"];
+//   cbrSensor = results["cbrSensor"];
+//   gasDetector = results["gasDetector"];
+
+
+//   // Get main view
+//   mainView = document.querySelector(".main-view");
+//   mainView.id = "four-columns";
+
+//   // Set view title
+//   title = "Non Structural Elements"
+//   setTitleView(mainView, title)
+
+// // Add navigation
+//   mainView.innerHTML += `
+//   <ul class="nav nav-tabs">
+//     <li class="nav-item" id="door">
+//       <a class="nav-link active" href="#">Doors</a>
+//     </li>
+//     <li class="nav-item" id="window">
+//       <a class="nav-link" href="#">Windows</a>
+//     </li>
+//     <li class="nav-item" id="elevator">
+//       <a class="nav-link" href="#">Elevators</a>
+//     </li>
+//     <li class="nav-item" id="stairway">
+//       <a class="nav-link" href="#">Stairways</a>
+//     </li>
+//     <li class="nav-item" id="ramp">
+//       <a class="nav-link" href="#">Ramps</a>
+//     </li>
+//     <li class="nav-item" id="Wall">
+//       <a class="nav-link" href="#">Walls</a>
+//     </li>  
+//     <li class="nav-item" id="floor-assembly">
+//       <a class="nav-link" href="#">Floor Assembly</a>
+//     </li>  
+//     <li class="nav-item" id="roof-assembly">
+//       <a class="nav-link" href="#">Roof Assembly</a>
+//     </li>
+//     <li class="nav-item" id="balcony">
+//       <a class="nav-link" href="#">Balconies</a>
+//     </li>
+//     <li class="nav-item" id="hallway">
+//       <a class="nav-link" href="#">Hallways</a>
+//     </li>  
+// </ul>
+//   `;
+
+//   // Creat sub main view
+//   subMainView = document.createElement("div");
+//   subMainView.id = "sub-main-view";
+//   mainView.appendChild(subMainView);
+//   subMainView.innerHTML = "";
+
+//   doorContainer = document.querySelector("#door");
+//   windowContainer = document.querySelector("#window");
+//   elevatorContainer = document.querySelector("#elevator");
+//   stairwayContainer = document.querySelector("#stairway");
+//   rampContainer = document.querySelector("#ramp");
+//   WallContainer = document.querySelector("#Wall");
+//   floorAssemblyContainer = document.querySelector("#floor-assembly");
+//   roofAssemblyContainer = document.querySelector("#roof-assembly");
+//   balconyContainer = document.querySelector("#balcony");
+//   hallwayContainer = document.querySelector("#hallway");
+
+//   allNavigationContainers = document.querySelectorAll(".nav a");
+
+//   //  Door Container
+//   doorContainer.addEventListener("click", function (event) {
+//      // Change active tab
+//   changeActiveTab(event, allNavigationContainers)
+
+//   //Fetch data
+  
+//   if (doorData.length > 0)
+//       populateDoor(doorData)
+//   else
+//    fetch("/door/" + projectTitle)
+//     .then((response) => response.json())
+//     .then((results) => {
+//       doorData = results
+      
+//       populateDoor(doorData)
+      
+//     });
+
+//   });
+
+// //  Window Container
+//   windowContainer.addEventListener("click", function (event) {
+//      // Change active tab
+//   changeActiveTab(event, allNavigationContainers)
+
+//   //Fetch data
+  
+//   if (windowData.length > 0)
+//       populateWindow(windowData)
+//   else
+//    fetch("/windows/" + projectTitle)
+//     .then((response) => response.json())
+//     .then((results) => {
+//       windowData = results
+      
+//       populateWindow(windowData)
+      
+//     });
+
+//   });
+
+
+// //  Elevator Container
+//   elevatorContainer.addEventListener("click", function (event) {
+//      // Change active tab
+//   changeActiveTab(event, allNavigationContainers)
+
+//   //Fetch data
+  
+//   if (elevatorData.length > 0)
+//       populateElevator(elevatorData)
+//   else
+//    fetch("/elevator/" + projectTitle)
+//     .then((response) => response.json())
+//     .then((results) => {
+//       elevatorData = results
+      
+//       populateElevator(elevatorData)
+      
+//     });
+
+//   });
+
+// //  Stairway Container
+//   stairwayContainer.addEventListener("click", function (event) {
+//      // Change active tab
+//   changeActiveTab(event, allNavigationContainers)
+
+//   //Fetch data
+  
+//   if (stairwayData.length > 0)
+//       populateStairway(stairwayData)
+//   else
+//    fetch("/stairway/" + projectTitle)
+//     .then((response) => response.json())
+//     .then((results) => {
+//       stairwayData = results
+      
+//       populateStairway(stairwayData)
+      
+//     });
+
+//   });
+
+
+// //  Ramp Container
+//   rampContainer.addEventListener("click", function (event) {
+//      // Change active tab
+//   changeActiveTab(event, allNavigationContainers)
+
+//   //Fetch data
+  
+//   if (rampData.length > 0)
+//       populateRamp(rampData)
+//   else
+//    fetch("/ramp/" + projectTitle)
+//     .then((response) => response.json())
+//     .then((results) => {
+//       rampData = results
+      
+//       populateRamp(rampData)
+      
+//     });
+
+//   });
+
+
+
+// //  Wall Container
+//   WallContainer.addEventListener("click", function (event) {
+//      // Change active tab
+//   changeActiveTab(event, allNavigationContainers)
+
+//   //Fetch data
+  
+//   if (wallData.length > 0)
+//       populateWall(wallData)
+//   else
+//    fetch("/wall/" + projectTitle)
+//     .then((response) => response.json())
+//     .then((results) => {
+//       wallData = results
+      
+//       populateWall(wallData)
+      
+//     });
+
+//   });
+
+
+
+// //  floor Assembly Container
+//   floorAssemblyContainer.addEventListener("click", function (event) {
+//      // Change active tab
+//   changeActiveTab(event, allNavigationContainers)
+
+//   //Fetch data
+  
+//   if (floorAssemblyData.length > 0)
+//       populateFloorAssembly(floorAssemblyData)
+//   else
+//    fetch("/floor-assembly/" + projectTitle)
+//     .then((response) => response.json())
+//     .then((results) => {
+//       floorAssemblyData = results
+      
+//       populateFloorAssembly(floorAssemblyData)
+      
+//     });
+
+//   });
+
+
+
+// //  Roof Assembly Container
+//   roofAssemblyContainer.addEventListener("click", function (event) {
+//      // Change active tab
+//   changeActiveTab(event, allNavigationContainers)
+
+//   //Fetch data
+  
+//   if (roofAssemblyData.length > 0)
+//       populateRoofAssembly(roofAssemblyData)
+//   else
+//    fetch("/roof-assembly/" + projectTitle)
+//     .then((response) => response.json())
+//     .then((results) => {
+//       roofAssemblyData = results
+      
+//       populateRoofAssembly(roofAssemblyData)
+      
+//     });
+
+//   });
+
+
+// //  Balcony  Container
+//   balconyContainer.addEventListener("click", function (event) {
+//      // Change active tab
+//   changeActiveTab(event, allNavigationContainers)
+
+//   //Fetch data
+  
+//   if (balconyData.length > 0)
+//       populateBalcony(balconyData)
+//   else
+//    fetch("/balcony/" + projectTitle)
+//     .then((response) => response.json())
+//     .then((results) => {
+//       balconyData = results
+      
+//       populateBalcony(balconyData)
+      
+//     });
+
+//   });
+
+
+// //  hallway  Container
+//   hallwayContainer.addEventListener("click", function (event) {
+//      // Change active tab
+//   changeActiveTab(event, allNavigationContainers)
+
+//   //Fetch data
+  
+//   if (hallwayData.length > 0)
+//       populateHallway(hallwayData)
+//   else
+//    fetch("/hallway/" + projectTitle)
+//     .then((response) => response.json())
+//     .then((results) => {
+//       hallwayData = results
+      
+//       populateHallway(hallwayData)
+      
+//     });
+
+//   });
+
+
+//   document.querySelector("#door a").click();
+
+
+
+
+// enableNavigation()
+// }
+
+
+
 // Non structural elements
-function showNonStructuralElements(projectTitle) {
+function showNonStructuralElements(results) {
+
+console.log(results)
+
+  // Get data
+  doorData = results["door"];
+  windowData = results["windows"];
+  elevatorData = results["elevators"];
+  stairwayData = results["stairway"];
+  rampData = results["ramp"];
+  wallData = results["wall"];
+  floorAssemblyData = results["floorAssembly"];
+  roofAssemblyData = results["roofAssembly"];
+  balconyData = results["balcony"];
+  hallwayData = results["hallway"];
 
 
   // Get main view
@@ -6064,18 +6384,7 @@ function showNonStructuralElements(projectTitle) {
   changeActiveTab(event, allNavigationContainers)
 
   //Fetch data
-  
-  if (doorData.length > 0)
-      populateDoor(doorData)
-  else
-   fetch("/door/" + projectTitle)
-    .then((response) => response.json())
-    .then((results) => {
-      doorData = results
-      
-      populateDoor(doorData)
-      
-    });
+  populateDoor(doorData)
 
   });
 
@@ -6085,18 +6394,7 @@ function showNonStructuralElements(projectTitle) {
   changeActiveTab(event, allNavigationContainers)
 
   //Fetch data
-  
-  if (windowData.length > 0)
-      populateWindow(windowData)
-  else
-   fetch("/windows/" + projectTitle)
-    .then((response) => response.json())
-    .then((results) => {
-      windowData = results
-      
-      populateWindow(windowData)
-      
-    });
+  populateWindow(windowData)
 
   });
 
@@ -6107,18 +6405,7 @@ function showNonStructuralElements(projectTitle) {
   changeActiveTab(event, allNavigationContainers)
 
   //Fetch data
-  
-  if (elevatorData.length > 0)
       populateElevator(elevatorData)
-  else
-   fetch("/elevator/" + projectTitle)
-    .then((response) => response.json())
-    .then((results) => {
-      elevatorData = results
-      
-      populateElevator(elevatorData)
-      
-    });
 
   });
 
@@ -6128,18 +6415,7 @@ function showNonStructuralElements(projectTitle) {
   changeActiveTab(event, allNavigationContainers)
 
   //Fetch data
-  
-  if (stairwayData.length > 0)
       populateStairway(stairwayData)
-  else
-   fetch("/stairway/" + projectTitle)
-    .then((response) => response.json())
-    .then((results) => {
-      stairwayData = results
-      
-      populateStairway(stairwayData)
-      
-    });
 
   });
 
@@ -6150,18 +6426,7 @@ function showNonStructuralElements(projectTitle) {
   changeActiveTab(event, allNavigationContainers)
 
   //Fetch data
-  
-  if (rampData.length > 0)
       populateRamp(rampData)
-  else
-   fetch("/ramp/" + projectTitle)
-    .then((response) => response.json())
-    .then((results) => {
-      rampData = results
-      
-      populateRamp(rampData)
-      
-    });
 
   });
 
@@ -6173,18 +6438,7 @@ function showNonStructuralElements(projectTitle) {
   changeActiveTab(event, allNavigationContainers)
 
   //Fetch data
-  
-  if (wallData.length > 0)
       populateWall(wallData)
-  else
-   fetch("/wall/" + projectTitle)
-    .then((response) => response.json())
-    .then((results) => {
-      wallData = results
-      
-      populateWall(wallData)
-      
-    });
 
   });
 
@@ -6196,18 +6450,7 @@ function showNonStructuralElements(projectTitle) {
   changeActiveTab(event, allNavigationContainers)
 
   //Fetch data
-  
-  if (floorAssemblyData.length > 0)
       populateFloorAssembly(floorAssemblyData)
-  else
-   fetch("/floor-assembly/" + projectTitle)
-    .then((response) => response.json())
-    .then((results) => {
-      floorAssemblyData = results
-      
-      populateFloorAssembly(floorAssemblyData)
-      
-    });
 
   });
 
@@ -6219,18 +6462,7 @@ function showNonStructuralElements(projectTitle) {
   changeActiveTab(event, allNavigationContainers)
 
   //Fetch data
-  
-  if (roofAssemblyData.length > 0)
       populateRoofAssembly(roofAssemblyData)
-  else
-   fetch("/roof-assembly/" + projectTitle)
-    .then((response) => response.json())
-    .then((results) => {
-      roofAssemblyData = results
-      
-      populateRoofAssembly(roofAssemblyData)
-      
-    });
 
   });
 
@@ -6241,18 +6473,7 @@ function showNonStructuralElements(projectTitle) {
   changeActiveTab(event, allNavigationContainers)
 
   //Fetch data
-  
-  if (balconyData.length > 0)
       populateBalcony(balconyData)
-  else
-   fetch("/balcony/" + projectTitle)
-    .then((response) => response.json())
-    .then((results) => {
-      balconyData = results
-      
-      populateBalcony(balconyData)
-      
-    });
 
   });
 
@@ -6263,18 +6484,7 @@ function showNonStructuralElements(projectTitle) {
   changeActiveTab(event, allNavigationContainers)
 
   //Fetch data
-  
-  if (hallwayData.length > 0)
       populateHallway(hallwayData)
-  else
-   fetch("/hallway/" + projectTitle)
-    .then((response) => response.json())
-    .then((results) => {
-      hallwayData = results
-      
-      populateHallway(hallwayData)
-      
-    });
 
   });
 

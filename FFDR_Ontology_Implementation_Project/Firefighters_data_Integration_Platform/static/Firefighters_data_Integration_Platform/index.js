@@ -235,6 +235,9 @@ surroundingsResults = {}
 waterSourceResults= {}
 fireLaneResults  = {}
 roadToIncidentResults = {}
+nonStructuralElementsResults= {}
+
+
   // non structural elements view
   // Define data containers
   doorData = []
