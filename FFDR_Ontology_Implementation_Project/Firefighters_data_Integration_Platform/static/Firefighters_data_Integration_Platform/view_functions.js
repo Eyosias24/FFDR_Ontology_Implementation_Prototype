@@ -23,7 +23,7 @@ function showIncidentBuilding(results) {
   getDataNumberOfSublevel = results["hasNumberOfSublevel"];
   getDataHazardousOperation = results["includeHazardousOperation"];
 
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -242,7 +242,7 @@ graphicDataContainer.appendChild(copyViewerContainer)
 }
 
 function showContactAddresses(results) {
-  console.log(results);
+  
 
   // Get data
   // Building
@@ -769,7 +769,7 @@ function showFireExtinguishingSystem(results) {
     results = results["automaticSprinklerSystem"];
   else results = results["alternativeAutomaticFireExtinguishingSystem"];
 
-  console.log(results);
+  
   // Get main view
   mainView = document.querySelector(".main-view");
   mainView.id = ""
@@ -960,7 +960,7 @@ enableNavigation()
 // Show fire hydrant
 function showFireHydrant(unsortedResults) {
   results = sort_by_key(unsortedResults, "hasDistanceFromIncidentBuilding");
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -1214,7 +1214,7 @@ function showBuildingUtilitySystem(results) {
   hvacSystem = results["hvacSystem"][0];
   waterSupplyAndSewerageSystem = results["waterSupplyandSewerageSystem"][0];
 
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -1690,7 +1690,7 @@ function createContainer(mainView, subjectLabel, subjectValue, containerID="",co
 }
 
 function showPortableFireExtinguisher(results) {
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -1857,7 +1857,7 @@ function addMoreContentContainer(
 
 // showFireAlarmSystem
 function showFireAlarmSystem(results) {
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -1998,7 +1998,7 @@ enableNavigation()
 
 // Fire Department Connection
 function showFireDepartmentConnections(results) {
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -2162,7 +2162,7 @@ enableNavigation()
 
 // Fire Hose Connection
 function showFireHoseConnection(results) {
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -2251,7 +2251,7 @@ function showFireHoseConnection(results) {
 
       index = event.target.id;
       moreData = results[index];
-      console.log(moreData);
+      
 
       // Get data
       waterSource = moreData["hasWaterSource"]["hasName"];
@@ -2281,7 +2281,7 @@ enableNavigation()
 
 // Standpipe Systems
 function showStandpipeSystem(results) {
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -2455,7 +2455,7 @@ function showStandpipeSystem(results) {
 enableNavigation()
 }
 function showSensorsAndDetectors(results) {
-  console.log(results);
+  
 
   // Get data
   carbonMonoxideDetector = results["carbonMonoxideDetector"];
@@ -2632,7 +2632,7 @@ function populateSensorAndDetector(event, allNavigationContainers, inputData) {
 
 // Fire And Smoke Protection Elements
 function showFireAndSmokeProtectionElements(results) {
-  console.log(results);
+  
 
   // Get data
   fireBarrier = results["fireBarrier"];
@@ -4244,7 +4244,7 @@ function populateExteriorWall(event, allNavigationContainers, inputData) {
 }
 // Roof top Element
 function showRoofTopElement(results) {
-  console.log(results);
+  
   
   mainView = document.querySelector(".main-view");
   mainView.id = "two-columns";
@@ -4332,7 +4332,7 @@ enableNavigation()
 
 // Facade
 function showFacade(results) {
-  console.log(results);
+  
 
   // Get data
   exteriorDoor = results["exteriorDoor"];
@@ -4398,14 +4398,13 @@ enableNavigation()
 
 
 function populateDoor(inputData){
-  
 // Add view
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
   subMainView.className = "door";
 
-  console.log(inputData)
+ 
   
 
   // Set title
@@ -4607,17 +4606,19 @@ function populateDoor(inputData){
   }
 
 enableNavigation()
+
+
+enableNavigation()
 }
 
 function populateWindow(inputData){
-  
 // Add view
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
   subMainView.className = "window";
 
-  console.log(inputData)
+  
   
 
   // Set title
@@ -4779,17 +4780,18 @@ function populateWindow(inputData){
 
     });
   }
+
+
+enableNavigation()
 }
 
 function populateElevator(inputData){
-  
 // Add view
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
   subMainView.className = "elevator";
 
-  console.log(inputData)
   
 
   // Set title
@@ -4983,18 +4985,20 @@ function populateElevator(inputData){
 
     });
   }
+
+
+enableNavigation()
 }
 
 
 function populateStairway(inputData){
-  
 // Add view
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
   subMainView.className = "stairway";
 
-  console.log(inputData)
+ 
   
 
   // Set title
@@ -5170,17 +5174,19 @@ function populateStairway(inputData){
 
     });
   }
+
+
+enableNavigation()
 }
 
 function populateRamp(inputData){
-  
 // Add view
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
   subMainView.className = "ramp";
 
-  console.log(inputData)
+ 
   
 
   // Set title
@@ -5356,17 +5362,19 @@ function populateRamp(inputData){
       add2DViewer(graphicDataContainer)
     });
   }
+
+
+enableNavigation()
 }
 
 function populateWall(inputData){
-  
 // Add view
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
   subMainView.className = "wall";
 
-  console.log(inputData)
+ 
   
 
   // Set title
@@ -5479,17 +5487,19 @@ function populateWall(inputData){
 
     });
   }
+
+
+enableNavigation()
 }
 
 function populateFloorAssembly(inputData){
-  
 // Add view
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
   subMainView.className = "floor-assembly";
 
-  console.log(inputData)
+ 
   
 
   // Set title
@@ -5626,17 +5636,19 @@ function populateFloorAssembly(inputData){
 
     });
   }
+
+
+enableNavigation()
 }
 
 function populateRoofAssembly(inputData){
-  
 // Add view
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
   subMainView.className = "roof-assembly";
 
-  console.log(inputData)
+ 
   
 
   // Set title
@@ -5765,17 +5777,19 @@ function populateRoofAssembly(inputData){
 
     });
   }
+
+
+enableNavigation()
 }
 
 function populateBalcony(inputData){
-  
 // Add view
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
   subMainView.className = "balcony";
 
-  console.log(inputData)
+ 
   
 
   // Set title
@@ -5890,17 +5904,19 @@ function populateBalcony(inputData){
 
     });
   }
+
+
+enableNavigation()
 }
 
 function populateHallway(inputData){
-  
 // Add view
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
   subMainView.className = "hallway";
 
-  console.log(inputData)
+ 
   
 
   // Set title
@@ -5989,316 +6005,323 @@ function populateHallway(inputData){
 
     });
   }
+
+
+enableNavigation()
 }
-
-
-// // Non structural elements
-// function showNonStructuralElements(results) {
-
-// console.log(results)
-
-//   // Get data
-//   carbonMonoxideDetector = results["carbonMonoxideDetector"];
-//   cbrSensor = results["cbrSensor"];
-//   gasDetector = results["gasDetector"];
-
-
-//   // Get main view
-//   mainView = document.querySelector(".main-view");
-//   mainView.id = "four-columns";
-
-//   // Set view title
-//   title = "Non Structural Elements"
-//   setTitleView(mainView, title)
-
-// // Add navigation
-//   mainView.innerHTML += `
-//   <ul class="nav nav-tabs">
-//     <li class="nav-item" id="door">
-//       <a class="nav-link active" href="#">Doors</a>
-//     </li>
-//     <li class="nav-item" id="window">
-//       <a class="nav-link" href="#">Windows</a>
-//     </li>
-//     <li class="nav-item" id="elevator">
-//       <a class="nav-link" href="#">Elevators</a>
-//     </li>
-//     <li class="nav-item" id="stairway">
-//       <a class="nav-link" href="#">Stairways</a>
-//     </li>
-//     <li class="nav-item" id="ramp">
-//       <a class="nav-link" href="#">Ramps</a>
-//     </li>
-//     <li class="nav-item" id="Wall">
-//       <a class="nav-link" href="#">Walls</a>
-//     </li>  
-//     <li class="nav-item" id="floor-assembly">
-//       <a class="nav-link" href="#">Floor Assembly</a>
-//     </li>  
-//     <li class="nav-item" id="roof-assembly">
-//       <a class="nav-link" href="#">Roof Assembly</a>
-//     </li>
-//     <li class="nav-item" id="balcony">
-//       <a class="nav-link" href="#">Balconies</a>
-//     </li>
-//     <li class="nav-item" id="hallway">
-//       <a class="nav-link" href="#">Hallways</a>
-//     </li>  
-// </ul>
-//   `;
-
-//   // Creat sub main view
-//   subMainView = document.createElement("div");
-//   subMainView.id = "sub-main-view";
-//   mainView.appendChild(subMainView);
-//   subMainView.innerHTML = "";
-
-//   doorContainer = document.querySelector("#door");
-//   windowContainer = document.querySelector("#window");
-//   elevatorContainer = document.querySelector("#elevator");
-//   stairwayContainer = document.querySelector("#stairway");
-//   rampContainer = document.querySelector("#ramp");
-//   WallContainer = document.querySelector("#Wall");
-//   floorAssemblyContainer = document.querySelector("#floor-assembly");
-//   roofAssemblyContainer = document.querySelector("#roof-assembly");
-//   balconyContainer = document.querySelector("#balcony");
-//   hallwayContainer = document.querySelector("#hallway");
-
-//   allNavigationContainers = document.querySelectorAll(".nav a");
-
-//   //  Door Container
-//   doorContainer.addEventListener("click", function (event) {
-//      // Change active tab
-//   changeActiveTab(event, allNavigationContainers)
-
-//   //Fetch data
-  
-//   if (doorData.length > 0)
-//       populateDoor(doorData)
-//   else
-//    fetch("/door/" + projectTitle)
-//     .then((response) => response.json())
-//     .then((results) => {
-//       doorData = results
-      
-//       populateDoor(doorData)
-      
-//     });
-
-//   });
-
-// //  Window Container
-//   windowContainer.addEventListener("click", function (event) {
-//      // Change active tab
-//   changeActiveTab(event, allNavigationContainers)
-
-//   //Fetch data
-  
-//   if (windowData.length > 0)
-//       populateWindow(windowData)
-//   else
-//    fetch("/windows/" + projectTitle)
-//     .then((response) => response.json())
-//     .then((results) => {
-//       windowData = results
-      
-//       populateWindow(windowData)
-      
-//     });
-
-//   });
-
-
-// //  Elevator Container
-//   elevatorContainer.addEventListener("click", function (event) {
-//      // Change active tab
-//   changeActiveTab(event, allNavigationContainers)
-
-//   //Fetch data
-  
-//   if (elevatorData.length > 0)
-//       populateElevator(elevatorData)
-//   else
-//    fetch("/elevator/" + projectTitle)
-//     .then((response) => response.json())
-//     .then((results) => {
-//       elevatorData = results
-      
-//       populateElevator(elevatorData)
-      
-//     });
-
-//   });
-
-// //  Stairway Container
-//   stairwayContainer.addEventListener("click", function (event) {
-//      // Change active tab
-//   changeActiveTab(event, allNavigationContainers)
-
-//   //Fetch data
-  
-//   if (stairwayData.length > 0)
-//       populateStairway(stairwayData)
-//   else
-//    fetch("/stairway/" + projectTitle)
-//     .then((response) => response.json())
-//     .then((results) => {
-//       stairwayData = results
-      
-//       populateStairway(stairwayData)
-      
-//     });
-
-//   });
-
-
-// //  Ramp Container
-//   rampContainer.addEventListener("click", function (event) {
-//      // Change active tab
-//   changeActiveTab(event, allNavigationContainers)
-
-//   //Fetch data
-  
-//   if (rampData.length > 0)
-//       populateRamp(rampData)
-//   else
-//    fetch("/ramp/" + projectTitle)
-//     .then((response) => response.json())
-//     .then((results) => {
-//       rampData = results
-      
-//       populateRamp(rampData)
-      
-//     });
-
-//   });
-
-
-
-// //  Wall Container
-//   WallContainer.addEventListener("click", function (event) {
-//      // Change active tab
-//   changeActiveTab(event, allNavigationContainers)
-
-//   //Fetch data
-  
-//   if (wallData.length > 0)
-//       populateWall(wallData)
-//   else
-//    fetch("/wall/" + projectTitle)
-//     .then((response) => response.json())
-//     .then((results) => {
-//       wallData = results
-      
-//       populateWall(wallData)
-      
-//     });
-
-//   });
-
-
-
-// //  floor Assembly Container
-//   floorAssemblyContainer.addEventListener("click", function (event) {
-//      // Change active tab
-//   changeActiveTab(event, allNavigationContainers)
-
-//   //Fetch data
-  
-//   if (floorAssemblyData.length > 0)
-//       populateFloorAssembly(floorAssemblyData)
-//   else
-//    fetch("/floor-assembly/" + projectTitle)
-//     .then((response) => response.json())
-//     .then((results) => {
-//       floorAssemblyData = results
-      
-//       populateFloorAssembly(floorAssemblyData)
-      
-//     });
-
-//   });
-
-
-
-// //  Roof Assembly Container
-//   roofAssemblyContainer.addEventListener("click", function (event) {
-//      // Change active tab
-//   changeActiveTab(event, allNavigationContainers)
-
-//   //Fetch data
-  
-//   if (roofAssemblyData.length > 0)
-//       populateRoofAssembly(roofAssemblyData)
-//   else
-//    fetch("/roof-assembly/" + projectTitle)
-//     .then((response) => response.json())
-//     .then((results) => {
-//       roofAssemblyData = results
-      
-//       populateRoofAssembly(roofAssemblyData)
-      
-//     });
-
-//   });
-
-
-// //  Balcony  Container
-//   balconyContainer.addEventListener("click", function (event) {
-//      // Change active tab
-//   changeActiveTab(event, allNavigationContainers)
-
-//   //Fetch data
-  
-//   if (balconyData.length > 0)
-//       populateBalcony(balconyData)
-//   else
-//    fetch("/balcony/" + projectTitle)
-//     .then((response) => response.json())
-//     .then((results) => {
-//       balconyData = results
-      
-//       populateBalcony(balconyData)
-      
-//     });
-
-//   });
-
-
-// //  hallway  Container
-//   hallwayContainer.addEventListener("click", function (event) {
-//      // Change active tab
-//   changeActiveTab(event, allNavigationContainers)
-
-//   //Fetch data
-  
-//   if (hallwayData.length > 0)
-//       populateHallway(hallwayData)
-//   else
-//    fetch("/hallway/" + projectTitle)
-//     .then((response) => response.json())
-//     .then((results) => {
-//       hallwayData = results
-      
-//       populateHallway(hallwayData)
-      
-//     });
-
-//   });
-
-
-//   document.querySelector("#door a").click();
-
-
-
-
-// enableNavigation()
-// }
-
 
 
 // Non structural elements
 function showNonStructuralElements(results) {
+
+console.log(results)
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = "four-columns";
+
+  // Set view title
+  title = "Non Structural Elements"
+  setTitleView(mainView, title)
+
+// Add navigation
+  mainView.innerHTML += `
+  <ul class="nav nav-tabs">
+    <li class="nav-item" id="door">
+      <a class="nav-link active" href="#">Doors</a>
+    </li>
+    <li class="nav-item" id="window">
+      <a class="nav-link" href="#">Windows</a>
+    </li>
+    <li class="nav-item" id="elevator">
+      <a class="nav-link" href="#">Elevators</a>
+    </li>
+    <li class="nav-item" id="stairway">
+      <a class="nav-link" href="#">Stairways</a>
+    </li>
+    <li class="nav-item" id="ramp">
+      <a class="nav-link" href="#">Ramps</a>
+    </li>
+    <li class="nav-item" id="Wall">
+      <a class="nav-link" href="#">Walls</a>
+    </li>  
+    <li class="nav-item" id="floor-assembly">
+      <a class="nav-link" href="#">Floor Assembly</a>
+    </li>  
+    <li class="nav-item" id="roof-assembly">
+      <a class="nav-link" href="#">Roof Assembly</a>
+    </li>
+    <li class="nav-item" id="balcony">
+      <a class="nav-link" href="#">Balconies</a>
+    </li>
+    <li class="nav-item" id="hallway">
+      <a class="nav-link" href="#">Hallways</a>
+    </li>  
+</ul>
+  `;
+
+  // Creat sub main view
+  subMainView = document.createElement("div");
+  subMainView.id = "sub-main-view";
+  mainView.appendChild(subMainView);
+  subMainView.innerHTML = "";
+
+  LoadingNonStructuralPage()
+
+  doorContainer = document.querySelector("#door");
+  windowContainer = document.querySelector("#window");
+  elevatorContainer = document.querySelector("#elevator");
+  stairwayContainer = document.querySelector("#stairway");
+  rampContainer = document.querySelector("#ramp");
+  WallContainer = document.querySelector("#Wall");
+  floorAssemblyContainer = document.querySelector("#floor-assembly");
+  roofAssemblyContainer = document.querySelector("#roof-assembly");
+  balconyContainer = document.querySelector("#balcony");
+  hallwayContainer = document.querySelector("#hallway");
+
+  allNavigationContainers = document.querySelectorAll(".nav a");
+
+  //  Door Container
+  doorContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  LoadingNonStructuralPage()
+  
+  if (doorData.length > 0)
+      populateDoor(doorData)
+  else
+   fetch("/door/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      doorData = results
+      
+      populateDoor(doorData)
+      
+    });
+
+  });
+
+//  Window Container
+  windowContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  LoadingNonStructuralPage()
+
+  if (windowData.length > 0)
+      populateWindow(windowData)
+  else
+   fetch("/windows/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      windowData = results
+      
+      populateWindow(windowData)
+      
+    });
+
+  });
+
+
+//  Elevator Container
+  elevatorContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  LoadingNonStructuralPage()
+  
+  if (elevatorData.length > 0)
+      populateElevator(elevatorData)
+  else
+   fetch("/elevator/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      elevatorData = results
+      
+      populateElevator(elevatorData)
+      
+    });
+
+  });
+
+//  Stairway Container
+  stairwayContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  LoadingNonStructuralPage()
+  
+  if (stairwayData.length > 0)
+      populateStairway(stairwayData)
+  else
+   fetch("/stairway/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      stairwayData = results
+      
+      populateStairway(stairwayData)
+      
+    });
+
+  });
+
+
+//  Ramp Container
+  rampContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  LoadingNonStructuralPage()
+  
+  if (rampData.length > 0)
+      populateRamp(rampData)
+  else
+   fetch("/ramp/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      rampData = results
+      
+      populateRamp(rampData)
+      
+    });
+
+  });
+
+
+
+//  Wall Container
+  WallContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  LoadingNonStructuralPage()
+  
+  if (wallData.length > 0)
+      populateWall(wallData)
+  else
+   fetch("/wall/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      wallData = results
+      
+      populateWall(wallData)
+      
+    });
+
+  });
+
+
+
+//  floor Assembly Container
+  floorAssemblyContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  LoadingNonStructuralPage()
+  
+  if (floorAssemblyData.length > 0)
+      populateFloorAssembly(floorAssemblyData)
+  else
+   fetch("/floor-assembly/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      floorAssemblyData = results
+      
+      populateFloorAssembly(floorAssemblyData)
+      
+    });
+
+  });
+
+
+
+//  Roof Assembly Container
+  roofAssemblyContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  LoadingNonStructuralPage()
+  
+  if (roofAssemblyData.length > 0)
+      populateRoofAssembly(roofAssemblyData)
+  else
+   fetch("/roof-assembly/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      roofAssemblyData = results
+      
+      populateRoofAssembly(roofAssemblyData)
+      
+    });
+
+  });
+
+
+//  Balcony  Container
+  balconyContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  LoadingNonStructuralPage()
+  
+  if (balconyData.length > 0)
+      populateBalcony(balconyData)
+  else
+   fetch("/balcony/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      balconyData = results
+      
+      populateBalcony(balconyData)
+      
+    });
+
+  });
+
+
+//  hallway  Container
+  hallwayContainer.addEventListener("click", function (event) {
+     // Change active tab
+  changeActiveTab(event, allNavigationContainers)
+
+  //Fetch data
+  LoadingNonStructuralPage()
+  
+  if (hallwayData.length > 0)
+      populateHallway(hallwayData)
+  else
+   fetch("/hallway/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      hallwayData = results
+      
+      populateHallway(hallwayData)
+      
+    });
+
+  });
+
+
+  document.querySelector("#door a").click();
+
+
+
+}
+
+
+
+// Non structural elements
+function showNonStructuralElementss(results) {
 
 console.log(results)
 
@@ -6498,7 +6521,7 @@ enableNavigation()
 }
 
 function  showStructuralElements(results){
-  console.log(results);
+  
   
   mainView = document.querySelector(".main-view");
   mainView.id = "four-columns";
@@ -6613,7 +6636,7 @@ function  changeActiveTab(event, allNavigationContainers){
 
 // KeyBox
 function showKeyBox(results) {
-  console.log(results);
+  
   
   mainView = document.querySelector(".main-view");
   mainView.id = "Key-box";
@@ -6651,7 +6674,7 @@ enableNavigation()
 }
 
 function showConcealedSpace(results) {
-  console.log(results);
+  
   
   mainView = document.querySelector(".main-view");
   mainView.id = "three-columns";
@@ -6768,7 +6791,7 @@ enableNavigation()
 
 
 function showVerticalOpening(results) {
-  console.log(results);
+  
   
   mainView = document.querySelector(".main-view");
   mainView.id = "two-columns";
@@ -6856,7 +6879,7 @@ enableNavigation()
 }
 
 function  showHazardousMaterial(results){
-  console.log(results);
+  
   
   mainView = document.querySelector(".main-view");
   mainView.id = "three-columns";
@@ -7157,113 +7180,10 @@ markerLocationEdge
 }
 
 }
-// function createMaps(addMarker) {
-//   console.log(addMarker);
-//   lon = buildingCoordinate[0];
-//   lat = buildingCoordinate[1];
-//   let mapOptions = {
-//     center: [lat, lon],
-//     // zoom: 16,
-//     zoom: 17,
-//   };
-
-//   let map = new L.map("map", mapOptions);
-//   // add the OpenStreetMap tiles
-//   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-//     attribution:
-//       '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-//   }).addTo(map);
-
-//   // show the scale bar on the lower left corner
-//   L.control.scale({ imperial: true, metric: true }).addTo(map);
-
-//   // show a marker on the map
-
-//   marker = new L.Marker([lat, lon]);
-//   marker.bindPopup("Incident Building");
-//   marker.addTo(map);
-//   if (addMarker != "none") {
-//     lon = addMarker.split(",")[1];
-//     lat = addMarker.split(",")[0];
-//     var myIcon = L.icon({
-//       iconUrl:
-//         "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
-//       shadowUrl:
-//         "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
-//       iconSize: [25, 41],
-//       iconAnchor: [12, 41],
-//       popupAnchor: [1, -34],
-//       shadowSize: [41, 41],
-//     });
-
-//     lon = addMarker.split(",")[1];
-//     lat = addMarker.split(",")[0];
-//     L.marker([lat, lon], { icon: myIcon }).bindPopup("Fire hydrant").addTo(map);
-
-//     myApi = "d19490bd-c0df-47c4-9547-7027ef76c329";
-//     // route = L.routing
-//     //   .control({
-//     //     waypoints: [(lat, lon), (buildingCoordinate[1], buildingCoordinate[0])],
-//     //     router: L.routing.GraphHopper(myApi, {
-//     //       urlParameters: {
-//     //         vehicle: "foot",
-//     //       },
-//     //     }),
-//     //   })
-//     //   .addTo(map);
-//     console.log(lat);
-//     console.log(buildingCoordinate[1]);
-//     apiCall =
-//       "https://api.mapbox.com/directions/v5/mapbox/cycling/-84.518641,39.134270;-84.512023,39.102779?geometries=geojson&access_token=pk.eyJ1IjoiZXlvc2lhczEwMSIsImEiOiJjbDFuOHB6MXEwcnNhM3BrcW55ZGh1ZGo4In0.Iq_eA8HIPymBe2LAfWETcw";
-//     fetch(apiCall).then((result) => {
-//       console.log(result);
-//       L.geoJSON(result["routes"][0]).addTo(map);
-//     });
-
-//     // var ghRouting = new GraphHopper.Routing({
-//     //   key: myApi,
-//     //   vehicle: "car",
-//     //   elevation: false,
-//     // });
-
-//     // ghRouting.addPoint(new GHInput(lat, lon));
-//     // ghRouting.addPoint(
-//     //   new GHInput(buildingCoordinate[1], buildingCoordinate[0])
-//     // );
-
-//     // ghRouting
-//     //   .doRequest()
-//     //   .then(function (json) {
-//     //     // Add your own result handling here
-//     //     console.log(json);
-//     //     L.geoJSON(json["paths"]).addTo(map);
-//     //   })
-//     //   .catch(function (err) {
-//     //     console.error(err.message);
-//     //   });
-
-//     /* L.Routing.control({
-//       waypoints: [
-//         L.latLng(lat, lon),
-//         L.latLng(buildingCoordinate[1], buildingCoordinate[0]),
-//       ],
-//     }).addTo(map); */
-//   }
-// }
-
-// function addMarkerToMap(lon, lat) {
-//   fetchMap(buildingAddress);
-//   lon = coordinates[0];
-//   lat = coordinates[1];
-
-//   marker = L.Marker([lat, lon]);
-//   marker.bindPopup("Incident Building");
-//   marker.addTo(map);
-// }
 
 
 function showSurroundings(results){
-  console.log(results);
+  
 
   // Get data
   surroundingBuilding = results["surroundingBuilding"];
@@ -7420,7 +7340,7 @@ function showWeatherCondition(results){
 
 results = results.getElementsByTagName("current")[0]
 
-      console.log(results);
+      
       
       // hasPrecipitationValue = result.FloatField();
 
@@ -7577,7 +7497,7 @@ enableNavigation()
 
 
 function showWaterSource(results) {
-  console.log(results);
+  
 
   // Get data
   
@@ -7899,7 +7819,7 @@ function populateStaticWaterSource(
 
 function showFireLane(results){
 results = results[0]
-  console.log(results);
+  
 
   // Get data 
   
@@ -8013,7 +7933,7 @@ enableNavigation()
 
 
 function showRoadToIncident(results){
-  console.log(results)
+  
   currentLocation = [24.94530997613723, 60.16532759718519]
 
 
@@ -8264,7 +8184,7 @@ function drawMapToIncident(buildingCoordinate, currentLocation, index){
       return response.json();
     })
     .then((json) => {
-      console.log(json)
+      
       const data = json.routes[index];
 
       const route = data.geometry.coordinates;
@@ -8333,7 +8253,7 @@ currentLocationEdge
 
 function showAreaOfRefuge(results){
   
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -8437,7 +8357,7 @@ enableNavigation()
 
 function showFarsFillStations(results){
   
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -8559,7 +8479,7 @@ enableNavigation()
 
 function showEmergencyPowerOutlets(results){
   
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -8658,7 +8578,7 @@ enableNavigation()
 
 function showSmokeAndHeatRemovalSystem(results){
   
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -8764,7 +8684,7 @@ enableNavigation()
 
 function showSmokeControlSystem(results){
   
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -8879,7 +8799,7 @@ enableNavigation()
 
 function showFirePump(results){
   
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -8971,7 +8891,7 @@ enableNavigation()
 
 function showMassNotificationSystem(results){
   
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -9071,7 +8991,7 @@ enableNavigation()
 
 function showExtremelyValuableMaterials(results){
   
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -9163,7 +9083,7 @@ enableNavigation()
 
 function showHelipad(results){
   
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -9263,7 +9183,7 @@ function setTitleView(mainView, title){
 
 function showBuildingPlans(results){
   
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -9362,7 +9282,7 @@ enableNavigation()
 
 function showFireCommandCenter(results){
   
-  console.log(results);
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -9458,8 +9378,7 @@ enableNavigation()
 
 // Show fire Incident Building
 function showFireCommandCenter(results) {
-
-  console.log(results["contains"]);
+  
   // Get data
 
   keyLocated = results["fireCommandCenter"][0]["hasKeyLocated"];

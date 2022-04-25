@@ -516,7 +516,7 @@ function weatherCondition() {
       return response.json();
     })
     .then((result) => {
-      console.log(result);
+      
       // hasPrecipitationValue = result.FloatField();
       hasRelativeHumidity = result["main"]["humidity"];
       hasTemperature = result["main"]["temp"];
@@ -524,11 +524,7 @@ function weatherCondition() {
       hasWindDirection = result["wind"]["deg"];
       hasWindSpeed = result["wind"]["speed"];
 
-      console.log(hasRelativeHumidity);
-      console.log(hasTemperature);
-      console.log(hasTimeMark);
-      console.log(hasWindDirection);
-      console.log(hasWindSpeed);
+      
     });
 }
 var buildingCoordinate = [];

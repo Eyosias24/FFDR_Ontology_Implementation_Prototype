@@ -381,32 +381,32 @@ function getFacade(projectTitle) {
     });
 }
 
-// function getNonStructuralElements(projectTitle) {
-//   LoadingPage()
-//   // Fetch non structural elements
-
-//   showNonStructuralElements(projectTitle);
-// }
-
-
 function getNonStructuralElements(projectTitle) {
   LoadingPage()
   // Fetch non structural elements
 
-
-  if(Object.keys(nonStructuralElementsResults).length > 0)
-   showNonStructuralElements(nonStructuralElementsResults);
-  else
-  // Fetch structural elements
-  fetch("/non_structural_elements/" + projectTitle)
-    .then((response) => response.json())
-    .then((results) => {
-      nonStructuralElementsResults = results
-      showNonStructuralElements(nonStructuralElementsResults);
-      // do things
-    });
-
+  showNonStructuralElements(projectTitle);
 }
+
+
+// function getNonStructuralElements(projectTitle) {
+//   LoadingPage()
+//   // Fetch non structural elements
+
+
+//   if(Object.keys(nonStructuralElementsResults).length > 0)
+//    showNonStructuralElements(nonStructuralElementsResults);
+//   else
+//   // Fetch structural elements
+//   fetch("/non_structural_elements/" + projectTitle)
+//     .then((response) => response.json())
+//     .then((results) => {
+//       nonStructuralElementsResults = results
+//       showNonStructuralElements(nonStructuralElementsResults);
+//       // do things
+//     });
+
+// }
 
 function getStructuralElements(projectTitle) {
   LoadingPage()
@@ -539,7 +539,7 @@ function getHelipad(projectTitle) {
 
 
 function getRoadToIncident(){
-  console.log("This")
+  
   LoadingPage()
 
   if(Object.keys(roadToIncidentResults).length > 0)
@@ -627,6 +627,20 @@ function LoadingPage(){
   // Get main view
   mainView = document.querySelector(".main-view");
   mainView.innerHTML = `<div id="container">
+  <div id="loader"></div>  
+</div>
+<h4>Loader #4</h4>`
+
+document.querySelector("#body-container").className = "disabled-view";
+
+}
+
+
+function LoadingNonStructuralPage(){
+
+  // Get main view
+  subMainView = document.querySelector("#sub-main-view");
+  subMainView.innerHTML = `<div id="container">
   <div id="loader"></div>  
 </div>
 <h4>Loader #4</h4>`
