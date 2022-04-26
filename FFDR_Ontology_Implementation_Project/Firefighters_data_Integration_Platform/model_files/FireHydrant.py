@@ -12,13 +12,13 @@ Type: Wet barrel hydrants (on pressurized water distribution systems),
 Dry barrel hydrants (used on static water supply sources)
 '''
 class FireHydrant(SurroundingStructure):
-	hasType = models.CharField(max_length=80)
+	hasType = models.CharField(null=True, max_length=80)
 	hasPosition = models.CharField(max_length=80, blank=True)
 	hasHoseConnection = models.ForeignKey(HoseConnection, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasWaterSource = models.ForeignKey(WaterSource, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasDistanceFromFDC = models.FloatField(blank=True)
 	hasFireFlow = models.FloatField(blank=True)
-	hasFireFlowUnit = models.CharField(max_length=80, blank=True)
+	hasFireFlowUnit = models.CharField(null=True, max_length=80, blank=True)
 	hasNumberOfOutlet = models.IntegerField(blank=True)
 	isFunctional = models.BooleanField(blank=True)
 

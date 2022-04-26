@@ -8,8 +8,8 @@ The 'EmergencyServiceProvider' class represents emergency service
 providers involved in a building fire emergency response.
 '''
 class EmergencyServiceProvider(models.Model):
-	hasProjectName = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING)
-	hasName = models.CharField(max_length=80)
+	hasProjectName = models.ForeignKey(IncidentBuilding,null=True, on_delete=models.DO_NOTHING)
+	hasName = models.CharField(null=True, max_length=80)
 	hasAddress = models.ForeignKey(ESPContactAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasDistanceFromIncidentBuilding = models.FloatField(blank=True)
 	hasDistanceFromIncidentBuildingUnit = models.CharField(blank=True, max_length=80)

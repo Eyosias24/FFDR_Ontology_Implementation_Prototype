@@ -11,8 +11,8 @@ building (OSHA, 2015).
 '''
 class SmokeControlSystem(BuildingSafetySystem):
 	hasControlPanel = models.ForeignKey(SmokeControlSystemControlPanel, on_delete=models.DO_NOTHING, blank=True, null=True)
-	hasCoverageZone = models.CharField(max_length=65)
-	hasType = models.CharField(max_length=65)
+	hasCoverageZone = models.CharField(null=True, max_length=65)
+	hasType = models.CharField(null=True, max_length=65)
 	isSystemActivated = models.BooleanField(blank=True)
 
 

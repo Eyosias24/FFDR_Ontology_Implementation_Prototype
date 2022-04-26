@@ -6,7 +6,7 @@ The 'NonStructuralElement' class represents the non-structural
 elements of a building.
 '''
 class NonStructuralElement(BuildingComponent):
-	hasId = models.CharField(max_length=65)
+	hasId = models.CharField(null=True, max_length=65)
 	hasMaterial = models.ForeignKey(Material, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasLocation = models.CharField(blank=True, max_length=65)
 	hasFireResistanceRating = models.FloatField(blank=True)

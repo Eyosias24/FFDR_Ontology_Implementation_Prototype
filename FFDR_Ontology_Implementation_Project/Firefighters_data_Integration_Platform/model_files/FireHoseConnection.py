@@ -11,7 +11,7 @@ class FireHoseConnection(BuildingSafetySystem):
 	hasHoseConnection = models.ForeignKey(HoseConnection, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasWaterSource = models.ForeignKey(StandpipeSystem, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasLocation = models.TextField(blank=True)
-	hasFloorsServed = models.CharField(max_length=65)
+	hasFloorsServed = models.CharField(null=True, max_length=65)
 
  
 	def serialize(self):

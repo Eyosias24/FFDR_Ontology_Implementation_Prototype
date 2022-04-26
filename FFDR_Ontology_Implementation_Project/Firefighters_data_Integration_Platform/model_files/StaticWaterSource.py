@@ -12,7 +12,7 @@ class StaticWaterSource(WaterSource):
 	hasLocation = models.TextField(blank=True)
 	hasDistanceFromFDC = models.FloatField(blank=True)
 	hasDistanceFromIncidentBuilding = models.FloatField(blank=True)
-	hasDistanceUnit = models.CharField(max_length=80)
+	hasDistanceUnit = models.CharField(null=True, max_length=80)
 
 
 	def serialize(self):

@@ -6,7 +6,7 @@ skylights, photovoltaic panels, vegetation, and Other Obstructions
 (cables, wires, ropes).
 '''
 class RoofTopElement(BuildingComponent):
-	hasType = models.CharField(max_length=65)
+	hasType = models.CharField(null=True, max_length=65)
 	hasDescription = models.TextField(blank=True)
 	hasLocation = models.TextField(blank=True)
 

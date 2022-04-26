@@ -6,8 +6,8 @@ The 'StructuralElement' class represents the structural elements of a
 building.
 '''
 class StructuralElement(BuildingComponent):
-	hasName = models.CharField(max_length=65)
-	hasType = models.CharField(max_length=65)
+	hasName = models.CharField(null=True, max_length=65)
+	hasType = models.CharField(null=True, max_length=65)
 	hasMaterial = models.ForeignKey(Material, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasLocation = models.TextField(blank=True)
 	hasFireResistanceRating = models.FloatField(blank=True)

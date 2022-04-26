@@ -8,7 +8,7 @@ urlpatterns = [
     path("table", views.table, name="table"),
 
     
-    # path("add", views.add, name="add"),
+    path("edit", views.edit, name="edit"),
 
 
 # Get single IncidentBuilding item API route

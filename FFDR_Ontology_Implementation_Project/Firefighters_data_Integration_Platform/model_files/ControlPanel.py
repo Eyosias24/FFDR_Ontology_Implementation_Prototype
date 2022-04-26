@@ -6,9 +6,9 @@ The 'ControlPanel' class represents different control panels used to
 control several building systems and utilities.
 '''
 class ControlPanel(models.Model):
-	hasProjectName = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING)
-	hasName = models.CharField(max_length=80)
-	hasLocation = models.CharField(max_length=255)
+	hasProjectName = models.ForeignKey(IncidentBuilding,null=True, on_delete=models.DO_NOTHING)
+	hasName = models.CharField(null=True, max_length=80)
+	hasLocation = models.CharField(null=True, max_length=255)
 	hasDescription = models.TextField(blank=True)
 
 

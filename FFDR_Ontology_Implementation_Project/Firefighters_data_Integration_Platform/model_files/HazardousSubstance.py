@@ -5,10 +5,10 @@ The 'HazardousSubstance' class represents hazardous substances that
 may be found in a building.
 '''
 class HazardousSubstance(BuildingComponent):
-	hasName = models.CharField(max_length=75)
+	hasName = models.CharField(null=True, max_length=75)
 	hasDescription = models.TextField(blank=True)
 	hasHazardLevel = models.IntegerField(blank=True)
-	hasLocation = models.CharField(max_length=255)
+	hasLocation = models.CharField(null=True, max_length=255)
 	hasSpecialHazard = models.TextField(blank=True)
 	isDecontaminationRequired = models.BooleanField(blank=True)
 

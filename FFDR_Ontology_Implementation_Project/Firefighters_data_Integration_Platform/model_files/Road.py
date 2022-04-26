@@ -7,7 +7,7 @@ Status could be: unknown, known, verified
 The 'Road' class represents roads.
 '''
 class Road(models.Model):
-	hasProjectName = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING)
+	hasProjectName = models.ForeignKey(IncidentBuilding,null=True, on_delete=models.DO_NOTHING)
 	hasMaterial = models.ForeignKey(Material, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasCondition = models.CharField(blank=True, max_length=255)
 	hasSlope = models.CharField(blank=True, max_length=80)

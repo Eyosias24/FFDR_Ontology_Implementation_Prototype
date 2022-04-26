@@ -5,7 +5,7 @@ The 'Material' class represents the constituting materials of
 different elements.
 '''
 class Material(models.Model):
-	hasName = models.CharField(max_length=80)
+	hasName = models.CharField(null=True, max_length=80)
 
 
 	def serialize(self):

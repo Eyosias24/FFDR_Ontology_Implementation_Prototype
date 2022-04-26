@@ -6,7 +6,7 @@ The 'VerticalOpening' class represents vertical Openings that may be
 found in a building.
 '''
 class VerticalOpening(BuildingComponent):
-	hasName = models.CharField(max_length=65)
+	hasName = models.CharField(null=True, max_length=65)
 	hasShaftEnclosure = models.ForeignKey(ShaftEnclosure, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasDescription = models.TextField(blank=True)
 	hasLocation = models.TextField(blank=True)

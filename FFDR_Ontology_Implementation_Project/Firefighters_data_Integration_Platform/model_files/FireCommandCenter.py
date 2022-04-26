@@ -7,7 +7,7 @@ is a dedicated room or area where fire protection systems, alarms, and
 other emergency systems are monitored and controlled (NFPA 72).
 '''
 class FireCommandCenter(models.Model):
-	hasProjectName = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING)
+	hasProjectName = models.ForeignKey(IncidentBuilding,null=True, on_delete=models.DO_NOTHING)
 	contains = models.ManyToManyField(ControlPanel, blank=True, null=True)
 	hasKeyLocated = models.CharField(blank=True, max_length=65)
 	hasLocation = models.CharField(blank=True, max_length=65)

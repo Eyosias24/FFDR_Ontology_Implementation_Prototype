@@ -5,7 +5,7 @@ The 'SmokePartition' class represents a smoke partition, which is a
 wall assembly that limits the transfer of smoke (IFC, 2018).
 '''
 class SmokePartition(FireandSmokeProtectionElement):
-	hasOnFloor = models.CharField(max_length=65)
+	hasOnFloor = models.CharField(null=True, max_length=65)
 	
 	def serialize(self):
 		return {

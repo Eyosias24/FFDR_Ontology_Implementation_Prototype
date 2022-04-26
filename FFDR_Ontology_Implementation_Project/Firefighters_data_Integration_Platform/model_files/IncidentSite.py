@@ -5,7 +5,7 @@ The 'IncidentSite' class represents a site where a building fire
 emergency has occurred.
 '''
 class IncidentSite(models.Model):
-	hasProjectName = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING)
+	hasProjectName = models.ForeignKey(IncidentBuilding,null=True, on_delete=models.DO_NOTHING)
 	hasSiteDescription = models.TextField(blank=True)
 
 

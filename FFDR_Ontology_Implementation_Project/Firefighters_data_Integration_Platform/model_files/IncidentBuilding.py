@@ -8,7 +8,7 @@ The 'Incidentbuilding' class represents a building with a fire
 emergency.
 '''
 class IncidentBuilding(models.Model):  
-	hasProjectName = models.CharField(max_length=80)
+	hasProjectName = models.CharField(null=True, max_length=80)
 	hasAddress = models.ForeignKey(BuildingAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasBuildingPlan = models.ManyToManyField(BuildingPlan, blank=True, null=True)
 	hasOccupancy = models.ForeignKey(BuildingOccupancy, on_delete=models.DO_NOTHING, blank=True, null=True)

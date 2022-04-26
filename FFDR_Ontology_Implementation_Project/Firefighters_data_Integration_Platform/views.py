@@ -721,3 +721,33 @@ def get_road_to_incident(request, projectName):
 	return JsonResponse([item.serialize() for item in roadToIncident], safe=False)
 
 
+
+def edit (request):	
+
+	FloorsNumber =  {"Basement":"-01. Basement",
+			  "First Floor":"01. First Floor",
+			  "Second Floor":"02. Second Floor",
+			  "Third Floor":"03. Third Floor",
+			  "Fourth Floor":"04. Fourth Floor",
+			  "Fifth Floor":"05. Fifth Floor",
+			  "Sixth Floor":"06. Sixth Floor",
+			  "Seventh Floor":"07. Seventh Floor",
+			  "Eighth Floor":"08. Eighth Floor"}
+			
+
+
+			
+	dataStore = Stairway.objects.all()
+
+	for data in dataStore:
+		print(data)
+		
+		floor = data.serialize()["hasDischargeLevel"]
+		print("   ")
+		print(floor in FloorsNumber)
+		if floor in FloorsNumber:
+			data.hasDischargeLevel = FloorsNumber[floor]
+			data.save()
+
+
+	return HttpResponse("Success!")

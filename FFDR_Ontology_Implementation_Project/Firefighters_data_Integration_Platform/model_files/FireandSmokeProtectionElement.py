@@ -7,7 +7,7 @@ protection elements that can protect firefighters and building
 occupants (OSHA, 2015).
 '''
 class FireandSmokeProtectionElement(BuildingSafetySystem):
-	hasName = models.CharField(max_length=65)
+	hasName = models.CharField(null=True, max_length=65)
 	hasMaterial = models.ForeignKey(Material, on_delete=models.DO_NOTHING, blank=True, null=True)
 	hasLocation = models.CharField(max_length=65, blank=True)
 	hasFireResistanceRating = models.FloatField(blank=True)

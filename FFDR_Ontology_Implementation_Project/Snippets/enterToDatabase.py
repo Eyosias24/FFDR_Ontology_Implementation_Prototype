@@ -407,3 +407,41 @@ def add (request):
 	
 	return HttpResponse("Success!")
 
+
+
+
+def add (request):	
+	
+	project = IncidentBuilding.objects.all()
+
+	FloorsNumber = [
+			  {"floor":"First Floor",
+			  "floorNumber":"1"},
+			  {"floor":"Second Floor",
+			  "floorNumber":"2"},
+			  {"floor":"Third Floor",
+			  "floorNumber":"3"},
+			  {"floor":"Fourth Floor",
+			  "floorNumber":"4"},
+			  {"floor":"Fifth Floor",
+			  "floorNumber":"5"},
+			  {"floor":"Sixth Floor",
+			  "floorNumber":"6"},
+			  {"floor":"Seventh Floor",
+			  "floorNumber":"7"},
+			  {"floor":"Eighth Floor",
+			  "floorNumber":"8"}
+			]
+
+	
+	
+	for Floor in FloorsNumber:		
+
+			data = BuildingPlan(
+			hasProjectName = project[0],
+			hasFloor=Floor["floor"],
+			hasFloorId=Floor["floorNumber"],
+						)
+			data.save()
+	
+	return HttpResponse("Success!")

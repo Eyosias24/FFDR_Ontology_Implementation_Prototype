@@ -1077,7 +1077,7 @@ isTableTitle = false
   
   
   for (i = 0; i < allContainers.length; i++) {
-   console.log(allContainers[i])
+    
     if (allContainers[i].className== "header") continue;
    
       allContainers[i].addEventListener("click", function (event) {

@@ -6,9 +6,9 @@ The 'AutomaticFireExtinguishingSystem' class represents an automatic
 fire extinguishing system installed in a building.
 '''
 class AutomaticFireExtinguishingSystem(BuildingSafetySystem):
-	hasSystem = models.CharField(max_length=65)
+	hasSystem = models.CharField(null=True, max_length=65)
 	hasConnectionWith = models.ForeignKey(FireAlarmSystem, on_delete=models.DO_NOTHING, blank=True, null=True)
-	hasCoverageZone = models.CharField(max_length=65)
+	hasCoverageZone = models.CharField(null=True, max_length=65)
 	hasLocationOfControlValve = models.CharField(max_length=65)
 	isSystemActivated = models.BooleanField(blank=True)
 

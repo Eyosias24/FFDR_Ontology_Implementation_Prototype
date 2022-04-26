@@ -6,7 +6,7 @@ continuous vertical or horizontal membrane (such as a wall, floor, or
 ceiling assembly) that restricts the movement of smoke (IFC 2018).
 '''
 class SmokeBarrier(FireandSmokeProtectionElement):	
-	hasOnFloor = models.CharField(max_length=65)
+	hasOnFloor = models.CharField(null=True, max_length=65)
 	
 	def serialize(self):
 		return {

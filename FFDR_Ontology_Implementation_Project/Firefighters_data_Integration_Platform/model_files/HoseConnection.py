@@ -8,7 +8,7 @@ Type could be threaded or quick- connect.
 '''
 class HoseConnection(models.Model):
 	hasSize = models.FloatField(blank=True)
-	hasSizeUnit = models.CharField(max_length=80)
+	hasSizeUnit = models.CharField(null=True, max_length=80)
 	hasType = models.CharField(max_length=80, blank=True)
 
 

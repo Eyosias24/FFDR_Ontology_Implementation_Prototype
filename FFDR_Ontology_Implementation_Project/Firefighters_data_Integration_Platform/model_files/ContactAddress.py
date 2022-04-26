@@ -6,7 +6,7 @@ The 'Address' class represents different types of addresses needed
 during a building fire emergency.
 '''
 class ContactAddress(models.Model):
-	hasProjectName = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING)
+	hasProjectName = models.ForeignKey(IncidentBuilding,null=True, on_delete=models.DO_NOTHING)
 	hasName = models.CharField(blank=True, max_length=80)
 	hasTelephoneNumber = models.CharField(blank=True, max_length=80)
 	hasMobileNumber = models.CharField(blank=True, max_length=15)

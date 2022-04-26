@@ -5,7 +5,7 @@ The 'Building' class represents buildings other than the incident
 building.
 '''
 class Building(SurroundingStructure):
-	hasType = models.CharField(max_length=80)
+	hasType = models.CharField(null=True, max_length=80)
 	
 	def serialize(self):
 		return {

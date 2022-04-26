@@ -6,8 +6,8 @@ removal system that assists firefighters in removing smoke after a
 fire is extinguished (OSHA, 2015).
 '''
 class SmokeandHeatRemovalSystem(BuildingSafetySystem):
-	hasType = models.CharField(max_length=65)
-	hasLocation = models.CharField(max_length=65)
+	hasType = models.CharField(null=True, max_length=65)
+	hasLocation = models.CharField(null=True, max_length=65)
 	isSystemActivated = models.BooleanField(blank=True)
 
 

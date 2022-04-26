@@ -4,7 +4,7 @@ from .BuildingOccupancy import BuildingOccupancy
 from .BuildingPlan import BuildingPlan
 from .ConstructionType import ConstructionType
 from .FireCommandCenter import FireCommandCenter
-# from .Floor import FloorPlan
+from .Floor import Floor
 from .HoseConnection import HoseConnection
 from .IncidentBuilding import IncidentBuilding
 from .IncidentSite import IncidentSite
@@ -85,6 +85,8 @@ from .AlternativeAutomaticFireExtinguishingSystem import AlternativeAutomaticFir
 from .AutomaticSprinklerSystem import AutomaticSprinklerSystem
 from .CarbonMonoxideDetector import CarbonMonoxideDetector
 from .CbrSensor import CbrSensor
+from .SensorDetector import SensorDetector
+from .FireandSmokeProtectionElement import FireandSmokeProtectionElement
 from .FireBarrier import FireBarrier
 from .FirePartition import FirePartition
 from .GasDetector import GasDetector

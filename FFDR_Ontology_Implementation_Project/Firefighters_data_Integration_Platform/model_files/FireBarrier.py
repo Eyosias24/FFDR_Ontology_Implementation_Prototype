@@ -7,7 +7,7 @@ spread of fire in which continuity of the wall is maintained (IFC,
 2018).
 '''
 class FireBarrier(FireandSmokeProtectionElement):
-	hasOnFloor = models.CharField(max_length=65)
+	hasOnFloor = models.CharField(null=True, max_length=65)
 	
 	def serialize(self):
 		return {

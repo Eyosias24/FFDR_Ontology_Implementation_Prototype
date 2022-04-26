@@ -6,10 +6,10 @@ The 'WaterSource' class represents different water sources that can be
 used for fire suppression.
 '''
 class WaterSource(models.Model):
-	hasProjectName = models.ForeignKey(IncidentBuilding, on_delete=models.DO_NOTHING)
-	hasName = models.CharField(max_length=80)
+	hasProjectName = models.ForeignKey(IncidentBuilding,null=True, on_delete=models.DO_NOTHING)
+	hasName = models.CharField(null=True, max_length=80)
 	hasFireFlow = models.FloatField(blank=True)
-	hasFireFlowUnit = models.CharField(max_length=80)
+	hasFireFlowUnit = models.CharField(null=True, max_length=80)
 	isFunctional = models.BooleanField(blank=True) 
 
 
