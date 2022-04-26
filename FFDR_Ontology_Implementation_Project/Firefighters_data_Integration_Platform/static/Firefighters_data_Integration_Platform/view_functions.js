@@ -180,15 +180,19 @@ function showIncidentBuilding(results) {
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
+  
   allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
+  
+   for (i = 0; i < allContainers.length; i++) {
 
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     if (allContainers[i].id == "building-address-container") {
       allContainers[i].addEventListener("click", function (event) {
         additionalGraphicData = true;
-        addMoreContentContainer(
+
+        console.log("This")
+        addMoreContentContainerNoTable(
           event,
           allContainers,
           additionalWrittenData,
@@ -209,7 +213,7 @@ function showIncidentBuilding(results) {
     if (allContainers[i].id == "number-of-exit-container") {
       allContainers[i].addEventListener("click", function (event) {
         additionalGraphicData = true;
-        addMoreContentContainer(
+        addMoreContentContainerNoTable(
           event,
           allContainers,
           additionalWrittenData,
@@ -230,10 +234,6 @@ enableNavigation()
 }
 
 function add2DViewer(graphicDataContainer){
-//  graphicDataContainer.innerHTML = `
-// <iframe src="${sources}#toolbar=0&view=fitH">
-//     </iframe>
-// `;
 viewerContainer = document.getElementById("2d-viewer-container")
 
 copyViewerContainer = viewerContainer.cloneNode(true)
@@ -410,7 +410,7 @@ function showContactAddresses(results) {
   buildingContactAddressContainer.querySelector("a").click();
 
 
-enableNavigation()
+// enableNavigation()
 }
 
 
@@ -521,10 +521,17 @@ function populateESPContactAddressElements(
   subSubMainView = document.querySelector("#sub-sub-main-view");
   subSubMainView.innerHTML = ``;
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subSubMainView.appendChild(contentView)
+contentView = document.querySelector(".content-view")
+
+
   // Set title
-  firstTitle = "Emergency Service";
-  secondTitle = "Name";
-  thirdTitle = "Phone Number";
+  firstCell = "Emergency Service";
+  secondCell = "Name";
+  thirdCell = "Phone Number";
 
   containerClass = "contact-address";
   containerID = "header";
@@ -532,21 +539,20 @@ function populateESPContactAddressElements(
   secondCellStatus = "neutral",
   thirdCellStatus = "neutral";
 
-  createThreeColumnContainer(
-    subSubMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subSubMainView.appendChild(contentView)
+   createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+  )
+isTableTitle = false
+
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -561,7 +567,7 @@ function populateESPContactAddressElements(
 
     containerID = i;
 
-    createThreeColumnContainer(
+     createThreeColumnContainer(
       contentView,
       firstCell,
       secondCell,
@@ -569,8 +575,8 @@ function populateESPContactAddressElements(
       thirdCell,
       thirdCellStatus,
       containerID,
-      containerClass
-    );
+      isTableTitle
+  )
   }
 
   moreContainer = document.createElement("div");
@@ -581,16 +587,18 @@ function populateESPContactAddressElements(
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     
     allContainers[i].addEventListener("click", function (event) {
       additionalWrittenData = true;
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -598,6 +606,7 @@ function populateESPContactAddressElements(
       // Add additional data
     });
   }
+  enableNavigation()
 }
 
 function populateContactAddressElements(
@@ -616,34 +625,42 @@ function populateContactAddressElements(
 
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
+
   if (type == "buildingContactAddress" || type == "utilityContactAddress") {
     // Set title
-    if (type == "buildingContactAddress") firstTitle = "Role";
-    else if (type == "utilityContactAddress") firstTitle = "Utility";
-    secondTitle = "Name";
-    thirdTitle = "Phone Number";
+    if (type == "buildingContactAddress") firstCell = "Role";
+    else if (type == "utilityContactAddress") firstCell = "Utility";
+   
+    secondCell = "Name";
+    thirdCell = "Phone Number";
 
     containerClass = "contact-address";
     containerID = "header";
     thirdCellStatus = "neutral";
   secondCellStatus = "neutral",
 
-    createThreeColumnContainer(
-      subMainView,
-      firstTitle,
-      secondTitle,
-      secondCellStatus,
-      thirdTitle,
-      thirdCellStatus,
-      containerID,
-      containerClass
-    );
-    
 
   // content container
   contentView = document.createElement("div")
   contentView.className = "content-view"
   subMainView.appendChild(contentView)
+  contentView = document.querySelector(".content-view")
+
+isTableTitle = true
+    createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
+
+isTableTitle = false
+    
+
 
 
     for (i = 0; i < inputData.length; i++) {
@@ -659,38 +676,41 @@ function populateContactAddressElements(
       containerID = i;
 
       createThreeColumnContainer(
-        contentView,
-        firstCell,
-        secondCell,
-        secondCellStatus,
-        thirdCell,
-        thirdCellStatus,
-        containerID,
-        containerClass
-      );
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+    );
     }
   } else {
     // Set title
-    firstTitle = "Name";
-    secondTitle = "Phone Number";
+    firstCell = "Name";
+    secondCell = "Phone Number";
 
     containerClass = "contact-address";
     containerID = "header";
     secondCellStatus = "neutral";
 
-    createTwoColumnContainer(
-      subMainView,
-      firstTitle,
-      secondTitle,
-      secondCellStatus,
-      containerID,
-      containerClass
-    );
-
   // content container
   contentView = document.createElement("div")
   contentView.className = "content-view"
   subMainView.appendChild(contentView)
+
+isTableTitle = true
+    createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+    );
+isTableTitle = false
+
+
 
     for (i = 0; i < inputData.length; i++) {
       // Get data
@@ -704,12 +724,12 @@ function populateContactAddressElements(
       containerID = i;
 
       createTwoColumnContainer(
-        contentView,
-        firstCell,
-        secondCell,
-        secondCellStatus,
-        containerID,
-        containerClass
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
       );
     }
   }
@@ -722,12 +742,14 @@ function populateContactAddressElements(
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
   
+  allContainers = document.querySelectorAll("tr");
+  
+   
   for (i = 0; i < allContainers.length; i++) {
    
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
     
     allContainers[i].addEventListener("click", function (event) {
      
@@ -735,7 +757,6 @@ function populateContactAddressElements(
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -743,6 +764,8 @@ function populateContactAddressElements(
       // Add additional data
     });
   }
+
+  enableNavigation()
 }
 
 function setInnerHtml(elm, html) {
@@ -778,32 +801,35 @@ function showFireExtinguishingSystem(results) {
   title = "Fire Extinguishing Systems"
   setTitleView(mainView, title)
 
+  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "System";
-  secondTitle = "Coverage Zone";
-  thirdTitle = "Status";
+  firstCell = "System";
+  secondCell = "Coverage Zone";
+  thirdCell = "Status";
 
   containerClass = "automatic-fire-extinguishing-system";
   containerID = "header";
   thirdCellStatus = "neutral";
   secondCellStatus = "neutral",
 
-  createThreeColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
+    createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
 
-  
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+isTableTitle = false
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -829,11 +855,11 @@ function showFireExtinguishingSystem(results) {
       contentView,
       firstCell,
       secondCell,
-    secondCellStatus,
+      secondCellStatus,
       thirdCell,
       thirdCellStatus,
       containerID,
-      containerClass
+      isTableTitle
     );
   }
 
@@ -847,11 +873,15 @@ function showFireExtinguishingSystem(results) {
   additionalWrittenData = false;
   additionalGraphicData = false;
 
-  allContainers = document.querySelectorAll(".parent-container");
 
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+  
   for (i = 0; i < allContainers.length; i++) {
 
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       
@@ -861,14 +891,12 @@ function showFireExtinguishingSystem(results) {
       
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
         // Add  additional data
-        index = event.target.id;
+        index = event.target.parentNode.id;
         moreData = results[index];
-
 
         // Get data
         locationOfControlValve = moreData["hasLocationOfControlValve"];
@@ -970,31 +998,34 @@ function showFireHydrant(unsortedResults) {
   title = "Fire Hydrants"
   setTitleView(mainView, title)
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Distance from building";
-  secondTitle = "Fire flow";
-  thirdTitle = "State";
+  firstCell = "Distance from building";
+  secondCell = "Fire flow";
+  thirdCell = "State";
 
   containerClass = "fire-hydrant";
   containerID = "header";
   thirdCellStatus = "neutral";
   secondCellStatus = "neutral",
+  
+isTableTitle = true
 
-  createThreeColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+   createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+  )
+isTableTitle = false
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -1021,11 +1052,11 @@ function showFireHydrant(unsortedResults) {
       contentView,
       firstCell,
       secondCell,
-    secondCellStatus,
+      secondCellStatus,
       thirdCell,
       thirdCellStatus,
       containerID,
-      containerClass
+      isTableTitle
     );
   }
 
@@ -1039,11 +1070,15 @@ function showFireHydrant(unsortedResults) {
   additionalWrittenData = false;
   additionalGraphicData = false;
   
-  allContainers = document.querySelectorAll(".parent-container");
 
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+  
   for (i = 0; i < allContainers.length; i++) {
-   
-    if (allContainers[i].id == "header") continue;
+   console.log(allContainers[i])
+    if (allContainers[i].className== "header") continue;
    
       allContainers[i].addEventListener("click", function (event) {
      
@@ -1052,13 +1087,12 @@ function showFireHydrant(unsortedResults) {
     
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
     
         // Add more content
-        index = event.target.id;
+        index = event.target.parentNode.id;
         moreData = results[index];
         // Get data
         hoseConnectionSize =
@@ -1220,32 +1254,39 @@ function showBuildingUtilitySystem(results) {
   mainView = document.querySelector(".main-view");
   mainView.id = ""
 
+
   // Set view title
   title = "Building Utility Systems"
   setTitleView(mainView, title)
-
-  // Set title
-  firstTitle = "Building Utility";
-  secondTitle = "State";
-
-  containerClass = "building-utility-system";
-  containerID = "header";
-  secondCellStatus = "neutral";
-
-  createTwoColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
-
 
   // content container
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+  // Set title
+  firstCell = "Building Utility";
+  secondCell = "State";
+
+  containerClass = "building-utility-system";
+  containerID = "header";
+  secondCellStatus = "neutral";
+
+isTableTitle = true
+
+
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
+
+isTableTitle = false
+
+
 
   // primary Power Supply System
   // Get data
@@ -1262,14 +1303,15 @@ function showBuildingUtilitySystem(results) {
   containerID = "primary-power-supply-system";
 
   // Create container
-  createTwoColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+  
+    createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+    );
 
   // Backup Power Supply System
   // Get data
@@ -1286,14 +1328,15 @@ function showBuildingUtilitySystem(results) {
   containerID = "backup-power-supply-system";
 
   // Create container
-  createTwoColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+  
+    createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+    );
 
   // Gas Supply System
   // Get data
@@ -1310,14 +1353,15 @@ function showBuildingUtilitySystem(results) {
   containerID = "gas-supply-system";
 
   // Create container
-  createTwoColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+  
+    createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+    );
 
   // HVAC System
   // Get data
@@ -1334,14 +1378,15 @@ function showBuildingUtilitySystem(results) {
   containerID = "hvac-System";
 
   // Create container
-  createTwoColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+  
+    createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+    );
 
   // Water Supply and Sewerage System
   // Get data
@@ -1358,14 +1403,15 @@ function showBuildingUtilitySystem(results) {
   containerID = "water-supply-and-sewerage-system";
 
   // Create container
-  createTwoColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+  
+    createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+    );
 
   moreContainer = document.createElement("div");
   moreContainer.id = "more-container";
@@ -1373,8 +1419,12 @@ function showBuildingUtilitySystem(results) {
   contentView.appendChild(moreContainer);
 
   // Toggle click on container (Show more information)
-  allContainers = document.querySelectorAll(".parent-container");
 
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+  
   // Add more content
   // primary Power Supply System
   selectedContainer = document.querySelector("#primary-power-supply-system");
@@ -1471,7 +1521,7 @@ function addMoreContentTwoColumnContainer(selectedContainer, allContainers) {
   });
 }
 
-function createTwoColumnContainer(
+function createTwoColumnContainers(
   mainView,
   firstCell,
   secondCell,
@@ -1501,7 +1551,7 @@ function createTwoColumnContainer(
   mainView.appendChild(parentContainer);
 }
 // prettier-ignore
-function createThreeColumnContainer(
+function createThreeColumnContainer_B(
   mainView,
   firstCell,
   secondCell,
@@ -1539,7 +1589,7 @@ function createThreeColumnContainer(
   mainView.appendChild(parentContainer);
 }
 
-function createFourColumnContainer(
+function createFourColumnContainer_Backup(
   mainView,
   firstCell,
   secondCell,
@@ -1585,7 +1635,7 @@ function createFourColumnContainer(
 
   mainView.appendChild(parentContainer);
 }
-function createFiveColumnContainer(
+function createFiveColumnContainer_backup(
   mainView,
   firstCell,
   secondCell,
@@ -1700,10 +1750,17 @@ function showPortableFireExtinguisher(results) {
   title = "Portable Fire Extinguishers"
   setTitleView(mainView, title)
 
-  // Set title
-  firstTitle = "Fire Extinguisher Type";
-  secondTitle = "Rating";
-  thirdTitle = "Location";
+  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+contentView = document.querySelector(".content-view")
+
+  // Set title firstCell
+  firstCell = "Location";
+  secondCell = "Fire Extinguisher Type";
+  thirdCell = "Rating";
 
   containerClass = "portable-fire-extinguisher";
   containerID = "header";
@@ -1711,36 +1768,9 @@ function showPortableFireExtinguisher(results) {
   secondCellStatus = "neutral";
   thirdCellStatus = "neutral";
 
+isTableTitle = true
+
   createThreeColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID
-  );
-
-  
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
-
-
-  for (i = 0; i < results.length; i++) {
-    // Get data
-    fireExtinguisherType = results[i]["hasType"];
-    fireExtinguisherRating = results[i]["hasFireExtinguisherRating"];
-    distanceLocation = results[i]["hasLocation"];
-
-    firstCell = fireExtinguisherType;
-    secondCell = fireExtinguisherRating;
-    thirdCell = distanceLocation;
-
-    containerID = i;
-
-    createThreeColumnContainer(
       contentView,
       firstCell,
       secondCell,
@@ -1748,8 +1778,36 @@ function showPortableFireExtinguisher(results) {
       thirdCell,
       thirdCellStatus,
       containerID,
-      containerClass
+      isTableTitle
+  )
+
+isTableTitle = false
+
+
+  for (i = 0; i < results.length; i++) {
+    // Get data
+    fireExtinguisherType = results[i]["hasType"];
+    fireExtinguisherRating = results[i]["hasFireExtinguisherRating"];
+    hasLocation = results[i]["hasLocation"];
+
+    firstCell = hasLocation;
+    secondCell = fireExtinguisherType;
+    thirdCell = fireExtinguisherRating;
+
+    containerID = i;
+    
+isTableTitle = false
+createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
     );
+
   }
 
   moreContainer = document.createElement("div");
@@ -1762,27 +1820,30 @@ function showPortableFireExtinguisher(results) {
   additionalWrittenData = false;
   additionalGraphicData = false;
 
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
   
   for (i = 0; i < allContainers.length; i++) {
     
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className == "header") continue;
     
     allContainers[i].addEventListener("click", function (event) {
       
+      // Get clicked item and its values
+      index = event.target.parentNode.id;
+
       additionalGraphicData = true;
      
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
       moreData = results[index];
-
       
         // Create graphic data containers
       
@@ -1794,7 +1855,9 @@ function showPortableFireExtinguisher(results) {
 enableNavigation()
 }
 
-function addMoreContentContainer(
+
+
+function addMoreContentContainerNoTable(
   event,
   allContainers,
   additionalWrittenData = false,
@@ -1855,6 +1918,72 @@ function addMoreContentContainer(
   }
 }
 
+function addMoreContentContainer(
+  event,
+  additionalWrittenData = false,
+  additionalGraphicData = false
+) {
+  
+  selectedContainer = event.target.parentNode
+
+    // Hide table
+    if (document.querySelectorAll("table").length > 0)
+    document.querySelector("#table-view_wrapper").style.display = "none"
+
+    // Show more content
+
+    moreContainer = document.querySelector("#more-container");
+    moreContainer.style.display = "block";
+
+    
+// Create more content heading
+
+      headingContainer = document.createElement("div");
+      headingContainer.id = "heading-container";
+      moreContainer.appendChild(headingContainer);
+
+createMoreContentHeading(event, headingContainer)
+
+    // Add a back button
+    backButtonContainer = document.createElement("div");
+    backButtonContainer.className = "back-button-container"
+    moreContainer.appendChild(backButtonContainer);
+
+    backButton = document.createElement("a");
+    backButton.href = "#";
+    backButton.id = "back-button";
+    backButton.innerText = "Back";
+    backButtonContainer.appendChild(backButton);
+
+    // Create data containers
+    if (additionalWrittenData) {
+      dataContainer = document.createElement("div");
+      dataContainer.id = "data-container";
+      moreContainer.appendChild(dataContainer);
+    }
+    // Create graphic data containers
+    if (additionalGraphicData) {
+      graphicDataContainer = document.createElement("div");
+      graphicDataContainer.id = "graphic-data-container";
+     
+      moreContainer.appendChild(graphicDataContainer);
+    }
+    
+    // Event listener for back button
+    backButton.addEventListener("click", function (event) {
+      
+  
+  // Show table
+      document.querySelector("#table-view_wrapper").style.display = "block"
+
+      // Clear and hide more content
+      document.querySelector("#more-container").style.display = "none";
+      document.querySelector("#more-container").innerHTML = "";
+      event.target.remove();
+    });
+  
+}
+
 // showFireAlarmSystem
 function showFireAlarmSystem(results) {
   
@@ -1867,28 +1996,29 @@ function showFireAlarmSystem(results) {
   title = "Fire Alarm Systems"
   setTitleView(mainView, title)
 
-  // Set title
-  firstTitle = "Coverage Zone";
-  secondTitle = "State";
-
-  containerClass = "fire-alarm-system";
-  containerID = "header";
-  secondCellStatus = "neutral";
-
-  createTwoColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
 
   // content container
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
 
+  // Set title
+  firstCell = "Coverage Zone";
+  secondCell = "State";
+
+  containerClass = "fire-alarm-system";
+  containerID = "header";
+  secondCellStatus = "neutral";
+isTableTitle = true
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
+isTableTitle = false
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -1907,13 +2037,13 @@ function showFireAlarmSystem(results) {
     containerID = i;
 
     // Create container
-    createTwoColumnContainer(
+     createTwoColumnContainer(
       contentView,
       firstCell,
       secondCell,
       secondCellStatus,
       containerID,
-      containerClass
+      isTableTitle
     );
   }
 
@@ -1926,12 +2056,14 @@ function showFireAlarmSystem(results) {
 
   additionalWrittenData = false;
   additionalGraphicData = false;
-
-  allContainers = document.querySelectorAll(".parent-container");
- 
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+  
   for (i = 0; i < allContainers.length; i++) {
 
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       
@@ -1940,16 +2072,16 @@ function showFireAlarmSystem(results) {
       
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
 
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = results[index];
 
+console.log(moreData)
       // Get data
       typeOfSignalInitiator = moreData["hasTypeOfSignalInitiator"];
       controlPanel = moreData["hasControlPanel"]["hasName"];
@@ -2008,10 +2140,15 @@ function showFireDepartmentConnections(results) {
   title = "Fire Department Connections"
   setTitleView(mainView, title)
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Coverage Zone";
-  secondTitle = "Hose Connection";
-  thirdTitle = "State";
+  firstCell = "Coverage Zone";
+  secondCell = "Hose Connection";
+  thirdCell = "State";
 
   containerClass = "fire-department-connection";
   containerID = "header";
@@ -2019,21 +2156,21 @@ function showFireDepartmentConnections(results) {
   secondCellStatus = "neutral";
   thirdCellStatus = "neutral";
 
-  createThreeColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
+    createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+isTableTitle = false
+    
+
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -2062,16 +2199,17 @@ function showFireDepartmentConnections(results) {
 
       containerID = i;
 
-      createThreeColumnContainer(
-        contentView,
-        firstCell,
-        secondCell,
-        secondCellStatus,
-        thirdCell,
-        thirdCellStatus,
-        containerID,
-        containerClass
-      );
+      
+    createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
     }
   }
 
@@ -2084,12 +2222,14 @@ function showFireDepartmentConnections(results) {
   
   additionalWrittenData = false;
   additionalGraphicData = false;
-
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
   
+  allContainers = document.querySelectorAll("tr");
+  
+   
   for (i = 0; i < allContainers.length; i++) {
     
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
     
     allContainers[i].addEventListener("click", function (event) {
      
@@ -2098,13 +2238,12 @@ function showFireDepartmentConnections(results) {
     
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = results[index];
 
       // Get data
@@ -2172,27 +2311,29 @@ function showFireHoseConnection(results) {
   title = "Fire Hose Connections"
   setTitleView(mainView, title)
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Floor Location";
-  secondTitle = "Hose Connection";
+  firstCell = "Floor Location";
+  secondCell = "Hose Connection";
 
   containerClass = "fire-hose-connection";
   containerID = "header";
   secondCellStatus = "neutral";
 
-  createTwoColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+isTableTitle = true
+    createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+    );
+isTableTitle = false
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -2210,13 +2351,13 @@ function showFireHoseConnection(results) {
 
     containerID = i;
 
-    createTwoColumnContainer(
+     createTwoColumnContainer(
       contentView,
       firstCell,
       secondCell,
       secondCellStatus,
       containerID,
-      containerClass
+      isTableTitle
     );
   }
 
@@ -2230,11 +2371,14 @@ function showFireHoseConnection(results) {
   additionalWrittenData = false;
   additionalGraphicData = false;
   
-  allContainers = document.querySelectorAll(".parent-container");
- 
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+  
   for (i = 0; i < allContainers.length; i++) {
   
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
     
     allContainers[i].addEventListener("click", function (event) {
      
@@ -2243,13 +2387,12 @@ function showFireHoseConnection(results) {
     
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = results[index];
       
 
@@ -2292,10 +2435,15 @@ function showStandpipeSystem(results) {
   title = "Standpipe Systems"
   setTitleView(mainView, title)
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Coverage Zone";
-  thirdTitle = "Isolation Valve State";
+  firstCell = "Name";
+  secondCell = "Coverage Zone";
+  thirdCell = "Isolation Valve State";
 
   containerClass = "standpipe-system";
   containerID = "header";
@@ -2303,21 +2451,20 @@ function showStandpipeSystem(results) {
   secondCellStatus = "neutral";
   thirdCellStatus = "neutral";
 
-  createThreeColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
+    createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+isTableTitle = false
+
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -2339,16 +2486,17 @@ function showStandpipeSystem(results) {
 
       containerID = i;
 
-      createThreeColumnContainer(
-        contentView,
-        firstCell,
-        secondCell,
-        secondCellStatus,
-        thirdCell,
-        thirdCellStatus,
-        containerID,
-        containerClass
-      );
+      
+    createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
     }
   }
 
@@ -2362,11 +2510,14 @@ function showStandpipeSystem(results) {
   additionalWrittenData = false;
   additionalGraphicData = false;
  
-  allContainers = document.querySelectorAll(".parent-container");
- 
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+  
   for (i = 0; i < allContainers.length; i++) {
   
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
    
     allContainers[i].addEventListener("click", function (event) {
      
@@ -2375,13 +2526,12 @@ function showStandpipeSystem(results) {
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = results[index];
       
 
@@ -2521,7 +2671,7 @@ function showSensorsAndDetectors(results) {
 
   document.querySelector("#carbon-monoxide-detectors a").click();
 
-enableNavigation()
+// enableNavigation()
 }
 
 function populateSensorAndDetector(event, allNavigationContainers, inputData) {
@@ -2536,10 +2686,15 @@ function populateSensorAndDetector(event, allNavigationContainers, inputData) {
   subMainView = document.querySelector("#sub-main-view");
   subMainView.innerHTML = ``;
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor Location";
-  thirdTitle = "Status";
+  firstCell = "Name";
+  secondCell = "Floor Location";
+  thirdCell = "Status";
 
   containerClass = "sensors-and-detectors";
   containerID = "header";
@@ -2547,22 +2702,20 @@ function populateSensorAndDetector(event, allNavigationContainers, inputData) {
   secondCellStatus = "neutral";
   thirdCellStatus = "neutral";
 
-  createThreeColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
+    createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
 
+isTableTitle = false
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
 
 
   for (i = 0; i < inputData.length; i++) {
@@ -2583,7 +2736,7 @@ function populateSensorAndDetector(event, allNavigationContainers, inputData) {
 
     containerID = i;
 
-    createThreeColumnContainer(
+     createThreeColumnContainer(
       contentView,
       firstCell,
       secondCell,
@@ -2591,7 +2744,7 @@ function populateSensorAndDetector(event, allNavigationContainers, inputData) {
       thirdCell,
       thirdCellStatus,
       containerID,
-      containerClass
+      isTableTitle
     );
   }
 
@@ -2603,20 +2756,22 @@ function populateSensorAndDetector(event, allNavigationContainers, inputData) {
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
   
+  allContainers = document.querySelectorAll("tr");
+  
+   
   for (i = 0; i < allContainers.length; i++) {
    
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
    
     allContainers[i].addEventListener("click", function (event) {
       
       additionalGraphicData = true;
      
+ console.log(additionalGraphicData)
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -2624,10 +2779,14 @@ function populateSensorAndDetector(event, allNavigationContainers, inputData) {
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
+      console.log(graphicDataContainer)
       add2DViewer(graphicDataContainer)
 
     });
   }
+
+  
+  enableNavigation()
 }
 
 // Fire And Smoke Protection Elements
@@ -2750,7 +2909,7 @@ function showFireAndSmokeProtectionElements(results) {
 
   document.querySelector("#fire-barrier a").click();
 
-enableNavigation()
+// enableNavigation()
 }
 
 function populateFireAndSmokeProtectionElements(
@@ -2770,11 +2929,18 @@ function populateFireAndSmokeProtectionElements(
   subMainView.innerHTML = ``;
   subMainView.className = "fire-and-smoke-protection-elements";
 
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+  contentView = document.querySelector(".content-view")
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor Location";
-  thirdTitle = "Material";
-  fourthTitle = "Fire Resistance Rating";
+  firstCell = "Name";
+  secondCell = "Floor Location";
+  thirdCell = "Material";
+  fourthCell = "Fire Resistance Rating";
 
   containerID = "header";
   thirdCellStatus = "neutral";
@@ -2782,28 +2948,31 @@ function populateFireAndSmokeProtectionElements(
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
+isTableTitle = true
+
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+      containerID,
+      isTableTitle
   );
+isTableTitle = false
 
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
     hasName = inputData[i]["hasName"];
+    console.log(inputData[i]["hasOnFloor"])
+    if(inputData[i]["hasOnFloor"] != undefined)
     floorLocation = inputData[i]["hasOnFloor"];
+    else
+    floorLocation ="N/A"
     hasMaterial = inputData[i]["hasMaterial"]["hasName"];
     fireResistanceRating =
       inputData[i]["hasFireResistanceRating"] +
@@ -2818,15 +2987,16 @@ function populateFireAndSmokeProtectionElements(
     containerID = i;
 
     createFourColumnContainer(
-      contentView,
+    contentView,
       firstCell,
       secondCell,
       secondCellStatus,
-      thirdCell,
-      thirdCellStatus,
-      fourthCell,
-      fourthCellStatus,
-      containerID
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+      containerID,
+      isTableTitle
     );
   }
 
@@ -2839,12 +3009,14 @@ function populateFireAndSmokeProtectionElements(
 
   additionalWrittenData = false;
   additionalGraphicData = false;
-
-  allContainers = document.querySelectorAll(".parent-container");
- 
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+  
   for (i = 0; i < allContainers.length; i++) {
   
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
     
     allContainers[i].addEventListener("click", function (event) {
      
@@ -2852,7 +3024,6 @@ function populateFireAndSmokeProtectionElements(
       
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -2863,6 +3034,7 @@ function populateFireAndSmokeProtectionElements(
       add2DViewer(graphicDataContainer)
     });
   }
+  enableNavigation()
 }
 
 function populateSurroundingBuilding(
@@ -2882,10 +3054,16 @@ function populateSurroundingBuilding(
   subMainView.innerHTML = ``;
   subMainView.className = "surrounding-building";
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Type";
-  thirdTitle = "Distance from Building";
+  firstCell = "Name";
+  secondCell = "Type";
+  thirdCell = "Distance from Building";
   
   containerID = "header";
   
@@ -2893,20 +3071,20 @@ function populateSurroundingBuilding(
   secondCellStatus = "neutral";
   thirdCellStatus = "neutral";
 
-  createThreeColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID
-  );
+isTableTitle = true
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+   createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+  )
+
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -2942,12 +3120,14 @@ function populateSurroundingBuilding(
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
   
+  allContainers = document.querySelectorAll("tr");
+  
+   
   for (i = 0; i < allContainers.length; i++) {
    
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
    
     allContainers[i].addEventListener("click", function (event) {
     
@@ -2955,13 +3135,12 @@ function populateSurroundingBuilding(
      
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-        index = event.target.id;
+        index = event.target.parentNode.id;
         moreData = inputData[index];
 
         // Get data
@@ -2981,6 +3160,8 @@ function populateSurroundingBuilding(
 
     });
   }
+
+  enableNavigation()
 }
 
 function populateSurroundingTerrain(
@@ -3000,9 +3181,14 @@ function populateSurroundingTerrain(
   subMainView.innerHTML = ``;
   subMainView.className = "surrounding-building";
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Location";
-  secondTitle = "Slope";
+  firstCell = "Location";
+  secondCell = "Slope";
   
   
   containerID = "header";
@@ -3010,19 +3196,18 @@ function populateSurroundingTerrain(
   
   secondCellStatus = "neutral";
 
+isTableTitle = true
   createTwoColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
+    contentView,
+    firstCell,
+    secondCell,
     secondCellStatus,
-    containerID
+    containerID,
+isTableTitle = true
   );
 
+isTableTitle = false
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -3052,20 +3237,23 @@ function populateSurroundingTerrain(
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
      
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
     });
   }
+  enableNavigation()
 }
 
 function populateVegetation(
@@ -3085,11 +3273,16 @@ function populateVegetation(
   subMainView.innerHTML = ``;
   subMainView.className = "vegetation";
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Species";
-  thirdTitle = "Flammability Level";
-  fourthTitle = "Distance from Building";
+  firstCell = "Name";
+  secondCell = "Species";
+  thirdCell = "Flammability Level";
+  fourthCell = "Distance from Building";
   
   containerID = "header";
   
@@ -3099,23 +3292,21 @@ function populateVegetation(
   fourthCellStatus = "neutral";
 
 
+isTableTitle = true
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
+    contentView,
+    firstCell,
+    secondCell,
     secondCellStatus,
-    thirdTitle,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+    containerID,
+    isTableTitle
   );
 
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -3155,20 +3346,22 @@ function populateVegetation(
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-        index = event.target.id;
+        index = event.target.parentNode.id;
         moreData = inputData[index];
 
         // Get data
@@ -3187,6 +3380,8 @@ function populateVegetation(
 
     });
   }
+
+  enableNavigation()
 }
 
 
@@ -3207,11 +3402,17 @@ function populateHazardousMaterial(
   subMainView.innerHTML = ``;
   subMainView.className = "hazardous-material";
 
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Hazard Level";
-  thirdTitle = "Special Hazard";
-  fourthTitle = "Distance from Building";
+  firstCell = "Name";
+  secondCell = "Hazard Level";
+  thirdCell = "Special Hazard";
+  fourthCell = "Distance from Building";
   
   containerID = "header";
   
@@ -3221,23 +3422,21 @@ function populateHazardousMaterial(
   fourthCellStatus = "neutral";
 
 
+isTableTitle = true
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
+    contentView,
+    firstCell,
+    secondCell,
     secondCellStatus,
-    thirdTitle,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+    containerID,
+    isTableTitle
   );
 
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -3277,20 +3476,22 @@ function populateHazardousMaterial(
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-        index = event.target.id;
+        index = event.target.parentNode.id;
         moreData = inputData[index];
 
         // Get data
@@ -3309,6 +3510,9 @@ function populateHazardousMaterial(
 
     });
   }
+
+
+  enableNavigation()
 }
 
 function populateObstruction(
@@ -3328,10 +3532,15 @@ function populateObstruction(
   subMainView.innerHTML = ``;
   subMainView.className = "obstruction";
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Type";
-  thirdTitle = "Distance from Building";
+  firstCell = "Name";
+  secondCell = "Type";
+  thirdCell = "Distance from Building";
   
   containerID = "header";
   
@@ -3340,15 +3549,19 @@ function populateObstruction(
   thirdCellStatus = "neutral";
 
 
-  createThreeColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID
-  );
+isTableTitle = true
+
+   createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+  )
+isTableTitle = false
 
 
   // content container
@@ -3391,20 +3604,22 @@ function populateObstruction(
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-        index = event.target.id;
+        index = event.target.parentNode.id;
         moreData = inputData[index];
 
         // Get data
@@ -3423,6 +3638,9 @@ function populateObstruction(
 
     });
   }
+
+
+  enableNavigation()
 }
 
 
@@ -3443,10 +3661,16 @@ function populateParkingLot(
   subMainView.innerHTML = ``;
   subMainView.className = "parking-lot";
 
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Area";
-  thirdTitle = "Distance from Building";
+  firstCell = "Name";
+  secondCell = "Area";
+  thirdCell = "Distance from Building";
   
   containerID = "header";
   
@@ -3455,21 +3679,20 @@ function populateParkingLot(
   thirdCellStatus = "neutral";
 
 
-  createThreeColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID
-  );
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+isTableTitle = true
 
+   createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+  )
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -3509,20 +3732,22 @@ function populateParkingLot(
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-        index = event.target.id;
+        index = event.target.parentNode.id;
         moreData = inputData[index];
 
         // Get data
@@ -3541,6 +3766,9 @@ function populateParkingLot(
 
     });
   }
+
+
+  enableNavigation()
 }
 
 function populatePipeline(
@@ -3560,9 +3788,16 @@ function populatePipeline(
   subMainView.innerHTML = ``;
   subMainView.className = "pipeline";
 
+
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Distance from Building";
+  firstCell = "Name";
+  secondCell = "Distance from Building";
   
   containerID = "header";
   
@@ -3570,19 +3805,16 @@ function populatePipeline(
   secondCellStatus = "neutral";
 
 
+isTableTitle = true
   createTwoColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
+    contentView,
+    firstCell,
+    secondCell,
     secondCellStatus,
-    containerID
+    containerID,
+    isTableTitle
   );
-
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -3614,20 +3846,22 @@ function populatePipeline(
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-        index = event.target.id;
+        index = event.target.parentNode.id;
         moreData = inputData[index];
 
         // Get data
@@ -3646,6 +3880,9 @@ function populatePipeline(
 
     });
   }
+
+
+  enableNavigation()
 }
 
 function populatePowerLine(
@@ -3665,9 +3902,14 @@ function populatePowerLine(
   subMainView.innerHTML = ``;
   subMainView.className = "power-line";
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Distance from Building";
+  firstCell = "Name";
+  secondCell = "Distance from Building";
   
   containerID = "header";
   
@@ -3675,19 +3917,17 @@ function populatePowerLine(
   secondCellStatus = "neutral";
 
 
+isTableTitle = true
   createTwoColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
+    contentView,
+    firstCell,
+    secondCell,
     secondCellStatus,
-    containerID
+    containerID,
+    isTableTitle
   );
 
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -3719,20 +3959,22 @@ function populatePowerLine(
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-        index = event.target.id;
+        index = event.target.parentNode.id;
         moreData = inputData[index];
 
         // Get data
@@ -3751,6 +3993,9 @@ function populatePowerLine(
 
     });
   }
+
+
+  enableNavigation()
 }
 
 
@@ -3768,34 +4013,39 @@ function populateExteriorDoor(event, allNavigationContainers, inputData) {
   subMainView.innerHTML = ``;
   subMainView.className = "exterior-door";
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Primary Fire Service Entry Point";
-  thirdTitle = "Exit";
-  fourthTitle = "Functional";
+  firstCell = "Name";
+  secondCell = "Primary Fire Service Entry Point";
+  thirdCell = "Exit";
+  fourthCell = "Functional";
 
   containerID = "header";
   secondCellStatus = "neutral";
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
+isTableTitle = true
+
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
+    contentView,
+    firstCell,
+    secondCell,
     secondCellStatus,
-    thirdTitle,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+    containerID,
+    isTableTitle
   );
 
+isTableTitle = false
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -3855,11 +4105,14 @@ function populateExteriorDoor(event, allNavigationContainers, inputData) {
   additionalWrittenData = false;
   additionalGraphicData = false;
   
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
   
+  allContainers = document.querySelectorAll("tr");
+  
+   
   for (i = 0; i < allContainers.length; i++) {
    
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
     
     allContainers[i].addEventListener("click", function (event) {
     
@@ -3868,13 +4121,12 @@ function populateExteriorDoor(event, allNavigationContainers, inputData) {
     
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -3948,6 +4200,9 @@ function populateExteriorDoor(event, allNavigationContainers, inputData) {
       add2DViewer(graphicDataContainer)
     });
   }
+
+
+  enableNavigation()
 }
 
 function populateExteriorWindow(event, allNavigationContainers, inputData) {
@@ -3963,11 +4218,17 @@ function populateExteriorWindow(event, allNavigationContainers, inputData) {
   subMainView.innerHTML = ``;
   subMainView.className = "exterior-window";
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor";
-  thirdTitle = "Shaftway";
-  fourthTitle = "Functional";
+  firstCell = "Name";
+  secondCell = "Floor";
+  thirdCell = "Shaftway";
+  fourthCell = "Functional";
 
   containerID = "header";
 
@@ -3975,23 +4236,25 @@ function populateExteriorWindow(event, allNavigationContainers, inputData) {
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
+  
+isTableTitle = true
+
+
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
+    contentView,
+    firstCell,
+    secondCell,
     secondCellStatus,
-    thirdTitle,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+    containerID,
+    isTableTitle
   );
 
+isTableTitle = false
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -4044,7 +4307,7 @@ function populateExteriorWindow(event, allNavigationContainers, inputData) {
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -4052,13 +4315,12 @@ function populateExteriorWindow(event, allNavigationContainers, inputData) {
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -4114,6 +4376,9 @@ function populateExteriorWindow(event, allNavigationContainers, inputData) {
       add2DViewer(graphicDataContainer)
     });
   }
+
+
+  enableNavigation()
 }
 
 function populateExteriorWall(event, allNavigationContainers, inputData) {
@@ -4129,11 +4394,16 @@ function populateExteriorWall(event, allNavigationContainers, inputData) {
   subMainView.innerHTML = ``;
   subMainView.className = "exterior-window";
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor";
-  thirdTitle = "FireResistanceRating";
-  fourthTitle = "Material";
+  firstCell = "Name";
+  secondCell = "Floor";
+  thirdCell = "FireResistanceRating";
+  fourthCell = "Material";
 
   containerID = "header";
 
@@ -4141,23 +4411,21 @@ function populateExteriorWall(event, allNavigationContainers, inputData) {
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
+isTableTitle = true
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
+    contentView,
+    firstCell,
+    secondCell,
     secondCellStatus,
-    thirdTitle,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+    containerID,
+    isTableTitle
   );
 
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -4200,7 +4468,7 @@ function populateExteriorWall(event, allNavigationContainers, inputData) {
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -4208,13 +4476,12 @@ function populateExteriorWall(event, allNavigationContainers, inputData) {
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -4241,6 +4508,9 @@ function populateExteriorWall(event, allNavigationContainers, inputData) {
       add2DViewer(graphicDataContainer)
     });
   }
+
+
+  enableNavigation()
 }
 // Roof top Element
 function showRoofTopElement(results) {
@@ -4253,28 +4523,32 @@ function showRoofTopElement(results) {
   title = "Roof Top Elements"
   setTitleView(mainView, title)
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Description";
+  firstCell = "Name";
+  secondCell = "Description";
 
   containerClass = "";
   containerID = "header";
   secondCellStatus = false
 
+isTableTitle = true
 
-  createTwoColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
+
+isTableTitle = false
 
 
   for (i = 0; i < results.length; i++) {
@@ -4292,10 +4566,10 @@ function showRoofTopElement(results) {
       contentView,
       firstCell,
       secondCell,
-    secondCellStatus,
+      secondCellStatus,
       containerID,
-      containerClass
-    );
+      isTableTitle
+      );
   }
 
   moreContainer = document.createElement("div");
@@ -4307,16 +4581,18 @@ function showRoofTopElement(results) {
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
   
       
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -4393,7 +4669,7 @@ function showFacade(results) {
 
   document.querySelector("#exterior-door a").click();
 
-enableNavigation()
+// enableNavigation()
 }
 
 
@@ -4407,11 +4683,16 @@ function populateDoor(inputData){
  
   
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor";
-  thirdTitle = "Distance to Exit";
-  fourthTitle = "Fire Resistance Rating";
+  firstCell = "Name";
+  secondCell = "Floor";
+  thirdCell = "Distance to Exit";
+  fourthCell = "Fire Resistance Rating";
 
   containerID = "header";
 
@@ -4419,23 +4700,25 @@ function populateDoor(inputData){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
+  
+isTableTitle = true
+
+
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+      containerID,
+      isTableTitle
   );
 
+isTableTitle = false
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -4482,7 +4765,7 @@ function populateDoor(inputData){
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -4490,13 +4773,12 @@ function populateDoor(inputData){
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -4605,7 +4887,6 @@ function populateDoor(inputData){
     });
   }
 
-enableNavigation()
 
 
 enableNavigation()
@@ -4621,11 +4902,17 @@ function populateWindow(inputData){
   
   
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor";
-  thirdTitle = "Shaftway";
-  fourthTitle = "Fire Resistance Rating";
+  firstCell = "Name";
+  secondCell = "Floor";
+  thirdCell = "Shaftway";
+  fourthCell = "Fire Resistance Rating";
 
   containerID = "header";
 
@@ -4633,24 +4920,23 @@ function populateWindow(inputData){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
+  
+
+isTableTitle = true
+
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+      containerID,
+      isTableTitle
   );
-
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
-
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -4699,7 +4985,7 @@ function populateWindow(inputData){
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -4707,13 +4993,12 @@ function populateWindow(inputData){
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -4793,12 +5078,16 @@ function populateElevator(inputData){
   subMainView.className = "elevator";
 
   
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
 
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Discharge Level";
-  thirdTitle = "Functional";
-  fourthTitle = "Qualified For Evacuation";
+  firstCell = "Name";
+  secondCell = "Discharge Level";
+  thirdCell = "Functional";
+  fourthCell = "Qualified For Evacuation";
 
   containerID = "header";
 
@@ -4806,22 +5095,25 @@ function populateElevator(inputData){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
-  createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    fourthTitle,
-    fourthCellStatus,
-    containerID
-  );
+  
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+
+isTableTitle = true
+
+  createFourColumnContainer(
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+      containerID,
+      isTableTitle
+  );
+isTableTitle = false
+
 
 
   for (i = 0; i < inputData.length; i++) {
@@ -4878,7 +5170,7 @@ function populateElevator(inputData){
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -4886,13 +5178,12 @@ function populateElevator(inputData){
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -4999,13 +5290,17 @@ function populateStairway(inputData){
   subMainView.className = "stairway";
 
  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
   
 
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Discharge Level";
-  thirdTitle = "Leads to Exit";
-  fourthTitle = "Roof Access";
+  firstCell = "Name";
+  secondCell = "Discharge Level";
+  thirdCell = "Leads to Exit";
+  fourthCell = "Roof Access";
 
   containerID = "header";
 
@@ -5013,22 +5308,24 @@ function populateStairway(inputData){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
-  createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    fourthTitle,
-    fourthCellStatus,
-    containerID
-  );
+  
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+
+isTableTitle = true
+
+  createFourColumnContainer(
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+      containerID,
+      isTableTitle
+  );
+isTableTitle = false
 
 
   for (i = 0; i < inputData.length; i++) {
@@ -5085,7 +5382,7 @@ function populateStairway(inputData){
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -5093,13 +5390,12 @@ function populateStairway(inputData){
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -5187,13 +5483,18 @@ function populateRamp(inputData){
   subMainView.className = "ramp";
 
  
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
   
 
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Discharge Level";
-  thirdTitle = "Leads to Exit";
-  fourthTitle = "Roof Access";
+  firstCell = "Name";
+  secondCell = "Discharge Level";
+  thirdCell = "Leads to Exit";
+  fourthCell = "Roof Access";
 
   containerID = "header";
 
@@ -5201,23 +5502,24 @@ function populateRamp(inputData){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
+  
+
+
+isTableTitle = true
+
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+      containerID,
+      isTableTitle
   );
-
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -5273,7 +5575,7 @@ function populateRamp(inputData){
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -5281,13 +5583,12 @@ function populateRamp(inputData){
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -5376,12 +5677,16 @@ function populateWall(inputData){
 
  
   
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
 
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor";
-  thirdTitle = "Material";
-  fourthTitle = "Fire Resistance Rating";
+  firstCell = "Name";
+  secondCell = "Floor";
+  thirdCell = "Material";
+  fourthCell = "Fire Resistance Rating";
 
   containerID = "header";
 
@@ -5389,22 +5694,24 @@ function populateWall(inputData){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
-  createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    fourthTitle,
-    fourthCellStatus,
-    containerID
-  );
+  
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+
+isTableTitle = true
+
+  createFourColumnContainer(
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+      containerID,
+      isTableTitle
+  );
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -5446,7 +5753,7 @@ function populateWall(inputData){
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -5454,13 +5761,12 @@ function populateWall(inputData){
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -5501,12 +5807,17 @@ function populateFloorAssembly(inputData){
 
  
   
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
 
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor";
-  thirdTitle = "Type";
-  fourthTitle = "Lightweight";
+  firstCell = "Name";
+  secondCell = "Floor";
+  thirdCell = "Type";
+  fourthCell = "Lightweight";
 
   containerID = "header";
 
@@ -5514,23 +5825,23 @@ function populateFloorAssembly(inputData){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
+  
+
+isTableTitle = true
+
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+      containerID,
+      isTableTitle
   );
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
-
+isTableTitle = false
   for (i = 0; i < inputData.length; i++) {
     // Get data
     hasName = inputData[i]["hasId"];
@@ -5576,7 +5887,7 @@ function populateFloorAssembly(inputData){
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -5584,13 +5895,12 @@ function populateFloorAssembly(inputData){
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -5650,12 +5960,16 @@ function populateRoofAssembly(inputData){
 
  
   
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
 
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Material";
-  thirdTitle = "Accessible";
-  fourthTitle = "Lightweight";
+  firstCell = "Name";
+  secondCell = "Material";
+  thirdCell = "Accessible";
+  fourthCell = "Lightweight";
 
   containerID = "header";
 
@@ -5663,22 +5977,24 @@ function populateRoofAssembly(inputData){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
-  createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    fourthTitle,
-    fourthCellStatus,
-    containerID
-  );
+  
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+
+isTableTitle = true
+
+  createFourColumnContainer(
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+      containerID,
+      isTableTitle
+  );
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     
@@ -5734,7 +6050,7 @@ function populateRoofAssembly(inputData){
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -5742,13 +6058,12 @@ function populateRoofAssembly(inputData){
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -5791,12 +6106,17 @@ function populateBalcony(inputData){
 
  
   
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
 
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor";
-  thirdTitle = "Material";
-  fourthTitle = "Fire Resistance Rating";
+  firstCell = "Name";
+  secondCell = "Floor";
+  thirdCell = "Material";
+  fourthCell = "Fire Resistance Rating";
 
   containerID = "header";
 
@@ -5804,22 +6124,24 @@ function populateBalcony(inputData){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
-  createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    fourthTitle,
-    fourthCellStatus,
-    containerID
-  );
+  
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+
+isTableTitle = true
+
+  createFourColumnContainer(
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+      containerID,
+      isTableTitle
+  );
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -5860,7 +6182,7 @@ function populateBalcony(inputData){
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -5868,13 +6190,12 @@ function populateBalcony(inputData){
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = inputData[index];
 
       // Get data
@@ -5917,13 +6238,17 @@ function populateHallway(inputData){
   subMainView.className = "hallway";
 
  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
   
 
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor";
-  thirdTitle = "Width";
-  fourthTitle = "Fire Resistance Rating";
+  firstCell = "Name";
+  secondCell = "Floor";
+  thirdCell = "Width";
+  fourthCell = "Fire Resistance Rating";
 
   containerID = "header";
 
@@ -5931,22 +6256,24 @@ function populateHallway(inputData){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
-  createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    fourthTitle,
-    fourthCellStatus,
-    containerID
-  );
+  
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+
+isTableTitle = true
+
+  createFourColumnContainer(
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+      containerID,
+      isTableTitle
+  );
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -5987,14 +6314,13 @@ function populateHallway(inputData){
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -6014,7 +6340,7 @@ enableNavigation()
 // Non structural elements
 function showNonStructuralElements(results) {
 
-console.log(results)
+  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -6321,9 +6647,8 @@ console.log(results)
 
 
 // Non structural elements
-function showNonStructuralElementss(results) {
-
-console.log(results)
+function showNonStructuralElements_Backup(results) {
+  
 
   // Get data
   doorData = results["door"];
@@ -6530,11 +6855,16 @@ function  showStructuralElements(results){
   title = "Structural Elements"
   setTitleView(mainView, title)
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Elements";
-  secondTitle = "Floor";
-  thirdTitle = "Type";
-  fourthTitle = "Fire Resistance Rating";
+  firstCell = "Elements";
+  secondCell = "Floor";
+  thirdCell = "Type";
+  fourthCell = "Fire Resistance Rating";
 
   containerClass = "structural-elements";
   containerID = "header";
@@ -6543,23 +6873,22 @@ function  showStructuralElements(results){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
-  createFourColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    fourthTitle,
-    fourthCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+  createFourColumnContainer(
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+      containerID,
+      isTableTitle
+  );
+isTableTitle = false
+
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -6577,18 +6906,18 @@ function  showStructuralElements(results){
     containerClass = "structural-elements";
     containerID = i;
 
-    createFourColumnContainer(
-      contentView,
+     createFourColumnContainer(
+    contentView,
       firstCell,
       secondCell,
-    secondCellStatus,
-      thirdCell,
-      thirdCellStatus,
-      fourthCell,
-      fourthCellStatus,
+      secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
       containerID,
-      containerClass
-    );
+      isTableTitle
+  );
   }
 
   moreContainer = document.createElement("div");
@@ -6602,7 +6931,7 @@ function  showStructuralElements(results){
   allContainers = document.querySelectorAll("#sub-main-view .parent-container");
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
 
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
@@ -6683,10 +7012,16 @@ function showConcealedSpace(results) {
   title = "Concealed Spaces"
   setTitleView(mainView, title)
 
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor";
-  thirdTitle = "Fire Extinguishing System";
+  firstCell = "Name";
+  secondCell = "Floor";
+  thirdCell = "Fire Extinguishing System";
 
   containerClass = "";
   containerID = "header";
@@ -6694,21 +7029,20 @@ function showConcealedSpace(results) {
   secondCellStatus = "neutral",
   thirdCellStatus = "neutral";
 
-  createThreeColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+    createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
+
+isTableTitle = false
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -6728,11 +7062,11 @@ function showConcealedSpace(results) {
       contentView,
       firstCell,
       secondCell,
-    secondCellStatus,
+      secondCellStatus,
       thirdCell,
       thirdCellStatus,
       containerID,
-      containerClass
+      isTableTitle
     );
   }
 
@@ -6746,21 +7080,23 @@ function showConcealedSpace(results) {
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalWrittenData = true;
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = results[index];
 
       // Get data
@@ -6800,29 +7136,33 @@ function showVerticalOpening(results) {
   title = "Vertical Openings"
   setTitleView(mainView, title)
 
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Location";
+  firstCell = "Name";
+  secondCell = "Location";
 
   containerClass = "";
   containerID = "header";
   secondCellStatus = false
 
 
-  createTwoColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
 
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+isTableTitle = false
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -6839,10 +7179,10 @@ function showVerticalOpening(results) {
       contentView,
       firstCell,
       secondCell,
-    secondCellStatus,
+      secondCellStatus,
       containerID,
-      containerClass
-    );
+      isTableTitle
+      );
   }
 
   moreContainer = document.createElement("div");
@@ -6855,16 +7195,18 @@ function showVerticalOpening(results) {
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
   
       
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -6888,10 +7230,15 @@ function  showHazardousMaterial(results){
   title = "Hazardous Materials"
   setTitleView(mainView, title)
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Floor";
-  thirdTitle = "Decontamination";
+  firstCell = "Name";
+  secondCell = "Floor";
+  thirdCell = "Decontamination";
 
   containerClass = "";
   containerID = "header";
@@ -6899,21 +7246,21 @@ function  showHazardousMaterial(results){
   secondCellStatus = "neutral",
   thirdCellStatus = "neutral";
 
-  createThreeColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+   createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+  )
+isTableTitle = false
+
+
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -6939,11 +7286,11 @@ function  showHazardousMaterial(results){
       contentView,
       firstCell,
       secondCell,
-    secondCellStatus,
+      secondCellStatus,
       thirdCell,
       thirdCellStatus,
       containerID,
-      containerClass
+      isTableTitle
     );
   }
 
@@ -6957,21 +7304,23 @@ function  showHazardousMaterial(results){
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalWrittenData = true;
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-      index = event.target.id;
+      index = event.target.parentNode.id;
       moreData = results[index];
 
       // Get data
@@ -7167,11 +7516,7 @@ buildingCoordinateEdge[1] = buildingCoordinate[1] - 0.001
 markerLocationEdge[1] = addMarker[1] + 0.001
 }
 
-console.log(buildingCoordinate)
-console.log(addMarker)
-console.log(buildingCoordinateEdge)
-console.log(markerLocationEdge)
-      
+
       map.fitBounds([
 buildingCoordinateEdge,
 markerLocationEdge 
@@ -7332,7 +7677,7 @@ function showSurroundings(results){
   });
   document.querySelector("#surrounding-building a").click();
 
-enableNavigation()
+// enableNavigation()
 }
 
 
@@ -7564,7 +7909,7 @@ function showWaterSource(results) {
 
 
   municipalDistributionSystemContainer.querySelector("a").click();
-enableNavigation()
+// enableNavigation()
 }
 
 
@@ -7585,11 +7930,18 @@ function populateMunicipalDistributionSystem(
   subMainView.innerHTML = ``;
   subMainView.className = "municipal-distribution-system";
 
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
+
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Pressure";
-  thirdTitle = "FireFlow";
-  fourthTitle = "State";
+  firstCell = "Name";
+  secondCell = "Pressure";
+  thirdCell = "FireFlow";
+  fourthCell = "State";
   
   containerID = "header";
   
@@ -7599,22 +7951,21 @@ function populateMunicipalDistributionSystem(
   fourthCellStatus = "neutral";
 
 
+isTableTitle = true
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
+    contentView,
+    firstCell,
+    secondCell,
     secondCellStatus,
-    thirdTitle,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+    containerID,
+    isTableTitle
   );
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -7657,6 +8008,7 @@ function populateMunicipalDistributionSystem(
     );
   }
 
+  enableNavigation()
 }
 
 
@@ -7679,11 +8031,15 @@ function populateStaticWaterSource(
   subMainView.innerHTML = ``;
   subMainView.className = "static-water-source";
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  subMainView.appendChild(contentView)
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Type";
-  thirdTitle = "Distance from Building";
-  fourthTitle = "State";
+  firstCell = "Name";
+  secondCell = "Type";
+  thirdCell = "Distance from Building";
+  fourthCell = "State";
   
   containerID = "header";
   
@@ -7693,22 +8049,21 @@ function populateStaticWaterSource(
   fourthCellStatus = "neutral";
 
 
+isTableTitle = true
   createFourColumnContainer(
-    subMainView,
-    firstTitle,
-    secondTitle,
+    contentView,
+    firstCell,
+    secondCell,
     secondCellStatus,
-    thirdTitle,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID
+    containerID,
+    isTableTitle
   );
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
+isTableTitle = false
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -7756,11 +8111,14 @@ function populateStaticWaterSource(
   additionalWrittenData = false;
   additionalGraphicData = false;
   
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
   
+  allContainers = document.querySelectorAll("tr");
+  
+   
   for (i = 0; i < allContainers.length; i++) {
    
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
     
     allContainers[i].addEventListener("click", function (event) {
      
@@ -7769,13 +8127,12 @@ function populateStaticWaterSource(
       
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
 
-        index = event.target.id;
+        index = event.target.parentNode.id;
         moreData = inputData[index];
 
         // Get data
@@ -7814,6 +8171,8 @@ function populateStaticWaterSource(
 
     });
   }
+
+  enableNavigation()
 }
 
 
@@ -7945,11 +8304,16 @@ function showRoadToIncident(results){
   title = "Roads to Incident"
   setTitleView(mainView, title)
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
-  firstTitle = "Route";
-  secondTitle = "Distance";
-  thirdTitle = "Duration";
-  fourthTitle = "Traffic Level";
+  firstCell = "Route";
+  secondCell = "Distance";
+  thirdCell = "Duration";
+  fourthCell = "Traffic Level";
 
   containerClass = "road-to-incident";
   containerID = "header";
@@ -7958,23 +8322,20 @@ function showRoadToIncident(results){
   thirdCellStatus = "neutral";
   fourthCellStatus = "neutral";
 
+isTableTitle = true
   createFourColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
     thirdCellStatus,
-    fourthTitle,
+    fourthCell,
     fourthCellStatus,
-    containerID,
-    containerClass
+      containerID,
+      isTableTitle
   );
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
-
+isTableTitle = false
   for (i = 0; i < results.length; i++) {
     // Get data
     hasTrafficLevel = results[i]["hasTrafficLevel"];
@@ -7989,18 +8350,18 @@ function showRoadToIncident(results){
 
     containerID = i;
 
-    createFourColumnContainer(
-      contentView,
+     createFourColumnContainer(
+    contentView,
       firstCell,
       secondCell,
-    secondCellStatus,
-      thirdCell,
-      thirdCellStatus,
-      fourthCell,
-      fourthCellStatus,
+      secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
       containerID,
-      containerClass
-    );
+      isTableTitle
+  );
   }
 
   moreContainer = document.createElement("div");
@@ -8011,12 +8372,14 @@ function showRoadToIncident(results){
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
   
+  allContainers = document.querySelectorAll("tr");
+  
+   
 
   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
     
     allContainers[i].addEventListener("click", function (event) {
 
@@ -8025,7 +8388,6 @@ function showRoadToIncident(results){
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -8033,7 +8395,7 @@ function showRoadToIncident(results){
       // Add additional data
       
         // Add more content
-        index = event.target.id;
+        index = event.target.parentNode.id;
         moreData = results[index];
 
 
@@ -8258,15 +8620,21 @@ function showAreaOfRefuge(results){
   // Get main view
   mainView = document.querySelector(".main-view");
   mainView.id = ""
-
   // Set view title
   title = "Area Of Refuge"
   setTitleView(mainView, title)
 
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
   // Set title
-  firstTitle = "Name";
-  secondTitle = "Capacity";
-  thirdTitle = "Location";
+  firstCell = "Name";
+  secondCell = "Capacity";
+  thirdCell = "Location";
 
   containerClass = "area-of-refuge";
   containerID = "header";
@@ -8274,21 +8642,19 @@ function showAreaOfRefuge(results){
   secondCellStatus = "neutral",
   thirdCellStatus = "neutral";
 
-  createThreeColumnContainer(
-    mainView,
-    firstTitle,
-    secondTitle,
-    secondCellStatus,
-    thirdTitle,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+   createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+  )
+isTableTitle = false
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -8299,7 +8665,7 @@ function showAreaOfRefuge(results){
     firstCell = hasName
     secondCell = hasCapacity
     thirdCell = hasLocation
-console.log(firstCell)
+    
 
     containerID = i;
 
@@ -8307,11 +8673,11 @@ console.log(firstCell)
       contentView,
       firstCell,
       secondCell,
-    secondCellStatus,
+      secondCellStatus,
       thirdCell,
       thirdCellStatus,
       containerID,
-      containerClass
+      isTableTitle
     );
   }
 
@@ -8325,11 +8691,14 @@ console.log(firstCell)
   additionalWrittenData = false;
   additionalGraphicData = false;
   
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
   
+  allContainers = document.querySelectorAll("tr");
+  
+   
   for (i = 0; i < allContainers.length; i++) {
    
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
    
     allContainers[i].addEventListener("click", function (event) {
      
@@ -8337,7 +8706,6 @@ console.log(firstCell)
     
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -8367,6 +8735,10 @@ function showFarsFillStations(results){
   title = "FARS Fill Stations"
   setTitleView(mainView, title)
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
   // Set title
   firstCell = "FARS Fill Station";
   secondCell = "Floor";
@@ -8382,25 +8754,23 @@ function showFarsFillStations(results){
   fourthCellStatus = "neutral";
   fifthCellStatus = "neutral";
 
+isTableTitle = true
   createFiveColumnContainer(
-    mainView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
     thirdCell,
     thirdCellStatus,
     fourthCell,
     fourthCellStatus,
     fifthCell,
     fifthCellStatus,
-    containerID,
-    containerClass
+      containerID,
+      isTableTitle
   );
+isTableTitle = false
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -8425,17 +8795,17 @@ function showFarsFillStations(results){
     
   createFiveColumnContainer(
     contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
+      firstCell,
+      secondCell,
+      secondCellStatus,
     thirdCell,
     thirdCellStatus,
     fourthCell,
     fourthCellStatus,
     fifthCell,
     fifthCellStatus,
-    containerID,
-    containerClass
+      containerID,
+      isTableTitle
   );
   }
 
@@ -8449,11 +8819,14 @@ function showFarsFillStations(results){
   additionalWrittenData = false;
   additionalGraphicData = false;
   
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
   
+  allContainers = document.querySelectorAll("tr");
+  
+   
   for (i = 0; i < allContainers.length; i++) {
     
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
     
     allContainers[i].addEventListener("click", function (event) {
      
@@ -8461,7 +8834,6 @@ function showFarsFillStations(results){
      
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -8489,6 +8861,11 @@ function showEmergencyPowerOutlets(results){
   title = "Emergency Power Outlets"
   setTitleView(mainView, title)
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
 
   // Set title
   firstCell = "Floor";
@@ -8499,20 +8876,17 @@ function showEmergencyPowerOutlets(results){
 
   secondCellStatus = "neutral",
 
-  createTwoColumnContainer(
-    mainView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
 
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+isTableTitle = false
 
 
   for (i = 0; i < results.length; i++) {
@@ -8526,15 +8900,16 @@ function showEmergencyPowerOutlets(results){
     
 
     containerID = i;
-    
-  createTwoColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
+
   }
 
   moreContainer = document.createElement("div");
@@ -8547,11 +8922,14 @@ function showEmergencyPowerOutlets(results){
   additionalWrittenData = false;
   additionalGraphicData = false;
   
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
   
+  allContainers = document.querySelectorAll("tr");
+  
+   
   for (i = 0; i < allContainers.length; i++) {
   
-    if (allContainers[i].id == "header") continue;
+    if (allContainers[i].className== "header") continue;
   
     allContainers[i].addEventListener("click", function (event) {
   
@@ -8559,7 +8937,6 @@ function showEmergencyPowerOutlets(results){
   
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -8589,6 +8966,11 @@ function showSmokeAndHeatRemovalSystem(results){
   setTitleView(mainView, title)
 
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Set title
   firstCell = "Floor";
   secondCell = "System Type";
@@ -8599,24 +8981,21 @@ function showSmokeAndHeatRemovalSystem(results){
 
   secondCellStatus = "neutral",
   thirdCellStatus = "neutral",
+isTableTitle = true
 
-  createThreeColumnContainer(
-    mainView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    thirdCell,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+   createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+  )
+isTableTitle = false
 
 
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
 
 
   for (i = 0; i < results.length; i++) {
@@ -8639,16 +9018,16 @@ function showSmokeAndHeatRemovalSystem(results){
 
     containerID = i;
     
-  createThreeColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    thirdCell,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+   createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+  )
   }
 
   moreContainer = document.createElement("div");
@@ -8659,14 +9038,16 @@ function showSmokeAndHeatRemovalSystem(results){
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -8695,6 +9076,12 @@ function showSmokeControlSystem(results){
   setTitleView(mainView, title)
 
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
   // Set title
   firstCell = "Coverage Zone";
   secondCell = "System Type";
@@ -8708,26 +9095,22 @@ function showSmokeControlSystem(results){
   thirdCellStatus = "neutral",
   fourthCellStatus = "neutral",
 
+isTableTitle = true
   createFourColumnContainer(
-    mainView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
+    contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
     thirdCell,
     thirdCellStatus,
     fourthCell,
     fourthCellStatus,
-    containerID,
-    containerClass
+      containerID,
+      isTableTitle
   );
 
 
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
-
+isTableTitle = false
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -8751,18 +9134,17 @@ function showSmokeControlSystem(results){
     
 
     containerID = i;
-    
-  createFourColumnContainer(
+    createFourColumnContainer(
     contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
+      firstCell,
+      secondCell,
+      secondCellStatus,
     thirdCell,
     thirdCellStatus,
     fourthCell,
     fourthCellStatus,
-    containerID,
-    containerClass
+      containerID,
+      isTableTitle
   );
   }
 
@@ -8774,14 +9156,16 @@ function showSmokeControlSystem(results){
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -8810,6 +9194,12 @@ function showFirePump(results){
   setTitleView(mainView, title)
 
 
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
   // Set title
   firstCell = "Fire Pumps";
   secondCell = "Location";
@@ -8819,22 +9209,18 @@ function showFirePump(results){
 
   secondCellStatus = "neutral",
 
-  createTwoColumnContainer(
-    mainView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
 
 
-
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
-
+isTableTitle = false
 
   for (i = 0; i < results.length; i++) {
     // Get data
@@ -8846,15 +9232,16 @@ function showFirePump(results){
     
 
     containerID = i;
-    
-  createTwoColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
+
   }
 
   moreContainer = document.createElement("div");
@@ -8865,14 +9252,16 @@ function showFirePump(results){
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -8902,6 +9291,11 @@ function showMassNotificationSystem(results){
   setTitleView(mainView, title)
 
 
+  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
   // Set title
   firstCell = "Coverage Zone";
   secondCell = "System Type";
@@ -8913,22 +9307,19 @@ function showMassNotificationSystem(results){
   secondCellStatus = "neutral",
   thirdCellStatus = "neutral",
 
-  createThreeColumnContainer(
-    mainView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    thirdCell,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
 
-  
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+   createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+  )
+isTableTitle = false
 
 
   for (i = 0; i < results.length; i++) {
@@ -8945,16 +9336,16 @@ function showMassNotificationSystem(results){
 
     containerID = i;
     
-  createThreeColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    thirdCell,
-    thirdCellStatus,
-    containerID,
-    containerClass
-  );
+   createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+  )
   }
 
   moreContainer = document.createElement("div");
@@ -8965,14 +9356,16 @@ function showMassNotificationSystem(results){
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -8991,8 +9384,6 @@ enableNavigation()
 
 function showExtremelyValuableMaterials(results){
   
-  
-
   // Get main view
   mainView = document.querySelector(".main-view");
   mainView.id = "two-columns"
@@ -9000,6 +9391,12 @@ function showExtremelyValuableMaterials(results){
   // Set view title
   title = "Extremely Valuable Materials"
   setTitleView(mainView, title)
+
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
 
 
   // Set title
@@ -9011,20 +9408,18 @@ function showExtremelyValuableMaterials(results){
 
   secondCellStatus = "neutral",
 
-  createTwoColumnContainer(
-    mainView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
 
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
+isTableTitle = false
 
 
   for (i = 0; i < results.length; i++) {
@@ -9038,15 +9433,16 @@ function showExtremelyValuableMaterials(results){
 
 
     containerID = i;
-    
-  createTwoColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
+
   }
 
   moreContainer = document.createElement("div");
@@ -9057,14 +9453,16 @@ function showExtremelyValuableMaterials(results){
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -9081,8 +9479,7 @@ enableNavigation()
 
 // Helipad
 
-function showHelipad(results){
-  
+function showHelipad(results){ 
   
 
   // Get main view
@@ -9092,6 +9489,12 @@ function showHelipad(results){
   // Set view title
   title = "Helipads"
   setTitleView(mainView, title)
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
 
 
   // Set title
@@ -9103,22 +9506,20 @@ function showHelipad(results){
 
   secondCellStatus = "neutral",
 
-  createTwoColumnContainer(
-    mainView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+isTableTitle = true
+
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
+
+isTableTitle = false
 
   
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
-
-
   for (i = 0; i < results.length; i++) {
     // Get data
     
@@ -9130,15 +9531,16 @@ function showHelipad(results){
 
 
     containerID = i;
-    
-  createTwoColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    containerID,
-    containerClass
-  );
+
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
+
   }
 
   moreContainer = document.createElement("div");
@@ -9149,14 +9551,16 @@ function showHelipad(results){
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -9194,33 +9598,36 @@ function showBuildingPlans(results){
   setTitleView(mainView, title)
 
 
-  // Set title
-  firstCell = "Floor";
-  secondCell = "Plan Type";
-  threeCell = "Location of Plan";
-
-  containerClass = "building-plans";
-  containerID = "header";
-
-    secondCellStatus = "neutral"
-  threeCellStatus = "neutral"
-
-  createThreeColumnContainer(
-    mainView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    threeCell,
-    threeCellStatus,
-    containerID,
-    containerClass
-  );
-
   
   // content container
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+  // Set title
+  firstCell = "Floor";
+  secondCell = "Plan Type";
+  thirdCell = "Location of Plan";
+
+  containerClass = "building-plans";
+  containerID = "header";
+
+    secondCellStatus = "neutral"
+  thirdCellStatus = "neutral"
+
+isTableTitle = true
+  createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
+
+isTableTitle = false
 
 
   for (i = 0; i < results.length; i++) {
@@ -9232,21 +9639,22 @@ function showBuildingPlans(results){
 
     firstCell = hasFloor
     secondCell = hasType
-    threeCell = planLocation
+    thirdCell = planLocation
 
 
     containerID = i;
     
-  createThreeColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    threeCell,
-    threeCellStatus,
-    containerID,
-    containerClass
-  );
+  
+    createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
   }
 
   moreContainer = document.createElement("div");
@@ -9257,14 +9665,16 @@ function showBuildingPlans(results){
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -9293,24 +9703,24 @@ function showFireCommandCenter(results){
   // Set title
   firstCell = "Floor";
   secondCell = "Plan Type";
-  threeCell = "Location of Plan";
+  thirdCell = "Location of Plan";
 
   containerClass = "building-plans";
   containerID = "header";
 
     secondCellStatus = "neutral"
-  threeCellStatus = "neutral"
+  thirdCellStatus = "neutral"
 
   createThreeColumnContainer(
-    mainView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    threeCell,
-    threeCellStatus,
-    containerID,
-    containerClass
-  );
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
 
   
   // content container
@@ -9328,21 +9738,22 @@ function showFireCommandCenter(results){
 
     firstCell = hasFloor
     secondCell = hasType
-    threeCell = planLocation
+    thirdCell = planLocation
 
 
     containerID = i;
     
-  createThreeColumnContainer(
-    contentView,
-    firstCell,
-    secondCell,
-    secondCellStatus,
-    threeCell,
-    threeCellStatus,
-    containerID,
-    containerClass
-  );
+  
+    createThreeColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
+      containerID,
+      isTableTitle
+    );
   }
 
   moreContainer = document.createElement("div");
@@ -9353,14 +9764,16 @@ function showFireCommandCenter(results){
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
-  for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].id == "header") continue;
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+   for (i = 0; i < allContainers.length; i++) {
+    if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       );
@@ -9444,8 +9857,11 @@ function showFireCommandCenter(results) {
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll(".parent-container");
+  // allContainers = document.querySelectorAll(".parent-container");
   
+  allContainers = document.querySelectorAll("tr");
+  
+   
   for (i = 0; i < allContainers.length; i++) {
 
     if (allContainers[i].id == "location-container") {
@@ -9469,5 +9885,414 @@ function showFireCommandCenter(results) {
   }
   
 enableNavigation()
+
+}
+
+
+
+function createTwoColumnContainer(
+  viewContainer,
+  firstCell,
+  secondCell,
+  secondCellStatus = "neutral",
+  containerID,
+  isTableTitle = false
+){
+
+  
+  if(document.querySelectorAll("#table-view").length == 0)
+{tableView = document.createElement("table");
+tableView.id = "table-view"
+tableView.className = "display"
+
+tableView.innerHTML = `
+<thead>
+        <tr class = "header">
+            <th id = "first-heading"></th>
+            <th id = "second-heading"></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+`
+
+viewContainer.appendChild(tableView)
+}
+
+if (isTableTitle)
+{
+  // Set headings
+  document.querySelector("#first-heading").innerHTML =firstCell 
+  document.querySelector("#second-heading").innerHTML =secondCell 
+}
+else{
+  // Add data 
+  tableBody = document.querySelector("tbody")
+
+  // Add rows
+  dataRow = document.createElement("tr")
+  dataRow.id = containerID
+
+  // Add data cells
+  firstDataCell = document.createElement("td")
+  firstDataCell.innerHTML = firstCell
+  
+  secondDataCell = document.createElement("td")
+  secondDataCell.innerHTML = secondCell
+   secondDataCell.className = secondCellStatus
+  
+
+  // Add data cells to row
+dataRow.appendChild(firstDataCell)
+dataRow.appendChild(secondDataCell)
+
+// Add row to table
+tableBody.appendChild(dataRow)
+
+}
+
+}
+
+function createThreeColumnContainer(
+  viewContainer,
+  firstCell,
+  secondCell,
+  secondCellStatus = "neutral",
+  thirdCell,
+  thirdCellStatus = "neutral",
+  containerID,
+  isTableTitle = false
+){
+
+  
+  if(document.querySelectorAll("#table-view").length == 0)
+{
+  tableView = document.createElement("table");
+tableView.id = "table-view"
+tableView.className = "display"
+
+tableView.innerHTML = `
+<thead>
+        <tr class = "header">
+            <th id = "first-heading"></th>
+            <th id = "second-heading"></th>
+            <th id = "third-heading"></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+`
+
+viewContainer.appendChild(tableView)
+}
+
+if (isTableTitle)
+{
+  // Set headings
+  document.querySelector("#first-heading").innerHTML =firstCell 
+  document.querySelector("#second-heading").innerHTML =secondCell 
+  document.querySelector("#third-heading").innerHTML =thirdCell 
+}
+else{
+  // Add data 
+  tableBody = document.querySelector("tbody")
+
+  // Add rows
+  dataRow = document.createElement("tr")
+  dataRow.id = containerID
+
+  // Add data cells
+  firstDataCell = document.createElement("td")
+  firstDataCell.innerHTML = firstCell
+  
+  
+  secondDataCell = document.createElement("td")
+  secondDataCell.innerHTML = secondCell
+  secondDataCell.className = secondCellStatus
+  
+  thirdDataCell = document.createElement("td")
+  thirdDataCell.innerHTML = thirdCell
+  thirdDataCell.className = thirdCellStatus
+
+  // Add data cells to row
+dataRow.appendChild(firstDataCell)
+dataRow.appendChild(secondDataCell)
+dataRow.appendChild(thirdDataCell)
+
+// Add row to table
+tableBody.appendChild(dataRow)
+
+}
+
+}
+
+
+function createFourColumnContainer(
+    viewContainer,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+      containerID,
+      isTableTitle
+){
+
+  
+  if(document.querySelectorAll("#table-view").length == 0)
+{tableView = document.createElement("table");
+tableView.id = "table-view"
+tableView.className = "display"
+
+tableView.innerHTML = `
+<thead>
+        <tr class = "header">
+            <th id = "first-heading"></th>
+            <th id = "second-heading"></th>
+            <th id = "third-heading"></th>
+            <th id = "fourth-heading"></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+`
+
+viewContainer.appendChild(tableView)
+}
+
+if (isTableTitle)
+{
+  // Set headings
+  document.querySelector("#first-heading").innerHTML =firstCell 
+  document.querySelector("#second-heading").innerHTML =secondCell 
+  document.querySelector("#third-heading").innerHTML =thirdCell 
+  document.querySelector("#fourth-heading").innerHTML =fourthCell 
+}
+else{
+  // Add data 
+  tableBody = document.querySelector("tbody")
+
+  // Add rows
+  dataRow = document.createElement("tr")
+  dataRow.id = containerID
+
+  // Add data cells
+  firstDataCell = document.createElement("td")
+  firstDataCell.innerHTML = firstCell
+  
+  
+  secondDataCell = document.createElement("td")
+  secondDataCell.innerHTML = secondCell
+  secondDataCell.className = secondCellStatus
+  
+  thirdDataCell = document.createElement("td")
+  thirdDataCell.innerHTML = thirdCell
+  thirdDataCell.className = thirdCellStatus
+  
+  fourthDataCell = document.createElement("td")
+  fourthDataCell.innerHTML = fourthCell
+  fourthDataCell.className = fourthCellStatus
+
+  // Add data cells to row
+dataRow.appendChild(firstDataCell)
+dataRow.appendChild(secondDataCell)
+dataRow.appendChild(thirdDataCell)
+dataRow.appendChild(fourthDataCell)
+
+// Add row to table
+tableBody.appendChild(dataRow)
+
+}
+
+}
+
+
+function createFiveColumnContainer(
+    viewContainer,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+    thirdCell,
+    thirdCellStatus,
+    fourthCell,
+    fourthCellStatus,
+    fifthCell,
+    fifthCellStatus,
+      containerID,
+      isTableTitle
+){
+
+  
+  if(document.querySelectorAll("#table-view").length == 0)
+{tableView = document.createElement("table");
+tableView.id = "table-view"
+tableView.className = "display"
+
+tableView.innerHTML = `
+<thead>
+        <tr class = "header">
+            <th id = "first-heading"></th>
+            <th id = "second-heading"></th>
+            <th id = "third-heading"></th>
+            <th id = "fourth-heading"></th>
+            <th id = "fifth-heading"></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+`
+
+viewContainer.appendChild(tableView)
+}
+
+if (isTableTitle)
+{
+  // Set headings
+  document.querySelector("#first-heading").innerHTML =firstCell 
+  document.querySelector("#second-heading").innerHTML =secondCell 
+  document.querySelector("#third-heading").innerHTML =thirdCell 
+  document.querySelector("#fourth-heading").innerHTML =fourthCell 
+  document.querySelector("#fifth-heading").innerHTML =fifthCell 
+}
+else{
+  // Add data 
+  tableBody = document.querySelector("tbody")
+
+  // Add rows
+  dataRow = document.createElement("tr")
+  dataRow.id = containerID
+
+  // Add data cells
+  firstDataCell = document.createElement("td")
+  firstDataCell.innerHTML = firstCell
+  
+  
+  secondDataCell = document.createElement("td")
+  secondDataCell.innerHTML = secondCell
+  secondDataCell.className = secondCellStatus
+  
+  thirdDataCell = document.createElement("td")
+  thirdDataCell.innerHTML = thirdCell
+  thirdDataCell.className = thirdCellStatus
+  
+  fourthDataCell = document.createElement("td")
+  fourthDataCell.innerHTML = fourthCell
+  fourthDataCell.className = fourthCellStatus
+  
+  fifthDataCell = document.createElement("td")
+  fifthDataCell.innerHTML = fifthCell
+  fifthDataCell.className = fifthCellStatus
+
+  // Add data cells to row
+dataRow.appendChild(firstDataCell)
+dataRow.appendChild(secondDataCell)
+dataRow.appendChild(thirdDataCell)
+dataRow.appendChild(fourthDataCell)
+dataRow.appendChild(fifthDataCell)
+
+// Add row to table
+tableBody.appendChild(dataRow)
+
+}
+
+}
+
+///Create dataTable
+function createTable(){
+      table = new DataTable(document.querySelector("#table-view"), {
+    // options
+    
+});
+}
+
+
+function createMoreContentHeading(event, headingContainer){
+  
+  // Get table heading
+  tableHeading = document.querySelector("thead tr") 
+  allHeadings = tableHeading.querySelectorAll("th")
+
+  // Get table values
+  tableRow = event.target.parentNode
+  allValues = tableRow.querySelectorAll("td")
+  
+  // Get number of headings
+  // numberOfHeadings
+  
+  // Get headings
+  headingList = []
+  valueList = []
+  valueIdList = []
+
+  for(i =0; i < allHeadings.length; i++){
+    headingList.push(allHeadings[i].innerText)
+    valueList.push(allValues[i].innerText)
+    valueIdList.push(allValues[i].className)
+  }
+  
+// Create containers
+headingTableView = document.createElement("table");
+headingTableView.className = "heading-table-view"
+headingTableView.innerHTML = `
+    <tbody>
+    </tbody>
+`
+headingContainer.appendChild(headingTableView)
+  // Add data 
+ headingTableBody = document.querySelector(".heading-table-view tbody")
+
+  // Add rows
+  dataRow = document.createElement("tr")
+  dataRow.className = "title-row"
+headingTableBody.appendChild(dataRow)
+
+for(i =0; i < headingList.length; i++){
+  dataCell = document.createElement("td")
+  dataCell.innerHTML = headingList[i]
+dataRow.appendChild(dataCell)
+
+
+  // headingElement = document.createElement("div")
+  // if (i == 0)
+  // headingElement.className = "heading-element-first"
+  // else if (i == allHeadings.length - 1)
+  // headingElement.className = "heading-element-last"
+  // else
+  // headingElement.className = "heading-element"
+// headingElement.innerHTML = `
+// <div class = "heading-element-title"> ${headingList[i]}</div>
+// <div class = "heading-element-value"> ${valueList[i]}</div>
+// `
+// headingContainer.appendChild(headingElement)
+  }
+  
+
+  // Add rows
+  dataRow = document.createElement("tr")
+  dataRow.className = "value-row"
+headingTableBody.appendChild(dataRow)
+
+for(i =0; i < valueList.length; i++){
+  dataCell = document.createElement("td")
+  dataCell.innerHTML = valueList[i]
+  dataCell.className = valueIdList[i]
+dataRow.appendChild(dataCell)
+
+
+  headingElement = document.createElement("div")
+  // if (i == 0)
+  // headingElement.className = "heading-element-first"
+  // else if (i == allHeadings.length - 1)
+  // headingElement.className = "heading-element-last"
+  // else
+  // headingElement.className = "heading-element"
+// headingElement.innerHTML = `
+// <div class = "heading-element-title"> ${headingList[i]}</div>
+// <div class = "heading-element-value"> ${valueList[i]}</div>
+// `
+// headingContainer.appendChild(headingElement)
+  }
 
 }

@@ -14,6 +14,9 @@ import json
 def index(request):
     return render(request, "Firefighters_data_Integration_Platform/index.html")
 
+def table(request):
+    return render(request, "Firefighters_data_Integration_Platform/table.html")
+
 
 def trim(request):
     return render(request, "Firefighters_data_Integration_Platform/trimbleconnect.html")

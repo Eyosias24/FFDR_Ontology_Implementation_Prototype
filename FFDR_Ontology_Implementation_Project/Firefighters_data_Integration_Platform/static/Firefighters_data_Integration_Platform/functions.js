@@ -650,6 +650,7 @@ document.querySelector("#body-container").className = "disabled-view";
 }
 
 function enableNavigation(){
-  
+  if(document.querySelectorAll("#table-view").length > 0)
+  createTable()
 document.querySelector("#body-container").className = "enabled-view";
 }
