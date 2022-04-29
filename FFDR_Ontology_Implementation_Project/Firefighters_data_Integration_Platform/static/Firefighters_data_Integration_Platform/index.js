@@ -42,6 +42,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
+  // Control panel view
+  document
+    .querySelector("#control-panels")
+    .addEventListener("click", function (event) {
+      changeActiveButton(event.target);
+      getControlPanels(projectTitle);
+    });
+
   // Automatic fire extinguishing system view
   document
     .querySelector("#automatic-fire-extinguishing-system")
@@ -201,6 +209,7 @@ contactAddressResults = {}
 incidentBuildingResults = {}
 BuildingPlansResults = {}
 fireCommandCenterResults = {}
+controlPanelResults = {}
 
 fireExtinguishingSystemResults = {}
 portableFireExtinguisherResults = {}
@@ -276,7 +285,7 @@ hallwayData = []
     });
 
   // Keybox view
-  document.querySelector("#keybox").addEventListener("click", function (event) {
+  document.querySelector("#key-box").addEventListener("click", function (event) {
     changeActiveButton(event.target);
     getKeybox(projectTitle);
   });
@@ -393,6 +402,7 @@ function loadNavPanels() {
     "Contact Addresses",
     "Building Plans",
     "Fire Command Center",
+    "Control Panels"
   ];
   //Building components other than safety systems
   rightNavItems = [
@@ -401,7 +411,7 @@ function loadNavPanels() {
     "Non-Structural Elements",
     "Structural Elements",
     "Hazardous materials",
-    "KeyBox",
+    "Key Box",
     "Concealed Spaces",
     "Vertical Openings",
     "Roof Top Element",

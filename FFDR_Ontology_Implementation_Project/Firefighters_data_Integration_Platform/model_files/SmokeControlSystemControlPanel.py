@@ -9,3 +9,6 @@ class SmokeControlSystemControlPanel(ControlPanel):
 	
 	def __str__(self):
 		return "Smoke Control System Control Panel" 
+
+	def serialize(self):
+		return super().serialize()

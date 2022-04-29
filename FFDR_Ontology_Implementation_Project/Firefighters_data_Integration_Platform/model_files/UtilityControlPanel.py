@@ -8,3 +8,6 @@ class UtilityControlPanel(ControlPanel):
 	
 	def __str__(self):
 		return f"Utility Control Panel: {self.hasName}" 
+
+	def serialize(self):
+		return super().serialize()

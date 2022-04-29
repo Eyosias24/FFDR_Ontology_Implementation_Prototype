@@ -25,6 +25,9 @@ path('building_plans/<str:projectName>', views.get_building_plans, name='get_bui
 # Get single fire command center item API route
 path('fire_command_center/<str:projectName>', views.get_fire_command_center, name='get_fire_command_center'),
 
+# Get control panel API route
+path('control_panels/<str:projectName>', views.get_control_panels, name='get_control_panels'),
+
 # Get AutomaticFireExtinguishingSystem for a project API route
 path('automatic_fire_extinguishing_system/<str:projectName>', views.get_automatic_fire_extinguishing_system, name='get_automatic_fire_extinguishing_system'),
 

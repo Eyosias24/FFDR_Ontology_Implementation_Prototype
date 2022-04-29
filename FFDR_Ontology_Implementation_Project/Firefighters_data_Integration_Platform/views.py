@@ -138,9 +138,51 @@ def get_fire_command_center(request, projectName):
 		"contains":[item.serialize() for item in contains]
 		}
 
-
 	return JsonResponse(fireCommandCenterData, safe=False)
 
+
+# fetch Control panels
+def get_control_panels(request, projectName):
+	# Get current project
+	incidentBuilding = IncidentBuilding.objects.get(hasProjectName=projectName)
+	
+	# Get Alarm System Annunciator Panel
+	alarmSystemAnnunciatorPanel = AlarmSystemAnnunciatorPanel.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get door Unlocking System Control Panel
+	doorUnlockingSystemControlPanel = DoorUnlockingSystemControlPanel.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get Elevator Override Control Panel
+	elevatorOverrideControlPanel = ElevatorOverrideControlPanel.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get FARS Control Panel
+	farsControlPanel = FarsControlPanel.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get Fire Department Communication System Panel
+	fireDepartmentCommunicationSystemPanel = FireDepartmentCommunicationSystemPanel.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get Mass Notification System Control Panel
+	massNotificationSystemControlPanel = MassNotificationSystemControlPanel.objects.filter(hasProjectName=incidentBuilding)
+	
+	# Get Smoke Control System Control Panel
+	smokeControlSystemControlPanel = SmokeControlSystemControlPanel.objects.filter(hasProjectName=incidentBuilding)
+
+	# Get Utility Control Panel
+	utilityControlPanel = UtilityControlPanel.objects.filter(hasProjectName=incidentBuilding)
+
+
+	controlPanelData   = {
+		"alarmSystemAnnunciatorPanel":[item.serialize() for item in alarmSystemAnnunciatorPanel],
+		"doorUnlockingSystemControlPanel":[item.serialize() for item in doorUnlockingSystemControlPanel],
+		"elevatorOverrideControlPanel":[item.serialize() for item in elevatorOverrideControlPanel],
+		"farsControlPanel":[item.serialize() for item in farsControlPanel],
+		"fireDepartmentCommunicationSystemPanel":[item.serialize() for item in fireDepartmentCommunicationSystemPanel],
+		"massNotificationSystemControlPanel":[item.serialize() for item in massNotificationSystemControlPanel],
+		"smokeControlSystemControlPanel":[item.serialize() for item in smokeControlSystemControlPanel],
+		"utilityControlPanel":[item.serialize() for item in utilityControlPanel],
+		}
+
+	return JsonResponse(controlPanelData, safe=False)
 
 
 
@@ -737,16 +779,16 @@ def edit (request):
 
 
 			
-	dataStore = Stairway.objects.all()
+	dataStore = BuildingPlan.objects.all()
 
 	for data in dataStore:
 		print(data)
 		
-		floor = data.serialize()["hasDischargeLevel"]
+		floor = data.serialize()["hasFloor"]
 		print("   ")
 		print(floor in FloorsNumber)
 		if floor in FloorsNumber:
-			data.hasDischargeLevel = FloorsNumber[floor]
+			data.hasFloor = FloorsNumber[floor]
 			data.save()
 
 

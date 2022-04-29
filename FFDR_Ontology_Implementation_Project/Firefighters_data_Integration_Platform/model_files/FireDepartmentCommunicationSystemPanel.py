@@ -9,3 +9,6 @@ class FireDepartmentCommunicationSystemPanel(ControlPanel):
 	
 	def __str__(self):
 		return "Fire Department Communication System Panel" 
+
+	def serialize(self):
+		return super().serialize()

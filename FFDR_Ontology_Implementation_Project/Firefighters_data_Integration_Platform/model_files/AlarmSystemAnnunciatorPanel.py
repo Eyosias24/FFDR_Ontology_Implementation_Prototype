@@ -9,3 +9,6 @@ class AlarmSystemAnnunciatorPanel(ControlPanel):
 
 	def __str__(self):
 		return "Alarm System Annunciator Panel"   
+
+	def serialize(self):
+		return super().serialize()

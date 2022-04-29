@@ -33,6 +33,12 @@ function showIncidentBuilding(results) {
   title = "Incident Building"
   setTitleView(mainView, title)
 
+  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   // Building address
   streetAddress = getDataBuildingAddress["hasStreetAddress"];
   postalCode = getDataBuildingAddress["hasPostalCode"];
@@ -44,7 +50,7 @@ function showIncidentBuilding(results) {
   addressToCoordinate(buildingAddress);
 
   subjectLabel = "Building Address:";
-  clickMoreText = " <div class = 'click-for-more'> (Click to see on map) <div>"
+  clickMoreText = " <div class = 'click-for-more'> (Click here to see map) <div>"
   subjectValue = buildingAddress + clickMoreText;
   containerID = "building-address-container";
   isMore = false;
@@ -52,7 +58,7 @@ function showIncidentBuilding(results) {
   containerClass = "";
 
   // prettier-ignore
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Construction type
   constructionType = getDataConstructionType["hasType"];
@@ -65,7 +71,7 @@ function showIncidentBuilding(results) {
   moreContent = constructionTypeDescription;
 
   // prettier-ignore
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Occupancy
   buildingOccupancyType = getDataOccupancy["hasOccupancy"];
@@ -79,7 +85,7 @@ function showIncidentBuilding(results) {
   moreContent = buildingOccupancyDescription;
 
   // prettier-ignore
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // prettier-ignore
   buildingOccupancyTypeContainer = document.getElementById(containerID).querySelector(".second-child");
@@ -95,7 +101,7 @@ function showIncidentBuilding(results) {
   isMore = false;
 
   // prettier-ignore
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Building Area
 
@@ -105,7 +111,7 @@ function showIncidentBuilding(results) {
   isMore = false;
 
   // prettier-ignore
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Building Height
 
@@ -115,7 +121,7 @@ function showIncidentBuilding(results) {
   isMore = false;
 
   // prettier-ignore
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Number of storeys
 
@@ -125,7 +131,7 @@ function showIncidentBuilding(results) {
   isMore = false;
 
   // prettier-ignore
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Number of Sublevels
 
@@ -135,18 +141,18 @@ function showIncidentBuilding(results) {
   isMore = false;
 
   // prettier-ignore
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Number of Exits
 
   subjectLabel = "Number of Exits:";
-  clickMoreText = " <div class = 'click-for-more'> (Click to see on floor plan) <div>"
+  clickMoreText = " <div class = 'click-for-more'> (Click here to see floor plan) <div>"
   subjectValue = getDataNumberOfExit + clickMoreText;
   containerID = "number-of-exit-container";
   isMore = false;
 
   // prettier-ignore
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Hazardous Operations
 
@@ -159,7 +165,7 @@ function showIncidentBuilding(results) {
   isMore = false;
 
   // prettier-ignore
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Toggle "More" button text
   moreButtons = document.querySelectorAll(".parent-container a");
@@ -175,7 +181,7 @@ function showIncidentBuilding(results) {
   moreContainer = document.createElement("div");
   moreContainer.id = "more-container";
   moreContainer.style.display = "none";
-  mainView.appendChild(moreContainer);
+  contentView.appendChild(moreContainer);
 
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
@@ -191,7 +197,7 @@ function showIncidentBuilding(results) {
       allContainers[i].addEventListener("click", function (event) {
         additionalGraphicData = true;
 
-        console.log("This")
+        
         addMoreContentContainerNoTable(
           event,
           allContainers,
@@ -199,11 +205,17 @@ function showIncidentBuilding(results) {
           additionalGraphicData
         );
 
+       
+
         // Get graphical data container
         graphicDataContainer = document.querySelector(
           "#graphic-data-container"
         );
+        
+        graphicsTitle = "Location of Building"
+
         graphicDataContainer.innerHTML = `
+        <div class="title-container">${graphicsTitle}</div>
 <div id="map"></div>
 `;
         fetchMap(buildingAddress);
@@ -212,19 +224,32 @@ function showIncidentBuilding(results) {
 
     if (allContainers[i].id == "number-of-exit-container") {
       allContainers[i].addEventListener("click", function (event) {
+
         additionalGraphicData = true;
+
+  selectedContainer = event.target;
+
+  if (selectedContainer.getAttribute("status") == "less")
+       {
         addMoreContentContainerNoTable(
           event,
           allContainers,
           additionalWrittenData,
           additionalGraphicData
         );
-        // Get graphical data container
+ // Get graphical data container
         graphicDataContainer = document.querySelector(
           "#graphic-data-container"
         );
-        sources = "/static/Firefighters_data_Integration_Platform/media/typical-building-floor-plan-layout.pdf"
-        add2DViewer(graphicDataContainer)
+        graphicsTitle = "Location of Exits"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
+      
+    
+// Change container status
+    selectedContainer.setAttribute("status", "more");
+  
+  }
       });
     }
   }
@@ -233,7 +258,14 @@ enableNavigation()
 
 }
 
-function add2DViewer(graphicDataContainer){
+function add2DViewer(graphicDataContainer, graphicsTitle){
+// add Title
+titleContainer = document.createElement("div")
+titleContainer.className = "title-container"
+titleContainer.innerHTML = graphicsTitle
+graphicDataContainer.appendChild(titleContainer)
+
+// add 2d view
 viewerContainer = document.getElementById("2d-viewer-container")
 
 copyViewerContainer = viewerContainer.cloneNode(true)
@@ -527,27 +559,35 @@ function populateESPContactAddressElements(
   subSubMainView.appendChild(contentView)
 contentView = document.querySelector(".content-view")
 
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Emergency Service";
   secondCell = "Name";
-  thirdCell = "Phone Number";
+  thirdCell = "Distance from Building";
+ fourthCell = "Phone Number";
 
   containerClass = "contact-address";
   containerID = "header";
   
   secondCellStatus = "neutral",
   thirdCellStatus = "neutral";
+  fourthCellStatus = "neutral";
 
 isTableTitle = true
 
-   createThreeColumnContainer(
+   createFourColumnContainer(
       contentView,
       firstCell,
       secondCell,
       secondCellStatus,
       thirdCell,
       thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
       containerID,
       isTableTitle
   )
@@ -559,30 +599,42 @@ isTableTitle = false
 
     hasRole = type;
     hasName = inputData[i]["hasName"];
+    distanceFromBuilding = inputData[i]["hasDistanceFromIncidentBuilding"]
+                           + " " + inputData[i]["hasDistanceFromIncidentBuildingUnit"]
     HasTelephoneNumber = inputData[i]["hasAddress"]["hasTelephoneNumber"];
 
     firstCell = hasRole;
     secondCell = hasName;
-    thirdCell = "<a href='#'>" + HasTelephoneNumber + "</a>";
-
+    thirdCell = distanceFromBuilding;
+    fourthCell = "<a href='#'>" + HasTelephoneNumber + "</a>";
     containerID = i;
 
-     createThreeColumnContainer(
+     createFourColumnContainer(
       contentView,
       firstCell,
       secondCell,
       secondCellStatus,
       thirdCell,
       thirdCellStatus,
+      fourthCell,
+      fourthCellStatus,
       containerID,
       isTableTitle
   )
+
+  
+      // // Add tooltip
+      // getElement = document.getElementById(i)
+      //   getItem = getElement.querySelector("a")
+      //   getItem.className = "tooltip-item-bottom"
+      //   getItem.innerHTML +=`
+      //   <span class='tool-tip-text'>Click to Call Number</span>`
   }
 
   moreContainer = document.createElement("div");
   moreContainer.id = "more-container";
   moreContainer.style.display = "none";
-  mainView.appendChild(moreContainer);
+  contentView.appendChild(moreContainer);
 
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
@@ -604,6 +656,64 @@ isTableTitle = false
       );
 
       // Add additional data
+      
+      // Add tooltip
+        getItem = document.querySelector(".value-row #cell-3")
+        itemValue = document.querySelector(".value-row #cell-3").innerText
+        getItem.innerHTML = `<a class="tooltip-item-bottom" href="#">${itemValue}
+        <span class='tool-tip-text'>Click to Call Number</span>
+        </a>`
+
+      // Add additional data
+
+        if(event.target.tagName == "A")
+        index = event.target.parentNode.parentNode.id;
+        else
+        index = event.target.parentNode.id;
+        moreData = inputData[index];
+        
+ 
+        // Get data
+        
+        hasEmail = moreData["hasAddress"]["hasEmail"];
+        physicalAddress = moreData["hasAddress"]["hasPhysicalAddress"];
+        mobileNumber = moreData["hasAddress"]["hasMobileNumber"];
+        
+
+        // Create data containers
+
+        dataContainer = document.querySelector(".additional-data-container");
+      dataContainer.innerHTML += `
+        <div class = "data-item" id="mobile-number">
+          <div class = "data-item-label"> Mobile Number: </div> 
+          <div class = "data-item-value"> <a class="tooltip-item" href="#"> </a> </div> 
+        </div>
+        <div class = "data-item" id="physical-address">
+          <div class = "data-item-label"> Physical Address: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="email">
+          <div class = "data-item-label"> Email: </div> 
+          <div class = "data-item-value"> <a class="tooltip-item"  href="#"> </a> </div> 
+        </div>
+        `;
+
+        // Insert values
+        
+        dataContainer.querySelector(
+          "#mobile-number .data-item-value a"
+    ).innerHTML = mobileNumber + `
+  <span class='tool-tip-text'>Click to Call Number</span>`
+        
+        dataContainer.querySelector(
+          "#physical-address .data-item-value"
+        ).innerText = physicalAddress;
+        
+        dataContainer.querySelector(
+          "#email .data-item-value a"
+        ).innerHTML = hasEmail + `
+  <span class='tool-tip-text'>Click to Send Email</span>`
+
     });
   }
   enableNavigation()
@@ -646,6 +756,11 @@ function populateContactAddressElements(
   subMainView.appendChild(contentView)
   contentView = document.querySelector(".content-view")
 
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
+
 isTableTitle = true
     createThreeColumnContainer(
       contentView,
@@ -684,6 +799,18 @@ isTableTitle = false
       thirdCellStatus,
       containerID,
     );
+
+    
+      
+      // // Add tooltip
+      // getElement = document.getElementById(i)
+      //   getItem = getElement.querySelector("a")
+      //   console.log(getItem)
+      //   getItem.className = "tooltip-item-bottom"
+      //   getItem.innerHTML +=`
+      //   <span class='tool-tip-text'>Click to Call Number</span>`
+
+
     }
   } else {
     // Set title
@@ -731,13 +858,15 @@ isTableTitle = false
       containerID,
       isTableTitle
       );
+
+      
     }
   }
 
   moreContainer = document.createElement("div");
   moreContainer.id = "more-container";
   moreContainer.style.display = "none";
-  mainView.appendChild(moreContainer);
+  contentView.appendChild(moreContainer);
 
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
@@ -760,8 +889,73 @@ isTableTitle = false
         additionalWrittenData,
         additionalGraphicData
       );
+if (type == "buildingContactAddress" || type == "utilityContactAddress")
+      {// Add tooltip
+        getItem = document.querySelector(".value-row #cell-2")
+        itemValue = document.querySelector(".value-row #cell-2").innerText
+        getItem.innerHTML = `<a class="tooltip-item-bottom" href="#">${itemValue}
+        <span class='tool-tip-text'>Click to Call Number</span>
+        </a>`}
+        else {// Add tooltip
+        getItem = document.querySelector(".value-row #cell-1")
+        itemValue = document.querySelector(".value-row #cell-1").innerText
+        getItem.innerHTML = `<a class="tooltip-item-bottom" href="#">${itemValue}
+        <span class='tool-tip-text'>Click to Call Number</span>
+        </a>`}
 
       // Add additional data
+
+        if(event.target.tagName == "A")
+        index = event.target.parentNode.parentNode.id;
+        else
+        index = event.target.parentNode.id;
+        
+        moreData = inputData[index];
+        
+        
+        // Get data
+        
+        hasEmail = moreData["hasEmail"];
+        physicalAddress = moreData["hasPhysicalAddress"];
+        mobileNumber = moreData["hasMobileNumber"];
+        
+
+        // Create data containers
+
+        dataContainer = document.querySelector(".additional-data-container");
+      dataContainer.innerHTML += `
+        <div class = "data-item" id="mobile-number">
+          <div class = "data-item-label"> Mobile Number: </div> 
+          <div class = "data-item-value"> <a class="tooltip-item" href="#"> </a> </div> 
+        </div>
+        <div class = "data-item" id="physical-address">
+          <div class = "data-item-label"> Physical Address: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        <div class = "data-item" id="email">
+          <div class = "data-item-label"> Email: </div> 
+          <div class = "data-item-value"> <a class="tooltip-item"  href="#"> </a> </div> 
+        </div>
+        `;
+
+        // Insert values
+        
+        dataContainer.querySelector(
+          "#mobile-number .data-item-value a"
+    ).innerHTML = mobileNumber + `
+  <span class='tool-tip-text'>Click to Call Number</span>`
+        
+        dataContainer.querySelector(
+          "#physical-address .data-item-value"
+        ).innerText = physicalAddress;
+        
+        dataContainer.querySelector(
+          "#email .data-item-value a"
+        ).innerHTML = hasEmail + `
+  <span class='tool-tip-text'>Click to Send Email</span>`
+
+
+
     });
   }
 
@@ -787,6 +981,7 @@ function nodeScriptIs(node) {
 
 // Show fire extinguishing system
 function showFireExtinguishingSystem(results) {
+  
 
   if (results["automaticSprinklerSystem"].length > 0)
     results = results["automaticSprinklerSystem"];
@@ -806,6 +1001,11 @@ function showFireExtinguishingSystem(results) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+  
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "System";
@@ -909,7 +1109,7 @@ isTableTitle = false
 
         // Create data containers
 
-  dataContainer = document.querySelector("#data-container");
+        dataContainer = document.querySelector(".additional-data-container");
         dataContainer.innerHTML = `
         <div class = "data-item" id="control-valve-state">
           <div class = "data-item-label"> Control Valve: </div> 
@@ -967,7 +1167,7 @@ isTableTitle = false
         if (Object.keys(connectionWith).length > 0)
           dataContainer.querySelector(
             "#connected-with .data-item-value a"
-          ).innerText = "Alarm System";
+          ).innerText = "Fire Alarm System";
 
         // Water sources
         dataContainer.querySelector(
@@ -977,7 +1177,10 @@ isTableTitle = false
         // Create graphic data containers
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of Control Valve"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
       
     });
   }
@@ -1002,6 +1205,13 @@ function showFireHydrant(unsortedResults) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Distance from building";
@@ -1110,7 +1320,7 @@ isTableTitle = false
 
         // Create data containers
 
-        dataContainer = document.querySelector("#data-container");
+        dataContainer = document.querySelector(".additional-data-container");
        dataContainer.innerHTML = `
         <div class = "data-item" id="hose-connection-size">
           <div class = "data-item-label"> Hose Connection Size: </div> 
@@ -1170,9 +1380,14 @@ graphicDataContainer = document.querySelector("#graphic-data-container");
       
         
 
+        
+        graphicsTitle = "Route from the fire hydrant to the building"
+       
         graphicDataContainer.innerHTML = `
+        <div class="title-container">${graphicsTitle}</div>
 <div id="map"></div>
 `;
+
 
          isRouting = true
         fetchMap(buildingAddress, hydrantCoordinate, isRouting);
@@ -1194,7 +1409,7 @@ function populateMoreBuildingUtilityData(dataCollection) {
   controlPanelLocation = dataCollection["hasControlPanel"]["hasLocation"];
   // Create data containers
 
-  dataContainer = document.querySelector("#data-container");
+  dataContainer = document.querySelector(".additional-data-container");
   dataContainer.innerHTML = `
         <div class = "data-item" id="service-provider">
           <div class = "data-item-label"> Service Provider: </div> 
@@ -1237,8 +1452,189 @@ function populateMoreBuildingUtilityData(dataCollection) {
 
   // Create graphic data containers   
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of " + controlPanelName
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
 }
+
+// Show Control panels
+function showControlPanel(results) {
+  console.log(results)
+
+  alarmSystemAnnunciatorPanel = results["alarmSystemAnnunciatorPanel"]
+  doorUnlockingSystemControlPanel = results["doorUnlockingSystemControlPanel"]
+  elevatorOverrideControlPanel = results["elevatorOverrideControlPanel"]
+  farsControlPanel = results["farsControlPanel"]
+  fireDepartmentCommunicationSystemPanel = results["fireDepartmentCommunicationSystemPanel"]
+  massNotificationSystemControlPanel = results["massNotificationSystemControlPanel"]
+  smokeControlSystemControlPanel = results["smokeControlSystemControlPanel"]
+  utilityControlPanel = results["utilityControlPanel"]
+
+  collectControlPanels = []
+
+  for(i = 0; i <  alarmSystemAnnunciatorPanel.length; i ++){
+    collectControlPanels.push(alarmSystemAnnunciatorPanel[i])
+  }
+  for(i = 0; i <  doorUnlockingSystemControlPanel.length; i ++){
+    collectControlPanels.push(doorUnlockingSystemControlPanel[i])
+  }
+  for(i = 0; i <  elevatorOverrideControlPanel.length; i ++){
+    collectControlPanels.push(elevatorOverrideControlPanel[i])
+  }
+  for(i = 0; i <  farsControlPanel.length; i ++){
+    collectControlPanels.push(farsControlPanel[i])
+  }
+  for(i = 0; i <  fireDepartmentCommunicationSystemPanel.length; i ++){
+    collectControlPanels.push(fireDepartmentCommunicationSystemPanel[i])
+  }
+  for(i = 0; i <  massNotificationSystemControlPanel.length; i ++){
+    collectControlPanels.push(massNotificationSystemControlPanel[i])
+  }
+  for(i = 0; i <  smokeControlSystemControlPanel.length; i ++){
+    collectControlPanels.push(smokeControlSystemControlPanel[i])
+  }
+  for(i = 0; i <  utilityControlPanel.length; i ++){
+    collectControlPanels.push(utilityControlPanel[i])
+  }
+  
+
+  // Get main view
+  mainView = document.querySelector(".main-view");
+  mainView.id = ""
+
+
+  // Set view title
+  title = "Control Panels"
+  setTitleView(mainView, title)
+
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
+
+  // Set title
+  firstCell = "Control Panel";
+  secondCell = "Location";
+
+  containerClass = "control-panel";
+  containerID = "header";
+  secondCellStatus = "neutral";
+
+isTableTitle = true
+
+
+      createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+      );
+
+isTableTitle = false
+
+  for (i = 0; i < collectControlPanels.length; i++) {
+    // Get data
+    hasName = collectControlPanels[i]["hasName"];
+    hasLocation = collectControlPanels[i]["hasLocation"];
+
+    firstCell = hasName;
+    secondCell = hasLocation;
+
+    containerID = i;
+    
+isTableTitle = false
+
+    createTwoColumnContainer(
+      contentView,
+      firstCell,
+      secondCell,
+      secondCellStatus,
+      containerID,
+      isTableTitle
+    );
+
+  }
+
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+
+  // allContainers = document.querySelectorAll(".parent-container");
+  
+  allContainers = document.querySelectorAll("tr");
+  
+  additionalWrittenData = true
+  additionalGraphicData = true
+  
+  
+  for (i = 0; i < allContainers.length; i++) {
+
+    if (allContainers[i].className== "header") continue;
+
+    allContainers[i].addEventListener("click", function (event) {
+      
+      additionalWrittenData = true;
+      additionalGraphicData = true;
+      
+      addMoreContentContainer(
+        event,
+        additionalWrittenData,
+        additionalGraphicData
+      );
+
+      // Add additional data
+
+      index = event.target.parentNode.id;
+      moreData = collectControlPanels[index];
+
+      
+      // Get data
+      hasDescription = moreData["hasDescription"];
+
+      // Get data container
+      dataContainer = document.querySelector(".additional-data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="description">
+          <div class = "data-item-label"> Description: </div> 
+          <div class = "data-item-value">  </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector(
+        "#description .data-item-value"
+      ).innerText = hasDescription;
+
+        // Create graphic data containers
+      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+      
+        graphicsTitle = "Location of Control Panel"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
+      
+    });
+  }
+
+enableNavigation()
+}
+
+
 // Show Building Utility System
 function showBuildingUtilitySystem(results) {
 
@@ -1263,6 +1659,13 @@ function showBuildingUtilitySystem(results) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Building Utility";
@@ -1424,48 +1827,50 @@ isTableTitle = false
   
   allContainers = document.querySelectorAll("tr");
   
-  
+  additionalWrittenData = true
+  additionalGraphicData = true
+
   // Add more content
   // primary Power Supply System
   selectedContainer = document.querySelector("#primary-power-supply-system");
   selectedContainer.addEventListener("click", function (event) {
-    if (event.target.getAttribute("status") == "less") {
-      addMoreContentTwoColumnContainer(event.target, allContainers);
+      
+      addMoreContentContainer(event, additionalWrittenData, additionalGraphicData);
       populateMoreBuildingUtilityData(primaryPowerSupplySystem);
-    }
+    
   });
   // Backup Power Supply System
   selectedContainer = document.querySelector("#backup-power-supply-system");
   selectedContainer.addEventListener("click", function (event) {
-    if (event.target.getAttribute("status") == "less") {
-      addMoreContentTwoColumnContainer(event.target, allContainers);
+   
+      addMoreContentContainer(event, additionalWrittenData, additionalGraphicData);
       populateMoreBuildingUtilityData(backUpPowerSupplySystem);
-    }
+    
   });
   // Gas Supply System
   selectedContainer = document.querySelector("#gas-supply-system");
   selectedContainer.addEventListener("click", function (event) {
-    if (event.target.getAttribute("status") == "less") {
-      addMoreContentTwoColumnContainer(event.target, allContainers);
+   
+      addMoreContentContainer(event, additionalWrittenData, additionalGraphicData);
       populateMoreBuildingUtilityData(gasSupplySystem);
-    }
+    
   });
   selectedContainer = document.querySelector("#hvac-System");
   selectedContainer.addEventListener("click", function (event) {
-    if (event.target.getAttribute("status") == "less") {
-      addMoreContentTwoColumnContainer(event.target, allContainers);
+    
+      addMoreContentContainer(event, additionalWrittenData, additionalGraphicData);
       populateMoreBuildingUtilityData(hvacSystem);
-    }
+    
   });
   // Water Supply and Sewerage System
   selectedContainer = document.querySelector(
     "#water-supply-and-sewerage-system"
   );
   selectedContainer.addEventListener("click", function (event) {
-    if (event.target.getAttribute("status") == "less") {
-      addMoreContentTwoColumnContainer(event.target, allContainers);
+   
+      addMoreContentContainer(event, additionalWrittenData, additionalGraphicData);
       populateMoreBuildingUtilityData(waterSupplyAndSewerageSystem);
-    }
+    
   });
 
 enableNavigation()
@@ -1740,7 +2145,7 @@ function createContainer(mainView, subjectLabel, subjectValue, containerID="",co
 }
 
 function showPortableFireExtinguisher(results) {
-  
+  console.log(results)
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -1756,6 +2161,13 @@ function showPortableFireExtinguisher(results) {
   contentView.className = "content-view"
   mainView.appendChild(contentView)
 contentView = document.querySelector(".content-view")
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
+
 
   // Set title firstCell
   firstCell = "Location";
@@ -1848,7 +2260,10 @@ createThreeColumnContainer(
         // Create graphic data containers
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+      
+        graphicsTitle = "Location on Floor Plan"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -1866,8 +2281,9 @@ function addMoreContentContainerNoTable(
   selectedContainer = event.target;
 
   if (selectedContainer.getAttribute("status") == "less") {
-    // Change container status
-    selectedContainer.setAttribute("status", "more");
+
+    if(selectedContainer.querySelectorAll(".click-for-more").length > 0)
+    selectedContainer.querySelector(".click-for-more").style.display = "none"
 
     // Hide all items except the target item
     for (j = 0; j < allContainers.length; j++) {
@@ -1913,6 +2329,13 @@ function addMoreContentContainerNoTable(
       // Clear and hide more content
       document.querySelector("#more-container").style.display = "none";
       document.querySelector("#more-container").innerHTML = "";
+     
+     // Show click for mores information
+     console.log(selectedContainer.querySelectorAll(".click-for-more"))
+    if(selectedContainer.querySelectorAll(".click-for-more").length > 0)
+    selectedContainer.querySelector(".click-for-more").style.display = "inline-flex"
+
+     
       event.target.remove();
     });
   }
@@ -1924,11 +2347,19 @@ function addMoreContentContainer(
   additionalGraphicData = false
 ) {
   
+  
+  if(event.target.tagName == "A")
+  selectedContainer = event.target.parentNode.parentNode
+  else
   selectedContainer = event.target.parentNode
 
     // Hide table
     if (document.querySelectorAll("table").length > 0)
     document.querySelector("#table-view_wrapper").style.display = "none"
+
+    // Hide information in bracket
+    if (document.querySelectorAll(".info-line").length > 0)
+    document.querySelector(".info-line").style.display = "none"
 
     // Show more content
 
@@ -1959,7 +2390,22 @@ createMoreContentHeading(event, headingContainer)
     if (additionalWrittenData) {
       dataContainer = document.createElement("div");
       dataContainer.id = "data-container";
+
       moreContainer.appendChild(dataContainer);
+
+      // Add title
+      additionalInfoTitle = document.createElement("div");
+        additionalInfoTitle.innerText = "Additional Information"
+        additionalInfoTitle.className = "title-container"
+      dataContainer.appendChild(additionalInfoTitle);
+
+      // Add content container
+      
+      additionalInfoContainer = document.createElement("div");
+        additionalInfoContainer.className = "additional-data-container"
+      dataContainer.appendChild(additionalInfoContainer);
+
+
     }
     // Create graphic data containers
     if (additionalGraphicData) {
@@ -1975,6 +2421,10 @@ createMoreContentHeading(event, headingContainer)
   
   // Show table
       document.querySelector("#table-view_wrapper").style.display = "block"
+
+    // show information in bracket
+    if (document.querySelectorAll(".info-line").length > 0)
+    document.querySelector(".info-line").style.display = "flex"
 
       // Clear and hide more content
       document.querySelector("#more-container").style.display = "none";
@@ -2001,6 +2451,12 @@ function showFireAlarmSystem(results) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Coverage Zone";
@@ -2081,14 +2537,13 @@ isTableTitle = false
       index = event.target.parentNode.id;
       moreData = results[index];
 
-console.log(moreData)
       // Get data
       typeOfSignalInitiator = moreData["hasTypeOfSignalInitiator"];
       controlPanel = moreData["hasControlPanel"]["hasName"];
       controlPanelLocation = moreData["hasControlPanel"]["hasLocation"];
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="type-of-signal-initiator">
           <div class = "data-item-label"> Type of Signal Initiator: </div> 
@@ -2121,7 +2576,10 @@ console.log(moreData)
         // Create graphic data containers
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of Control Panel"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -2144,6 +2602,12 @@ function showFireDepartmentConnections(results) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Coverage Zone";
@@ -2253,7 +2717,7 @@ isTableTitle = false
       distanceFromWaterSource = moreData["hasDistanceFromWaterSource"];
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="coverage-zone">
           <div class = "data-item-label"> Coverage Zone: </div> 
@@ -2292,7 +2756,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location on Floor Plan"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -2315,6 +2782,12 @@ function showFireHoseConnection(results) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Floor Location";
@@ -2400,7 +2873,7 @@ isTableTitle = false
       waterSource = moreData["hasWaterSource"]["hasName"];
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="water-source">
           <div class = "data-item-label"> Water Source: </div> 
@@ -2415,7 +2888,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Coverage Zone"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -2439,6 +2915,12 @@ function showStandpipeSystem(results) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Name";
@@ -2545,7 +3027,7 @@ isTableTitle = false
       waterSource = results[index]["hasWaterSource"]["hasName"];
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="has-class">
           <div class = "data-item-label"> Class: </div> 
@@ -2598,7 +3080,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of Isolation Valve"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -2606,7 +3091,6 @@ enableNavigation()
 }
 function showSensorsAndDetectors(results) {
   
-
   // Get data
   carbonMonoxideDetector = results["carbonMonoxideDetector"];
   cbrSensor = results["cbrSensor"];
@@ -2690,6 +3174,13 @@ function populateSensorAndDetector(event, allNavigationContainers, inputData) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   subMainView.appendChild(contentView)
+
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Name";
@@ -2779,8 +3270,12 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      console.log(graphicDataContainer)
-      add2DViewer(graphicDataContainer)
+     
+      
+     
+        graphicsTitle = "Coverage Zone"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
 
     });
   }
@@ -2936,6 +3431,13 @@ function populateFireAndSmokeProtectionElements(
   subMainView.appendChild(contentView)
   contentView = document.querySelector(".content-view")
 
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
+
   // Set title
   firstCell = "Name";
   secondCell = "Floor Location";
@@ -3031,7 +3533,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location on Floor Plan"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
   enableNavigation()
@@ -3151,9 +3656,14 @@ isTableTitle = false
         // Create graphic data containers
 
         graphicDataContainer = document.querySelector("#graphic-data-container");
-      graphicDataContainer.innerHTML = `
+      
+        graphicsTitle = "Location of the Structure"
+       
+        graphicDataContainer.innerHTML = `
+        <div class="title-container">${graphicsTitle}</div>
 <div id="map"></div>
 `;
+
          
          isRouting = false
         fetchMap(buildingAddress, surroundingBuildingCoordinate, isRouting);
@@ -3245,12 +3755,20 @@ isTableTitle = false
     if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
      
+  additionalGraphicData = true;
       addMoreContentContainer(
         event,
         additionalWrittenData,
         additionalGraphicData
       );
       // Add additional data
+      
+      // Create graphic data containers      
+      graphicDataContainer = document.querySelector("#graphic-data-container");
+     
+        graphicsTitle = "Site plan of incident building"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
   enableNavigation()
@@ -3372,9 +3890,14 @@ isTableTitle = false
         // Create graphic data containers
 
         graphicDataContainer = document.querySelector("#graphic-data-container");
-      graphicDataContainer.innerHTML = `
+      
+        graphicsTitle = "Location of Vegetation"
+       
+        graphicDataContainer.innerHTML = `
+        <div class="title-container">${graphicsTitle}</div>
 <div id="map"></div>
 `;
+
          isRouting = false
         fetchMap(buildingAddress, vegetationCoordinate, isRouting);
 
@@ -3407,6 +3930,13 @@ function populateHazardousMaterial(
   contentView = document.createElement("div")
   contentView.className = "content-view"
   subMainView.appendChild(contentView)
+
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Name";
@@ -3502,9 +4032,14 @@ isTableTitle = false
         // Create graphic data containers
 
         graphicDataContainer = document.querySelector("#graphic-data-container");
-      graphicDataContainer.innerHTML = `
+      
+        graphicsTitle = "Location of Hazardous Material"
+       
+        graphicDataContainer.innerHTML = `
+        <div class="title-container">${graphicsTitle}</div>
 <div id="map"></div>
 `;
+
          isRouting = false
         fetchMap(buildingAddress, HazardousMaterialCoordinate, isRouting);
 
@@ -3520,6 +4055,7 @@ function populateObstruction(
   allNavigationContainers,
   inputData
 ) {
+  
   // Change active tab
   event.target.className = "nav-link active";
 
@@ -3564,11 +4100,6 @@ isTableTitle = true
 isTableTitle = false
 
 
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  subMainView.appendChild(contentView)
-
 
   for (i = 0; i < inputData.length; i++) {
     // Get data
@@ -3611,7 +4142,8 @@ isTableTitle = false
    for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
-      additionalGraphicData = true;
+       additionalWrittenData = true;
+ additionalGraphicData = true;
       addMoreContentContainer(
         event,
         additionalWrittenData,
@@ -3621,6 +4153,24 @@ isTableTitle = false
 
         index = event.target.parentNode.id;
         moreData = inputData[index];
+        
+
+      // Get data
+      hasDescription = moreData["hasDescription"];
+       
+      // Get data container
+      dataContainer = document.querySelector(".additional-data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="description">
+          <div class = "data-item-label"> Description: </div> 
+          <div class = "data-item-value"> </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#description .data-item-value").innerText = hasDescription;
+
 
         // Get data
         
@@ -3630,9 +4180,14 @@ isTableTitle = false
         // Create graphic data containers
 
         graphicDataContainer = document.querySelector("#graphic-data-container");
-      graphicDataContainer.innerHTML = `
+      
+        graphicsTitle = "Location of Obstruction"
+       
+        graphicDataContainer.innerHTML = `
+        <div class="title-container">${graphicsTitle}</div>
 <div id="map"></div>
 `;
+
          isRouting = false
         fetchMap(buildingAddress, obstructionCoordinate, isRouting);
 
@@ -3758,9 +4313,14 @@ isTableTitle = false
         // Create graphic data containers
 
         graphicDataContainer = document.querySelector("#graphic-data-container");
-      graphicDataContainer.innerHTML = `
+      
+        graphicsTitle = "Location of Parking Lot"
+       
+        graphicDataContainer.innerHTML = `
+        <div class="title-container">${graphicsTitle}</div>
 <div id="map"></div>
 `;
+
          isRouting = false
         fetchMap(buildingAddress, parkingLotCoordinate, isRouting);
 
@@ -3872,9 +4432,14 @@ isTableTitle = false
         // Create graphic data containers
 
         graphicDataContainer = document.querySelector("#graphic-data-container");
-      graphicDataContainer.innerHTML = `
+      
+        graphicsTitle = "Location of Pipeline"
+       
+        graphicDataContainer.innerHTML = `
+        <div class="title-container">${graphicsTitle}</div>
 <div id="map"></div>
 `;
+
          isRouting = false
         fetchMap(buildingAddress, pipelineCoordinate, isRouting);
 
@@ -3985,9 +4550,14 @@ isTableTitle = false
         // Create graphic data containers
 
         graphicDataContainer = document.querySelector("#graphic-data-container");
-      graphicDataContainer.innerHTML = `
+      
+        graphicsTitle = "Location of " + moreData["hasName"]
+       
+        graphicDataContainer.innerHTML = `
+        <div class="title-container">${graphicsTitle}</div>
 <div id="map"></div>
 `;
+
          isRouting = false
         fetchMap(buildingAddress, powerLineCoordinate, isRouting);
 
@@ -4017,6 +4587,14 @@ function populateExteriorDoor(event, allNavigationContainers, inputData) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   subMainView.appendChild(contentView)
+  
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
+
   // Set title
   firstCell = "Name";
   secondCell = "Primary Fire Service Entry Point";
@@ -4105,8 +4683,6 @@ isTableTitle = false
   additionalWrittenData = false;
   additionalGraphicData = false;
   
-  // allContainers = document.querySelectorAll(".parent-container");
-  
   allContainers = document.querySelectorAll("tr");
   
    
@@ -4143,7 +4719,7 @@ isTableTitle = false
       controlPanelLocation = moreData["hasControlPanel"]["hasLocation"];
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="material">
           <div class = "data-item-label"> Material: </div> 
@@ -4197,7 +4773,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of " + hasName
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -4223,6 +4802,12 @@ function populateExteriorWindow(event, allNavigationContainers, inputData) {
   contentView.className = "content-view"
   subMainView.appendChild(contentView)
 
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Name";
@@ -4304,7 +4889,12 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  // // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -4335,7 +4925,7 @@ isTableTitle = false
         moreData["hasFireResistanceRatingUnit"];
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="width">
           <div class = "data-item-label"> Width: </div> 
@@ -4373,7 +4963,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+         graphicsTitle = "Location of " + hasName
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -4398,6 +4991,13 @@ function populateExteriorWall(event, allNavigationContainers, inputData) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   subMainView.appendChild(contentView)
+  
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Name";
@@ -4465,7 +5065,13 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
+
+  
+  allContainers = document.querySelectorAll("tr");
+
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -4490,7 +5096,7 @@ isTableTitle = false
         moreData["hasThickness"] + " " + moreData["hasThicknessUnit"];
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="thickness">
           <div class = "data-item-label"> Thickness: </div> 
@@ -4505,7 +5111,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+   graphicsTitle = "Location of " + hasName
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -4515,7 +5124,7 @@ isTableTitle = false
 // Roof top Element
 function showRoofTopElement(results) {
   
-  
+  console.log(results)
   mainView = document.querySelector(".main-view");
   mainView.id = "two-columns";
 
@@ -4527,6 +5136,13 @@ function showRoofTopElement(results) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Name";
@@ -4597,9 +5213,15 @@ isTableTitle = false
         additionalGraphicData
       );
 
+        index = event.target.parentNode.id;        
+        moreData = results[index];
+
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of " + moreData["hasDescription"]
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -4762,7 +5384,9 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -4807,7 +5431,7 @@ isTableTitle = false
 
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="width">
           <div class = "data-item-label"> Width: </div> 
@@ -4872,15 +5496,26 @@ isTableTitle = false
       dataContainer.querySelector("#primary-fire-service-entry-point .data-item-value").innerText =
         primaryFireServiceEntryPoint;
 
-      dataContainer.querySelector("#functional .data-item-value").innerText =
-        isFunctional;
+        if(isFunctional)
+      {dataContainer.querySelector("#functional .data-item-value").innerText = "Yes";
+      dataContainer.querySelector("#functional .data-item-value").id = "positive";}
+      else
+      {dataContainer.querySelector("#functional .data-item-value").innerText = "Not Functional";
+      dataContainer.querySelector("#functional .data-item-value").id = "negative";}
 
-      dataContainer.querySelector("#Shaftway .data-item-value").innerText =
-        isShaftway;
+      if(isShaftway){
+      dataContainer.querySelector("#Shaftway .data-item-value").innerText = "Yes";
+      dataContainer.querySelector("#Shaftway .data-item-value").id = "negative";}
+      else{
+      dataContainer.querySelector("#Shaftway .data-item-value").innerText = "No";
+      dataContainer.querySelector("#Shaftway .data-item-value").id = "positive";}
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+         graphicsTitle = "Location of " + hasName
+
+        add2DViewer(graphicDataContainer, graphicsTitle)
 
 
 
@@ -4893,6 +5528,7 @@ enableNavigation()
 }
 
 function populateWindow(inputData){
+  console.log
 // Add view
 
   subMainView = document.querySelector("#sub-main-view");
@@ -4982,7 +5618,9 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -5017,7 +5655,7 @@ isTableTitle = false
 
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="width">
           <div class = "data-item-label"> Width: </div> 
@@ -5056,12 +5694,21 @@ isTableTitle = false
       dataContainer.querySelector("#on-exterior .data-item-value").innerText =
         isOnExterior;
 
-      dataContainer.querySelector("#functional .data-item-value").innerText =
-        isFunctional;
+        if(isFunctional)
+      {dataContainer.querySelector("#functional .data-item-value").innerText = "Yes";
+      dataContainer.querySelector("#functional .data-item-value").id = "positive";}
+      else
+      {dataContainer.querySelector("#functional .data-item-value").innerText = "Not Functional";
+      dataContainer.querySelector("#functional .data-item-value").id = "negative";}
+
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+         graphicsTitle = "Location of " + hasName
+         
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
 
     });
   }
@@ -5167,7 +5814,9 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -5201,7 +5850,7 @@ isTableTitle = false
 
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="capacity">
           <div class = "data-item-label"> Capacity: </div> 
@@ -5232,7 +5881,7 @@ isTableTitle = false
           <div class = "data-item-value">  </div> 
         </div>
         <div class = "data-item" id="fire-extinguishing-system">
-          <div class = "data-item-label"> fireExtinguishingSystem: </div> 
+          <div class = "data-item-label"> Fire Extinguishing System: </div> 
           <div class = "data-item-value"> <a href=""> </a> </div> 
         </div>
         <div class = "data-item" id="floors-served">
@@ -5272,7 +5921,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+         graphicsTitle = "Location of " + hasName
+         
+        add2DViewer(graphicDataContainer, graphicsTitle)
 
     });
   }
@@ -5379,7 +6031,9 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -5409,7 +6063,7 @@ isTableTitle = false
 
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="material">
           <div class = "data-item-label"> Material: </div> 
@@ -5466,7 +6120,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+         graphicsTitle = "Location of " + hasName
+         
+        add2DViewer(graphicDataContainer, graphicsTitle)
 
     });
   }
@@ -5572,7 +6229,9 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -5602,7 +6261,7 @@ isTableTitle = false
 
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="material">
           <div class = "data-item-label"> Material: </div> 
@@ -5660,7 +6319,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+         graphicsTitle = "Location of " + hasName
+         
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -5750,7 +6412,9 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -5774,7 +6438,7 @@ isTableTitle = false
       hasThickness = moreData["hasThickness"] + " " + moreData["hasThicknessUnit"];
      
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="thickness">
           <div class = "data-item-label"> Thickness: </div> 
@@ -5789,7 +6453,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+         graphicsTitle = "Location of " + hasName
+         
+        add2DViewer(graphicDataContainer, graphicsTitle)
 
     });
   }
@@ -5884,7 +6551,9 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -5913,7 +6582,7 @@ isTableTitle = false
       hasThickness = moreData["hasThickness"] + " " + moreData["hasThicknessUnit"];
      
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="fire-resistance-rating">
           <div class = "data-item-label"> Fire Resistance Rating: </div> 
@@ -5942,7 +6611,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+         graphicsTitle = "Location of " + hasName
+         
+        add2DViewer(graphicDataContainer, graphicsTitle)
 
     });
   }
@@ -6047,7 +6719,9 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -6073,7 +6747,7 @@ isTableTitle = false
                    moreData["hasFireResistanceRatingUnit"]; 
     
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="fire-resistance-rating">
           <div class = "data-item-label"> Fire Resistance Rating: </div> 
@@ -6088,7 +6762,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+         graphicsTitle = "Location of " + hasName
+         
+        add2DViewer(graphicDataContainer, graphicsTitle)
 
     });
   }
@@ -6179,7 +6856,9 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -6205,7 +6884,7 @@ isTableTitle = false
                    moreData["hasWidthUnit"]; 
     
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="width">
           <div class = "data-item-label"> Width: </div> 
@@ -6220,7 +6899,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+         graphicsTitle = "Location of " + hasName
+         
+        add2DViewer(graphicDataContainer, graphicsTitle)
 
 
     });
@@ -6311,7 +6993,9 @@ isTableTitle = false
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -6327,7 +7011,10 @@ isTableTitle = false
       // Add additional data
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+         graphicsTitle = "Location of " + hasName
+         
+        add2DViewer(graphicDataContainer, graphicsTitle)
 
     });
   }
@@ -6845,7 +7532,7 @@ function showNonStructuralElements_Backup(results) {
 enableNavigation()
 }
 
-function  showStructuralElements(results){
+function showStructuralElements(results){
   
   
   mainView = document.querySelector(".main-view");
@@ -6859,6 +7546,12 @@ function  showStructuralElements(results){
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Elements";
@@ -6928,7 +7621,9 @@ isTableTitle = false
   // Toggle click on container (Show more information)
    additionalWrittenData = false;
   additionalGraphicData = false;
-  allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+  // allContainers = document.querySelectorAll("#sub-main-view .parent-container");
+
+  allContainers = document.querySelectorAll("tr");
 
   for (i = 0; i < allContainers.length; i++) {
     if (allContainers[i].className== "header") continue;
@@ -6938,15 +7633,22 @@ isTableTitle = false
 
       addMoreContentContainer(
         event,
-        allContainers,
         additionalWrittenData,
         additionalGraphicData
       )
     
     
+      // Add additional data
+
+      index = event.target.parentNode.id;
+      moreData = results[index];
+
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of " + moreData["hasName"]
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     })
   }
 
@@ -6974,36 +7676,92 @@ function showKeyBox(results) {
   title = "Key Box"
   setTitleView(mainView, title)
 
+  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
   keyBoxLocation = results[0]["hasLocation"];
 
-  subjectLabel = "KeyBox Location:";
-  subjectValue = keyBoxLocation;
+  subjectLabel = "Key Box Location:";
+  clickMoreText = " <div class = 'click-for-more'> (Click here to see floor plan) <div>"
+  subjectValue = keyBoxLocation+ clickMoreText;
   containerID = "keybox-location-container";
   isMore = false;
   moreContent = "";
   containerClass = "";
 
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
 
 
   keysInsideKeyBox = results[0]["hasKey"];
 
-  subjectLabel = "Keys Inside KeyBox:";
-  subjectValue = keysInsideKeyBox;
+  subjectLabel = "Keys Inside Key Box:";
+  subjectValue = keysInsideKeyBox 
   containerID = "keys-inside-keyBox-container";
   isMore = false;
   moreContent = "";
   containerClass = "";
 
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
 
+  // More container
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  
+  allContainers = document.querySelectorAll(".parent-container");
+  
+   for (i = 0; i < allContainers.length; i++) {
+
+    if (allContainers[i].className== "header") continue;
+
+    if (allContainers[i].id == "keybox-location-container") { allContainers[i].addEventListener("click", function (event) {
+
+        additionalGraphicData = true;
+
+  selectedContainer = event.target;
+
+  if (selectedContainer.getAttribute("status") == "less")
+       {
+        addMoreContentContainerNoTable(
+          event,
+          allContainers,
+          additionalWrittenData,
+          additionalGraphicData
+        );
+ // Get graphical data container
+        graphicDataContainer = document.querySelector(
+          "#graphic-data-container"
+        );
+        graphicsTitle = "Location of Key Box"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
+      
+    
+// Change container status
+    selectedContainer.setAttribute("status", "more");
+  
+  }
+      });
+    }
+
+  }
+  
 enableNavigation()
 }
 
 function showConcealedSpace(results) {
-  
+  console.log(results)
   
   mainView = document.querySelector(".main-view");
   mainView.id = "three-columns";
@@ -7017,6 +7775,13 @@ function showConcealedSpace(results) {
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Name";
@@ -7095,15 +7860,20 @@ isTableTitle = false
         additionalGraphicData
       );
       // Add additional data
-
-      index = event.target.parentNode.id;
-      moreData = results[index];
+      
+        if(event.target.tagName == "A")
+        index = event.target.parentNode.parentNode.id;
+        else
+        index = event.target.parentNode.id;
+        
+        moreData = results[index];
+        
 
       // Get data
       hasDescription = moreData["hasDescription"];
        
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="description">
           <div class = "data-item-label"> Description: </div> 
@@ -7118,7 +7888,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of " + moreData["hasName"]
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -7127,7 +7900,7 @@ enableNavigation()
 
 
 function showVerticalOpening(results) {
-  
+  console.log(results)
   
   mainView = document.querySelector(".main-view");
   mainView.id = "two-columns";
@@ -7142,22 +7915,33 @@ function showVerticalOpening(results) {
   contentView.className = "content-view"
   mainView.appendChild(contentView)
 
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
+
   // Set title
   firstCell = "Name";
   secondCell = "Location";
+  thirdCell = "Shaft Enclosure";
 
   containerClass = "";
   containerID = "header";
   secondCellStatus = false
+  thirdCellStatus = false
 
 
 isTableTitle = true
 
-      createTwoColumnContainer(
+      createThreeColumnContainer(
       contentView,
       firstCell,
       secondCell,
       secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
       containerID,
       isTableTitle
       );
@@ -7168,18 +7952,23 @@ isTableTitle = false
     // Get data
     hasName = results[i]["hasName"];
     hasLocation = results[i]["hasLocation"];
+    shaftEnclosure = "Shaft Enclosure - " + results[i]["hasShaftEnclosure"]["hasName"];
     
     firstCell = hasName;
     secondCell = hasLocation;
+    thirdCell = "<a href '#'>"+ shaftEnclosure + "<a/>"
+
 
     containerClass = "";
     containerID = i;
 
-    createTwoColumnContainer(
+    createThreeColumnContainer(
       contentView,
       firstCell,
       secondCell,
       secondCellStatus,
+      thirdCell,
+      thirdCellStatus,
       containerID,
       isTableTitle
       );
@@ -7203,7 +7992,7 @@ isTableTitle = false
     if (allContainers[i].className== "header") continue;
     allContainers[i].addEventListener("click", function (event) {
   
-      
+      additionalWrittenData = true;
       additionalGraphicData = true;
       addMoreContentContainer(
         event,
@@ -7211,9 +8000,38 @@ isTableTitle = false
         additionalGraphicData
       );
 
+      // Add additional data
+      
+        if(event.target.tagName == "A")
+        index = event.target.parentNode.parentNode.id;
+        else
+        index = event.target.parentNode.id;
+        
+        moreData = results[index];
+        
+
+      // Get data
+      hasDescription = moreData["hasDescription"];
+       
+      // Get data container
+      dataContainer = document.querySelector(".additional-data-container");
+      dataContainer.innerHTML = `
+        <div class = "data-item" id="description">
+          <div class = "data-item-label"> Description: </div> 
+          <div class = "data-item-value"> </div> 
+        </div>
+        `;
+
+      // Insert values
+
+      dataContainer.querySelector("#description .data-item-value").innerText = hasDescription;
+
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of " + moreData["hasName"]
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -7329,7 +8147,7 @@ isTableTitle = false
       hasDescription = moreData["hasDescription"];
       
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="hazard-level">
           <div class = "data-item-label"> Hazard Level: </div> 
@@ -7356,7 +8174,10 @@ isTableTitle = false
 
       // Create graphic data containers      
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of " + moreData["hasName"]
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -8035,6 +8856,14 @@ function populateStaticWaterSource(
   contentView = document.createElement("div")
   contentView.className = "content-view"
   subMainView.appendChild(contentView)
+  
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
+
   // Set title
   firstCell = "Name";
   secondCell = "Type";
@@ -8144,7 +8973,7 @@ isTableTitle = false
 
         // Create data containers
 
-        dataContainer = document.querySelector("#data-container");
+        dataContainer = document.querySelector(".additional-data-container");
       dataContainer.innerHTML = `
         <div class = "data-item" id="fire-flow">
           <div class = "data-item-label"> Fire Flow: </div> 
@@ -8163,9 +8992,14 @@ isTableTitle = false
         // Create graphic data containers
 
         graphicDataContainer = document.querySelector("#graphic-data-container");
-      graphicDataContainer.innerHTML = `
+      
+        graphicsTitle = "Location of water source (Blue marker)"
+       
+        graphicDataContainer.innerHTML = `
+        <div class="title-container">${graphicsTitle}</div>
 <div id="map"></div>
 `;
+
          isRouting = false
         fetchMap(buildingAddress, staticWaterCoordinate, isRouting);
 
@@ -8178,10 +9012,9 @@ isTableTitle = false
 
 function showFireLane(results){
 results = results[0]
-  
-
   // Get data 
   
+  hasLocation = results["hasLocation"];
   hasType = results["hasType"];
   hasMaterial = results["hasMaterial"]["hasName"];
   hasCondition = results["hasCondition"];
@@ -8200,6 +9033,25 @@ results = results[0]
   title = "Fire Lane"
   setTitleView(mainView, title)
 
+  
+  // content container
+  contentView = document.createElement("div")
+  contentView.className = "content-view"
+  mainView.appendChild(contentView)
+
+  // Location
+  subjectLabel = "Location:";
+  clickMoreText = " <div class = 'click-for-more'> (Click here to floor plan) <div>"
+  subjectValue = hasLocation + clickMoreText;
+  containerID = "location-container"
+  isMore = false;
+  moreContent = "";
+  containerClass = "";
+
+  
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+
+
   // Road type
   subjectLabel = "Type:";
   subjectValue = hasType;
@@ -8209,7 +9061,7 @@ results = results[0]
   containerClass = "";
 
   
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Material
   subjectLabel = "Material:";
@@ -8218,7 +9070,7 @@ results = results[0]
   isMore = false;
 
   
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Road Condition
   subjectLabel = "Road Condition:";
@@ -8227,7 +9079,7 @@ results = results[0]
   isMore = false;
 
   
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Road width
 
@@ -8236,7 +9088,7 @@ results = results[0]
   containerID = "road-width-container";
   isMore = false;
   
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Road Slope
 
@@ -8246,7 +9098,7 @@ results = results[0]
   isMore = false;
 
   
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Turning Radius
 
@@ -8256,7 +9108,7 @@ results = results[0]
   isMore = false;
 
   
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Vertical Clearance
 
@@ -8265,7 +9117,7 @@ results = results[0]
   containerID = "vertical-clearance-container";
   isMore = false;
   
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Angles of Approach
 
@@ -8274,7 +9126,7 @@ results = results[0]
   containerID = "angle-of-approach-container";
   isMore = false;
   
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
   // Access Barrier Type
 
@@ -8283,8 +9135,55 @@ results = results[0]
   containerID = "access-barrier-type-container";
   isMore = false;
   
-  createContainer(mainView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
+  createContainer(contentView, subjectLabel, subjectValue, containerID,containerClass, isMore, moreContent);
 
+  // More container
+
+  moreContainer = document.createElement("div");
+  moreContainer.id = "more-container";
+  moreContainer.style.display = "none";
+  contentView.appendChild(moreContainer);
+
+  // Toggle click on container (Show more information)
+  additionalWrittenData = false;
+  additionalGraphicData = false;
+  
+  allContainers = document.querySelectorAll(".parent-container");
+  
+   for (i = 0; i < allContainers.length; i++) {
+
+    if (allContainers[i].className== "header") continue;
+
+    if (allContainers[i].id == "location-container") {
+      allContainers[i].addEventListener("click", function (event) {
+        additionalGraphicData = true;
+
+  selectedContainer = event.target;
+
+  if (selectedContainer.getAttribute("status") == "less")
+       {
+        addMoreContentContainerNoTable(
+          event,
+          allContainers,
+          additionalWrittenData,
+          additionalGraphicData
+        );
+ // Get graphical data container
+        graphicDataContainer = document.querySelector(
+          "#graphic-data-container"
+        );
+        graphicsTitle = "Location on site plan"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
+      
+    
+// Change container status
+    selectedContainer.setAttribute("status", "more");
+  
+  }});
+    }
+
+  }
   
 enableNavigation()
 
@@ -8308,6 +9207,13 @@ function showRoadToIncident(results){
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Route";
@@ -8408,7 +9314,7 @@ isTableTitle = false
     
 
       // Get data container
-      dataContainer = document.querySelector("#data-container");
+      dataContainer = document.querySelector(".additional-data-container");
         dataContainer.innerHTML = `
         <div class = "data-item" id="type">
           <div class = "data-item-label"> Type: </div> 
@@ -8457,7 +9363,11 @@ isTableTitle = false
       // Get data container
       dataContainer = document.querySelector("#graphic-data-container");
 
+        
+        graphicsTitle = "Route to the Incident Building"
+       
         graphicDataContainer.innerHTML = `
+        <div class="title-container">${graphicsTitle}</div>
 <div id="map"></div>
 `;
 
@@ -8589,7 +9499,7 @@ currentLocationEdge[0] = currentLocation[0] - 0.01
 }
 else{
 buildingCoordinateEdge[0] = buildingCoordinate[0] - 0.01
-currentLocationEdge[0] = currentLocation[0] - 0.01
+currentLocationEdge[0] = currentLocation[0] + 0.01
 }
 
 
@@ -8630,6 +9540,12 @@ function showAreaOfRefuge(results){
   contentView.className = "content-view"
   mainView.appendChild(contentView)
 
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Name";
@@ -8712,7 +9628,10 @@ isTableTitle = false
       // Add additional data
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location on Floor Plan"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -8739,6 +9658,14 @@ function showFarsFillStations(results){
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+  
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
+
   // Set title
   firstCell = "FARS Fill Station";
   secondCell = "Floor";
@@ -8840,7 +9767,10 @@ isTableTitle = false
       // Add additional data
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location on Floor Plan"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -8850,7 +9780,6 @@ enableNavigation()
 // Emergency Power Outlets
 
 function showEmergencyPowerOutlets(results){
-  
   
 
   // Get main view
@@ -8866,6 +9795,12 @@ function showEmergencyPowerOutlets(results){
   contentView.className = "content-view"
   mainView.appendChild(contentView)
 
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Floor";
@@ -8943,7 +9878,10 @@ isTableTitle = false
       // Add additional data
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location on Floor Plan"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -8954,8 +9892,6 @@ enableNavigation()
 // Smoke And Heat Removal System
 
 function showSmokeAndHeatRemovalSystem(results){
-  
-  
 
   // Get main view
   mainView = document.querySelector(".main-view");
@@ -8970,6 +9906,13 @@ function showSmokeAndHeatRemovalSystem(results){
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Floor";
@@ -9054,7 +9997,10 @@ isTableTitle = false
       // Add additional data
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location on Floor Plan"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -9064,9 +10010,6 @@ enableNavigation()
 // Smoke Control System
 
 function showSmokeControlSystem(results){
-  
-  
-
   // Get main view
   mainView = document.querySelector(".main-view");
   mainView.id = "four-columns"
@@ -9080,6 +10023,13 @@ function showSmokeControlSystem(results){
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
 
   // Set title
@@ -9172,7 +10122,10 @@ isTableTitle = false
       // Add additional data
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of Control Panel"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -9182,9 +10135,6 @@ enableNavigation()
 // Fire Pump
 
 function showFirePump(results){
-  
-  
-
   // Get main view
   mainView = document.querySelector(".main-view");
   mainView.id = "two-columns"
@@ -9199,6 +10149,12 @@ function showFirePump(results){
   contentView.className = "content-view"
   mainView.appendChild(contentView)
 
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Fire Pumps";
@@ -9268,7 +10224,10 @@ isTableTitle = false
       // Add additional data
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location on Floor Plan"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -9296,6 +10255,14 @@ function showMassNotificationSystem(results){
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+  
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
+
   // Set title
   firstCell = "Coverage Zone";
   secondCell = "System Type";
@@ -9372,7 +10339,10 @@ isTableTitle = false
       // Add additional data
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of Control Panel"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -9398,6 +10368,12 @@ function showExtremelyValuableMaterials(results){
   contentView.className = "content-view"
   mainView.appendChild(contentView)
 
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Location";
@@ -9468,8 +10444,14 @@ isTableTitle = false
       );
       // Add additional data
       
+        index = event.target.parentNode.id;        
+        moreData = results[index];
+
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of " + moreData["hasDescription"]
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -9496,6 +10478,12 @@ function showHelipad(results){
   mainView.appendChild(contentView)
 
 
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Location";
@@ -9567,7 +10555,10 @@ isTableTitle = false
       // Add additional data
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+     
+        graphicsTitle = "Location of Helipad"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -9580,6 +10571,12 @@ function setTitleView(mainView, title){
   titleView = document.createElement("div");
   titleView.className = "title-view"
   titleView.innerHTML  = title
+
+  //  infoLine = document.createElement("div")
+  // infoLine.className = "info-line"
+  // infoLine.innerHTML = "(Click on items to see more data)"
+  // titleView.appendChild(infoLine)
+
   mainView.appendChild(titleView)
 }
 
@@ -9603,6 +10600,13 @@ function showBuildingPlans(results){
   contentView = document.createElement("div")
   contentView.className = "content-view"
   mainView.appendChild(contentView)
+
+
+  // Information line
+  infoLine = document.createElement("div")
+  infoLine.className = "info-line"
+  infoLine.innerHTML = "(Click on items to see more data)"
+  contentView.appendChild(infoLine)
 
   // Set title
   firstCell = "Floor";
@@ -9681,106 +10685,10 @@ isTableTitle = false
       // Add additional data
       
       graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
-    });
-  }
-
-enableNavigation()
-}
-
-// Fire Command Center
-
-function showFireCommandCenter(results){
-  
-  
-
-  // Get main view
-  mainView = document.querySelector(".main-view");
-  mainView.id = "three-columns"
-  mainView.innerHTML = "";
-
-
-  // Set title
-  firstCell = "Floor";
-  secondCell = "Plan Type";
-  thirdCell = "Location of Plan";
-
-  containerClass = "building-plans";
-  containerID = "header";
-
-    secondCellStatus = "neutral"
-  thirdCellStatus = "neutral"
-
-  createThreeColumnContainer(
-      contentView,
-      firstCell,
-      secondCell,
-      secondCellStatus,
-      thirdCell,
-      thirdCellStatus,
-      containerID,
-      isTableTitle
-    );
-
-  
-  // content container
-  contentView = document.createElement("div")
-  contentView.className = "content-view"
-  mainView.appendChild(contentView)
-
-
-  for (i = 0; i < results.length; i++) {
-    // Get data
-    
-    hasFloor = results[i]["hasFloor"] 
-    hasType = results[i]["hasType"] 
-    planLocation = results[i]["hasPlanLocation"] 
-
-    firstCell = hasFloor
-    secondCell = hasType
-    thirdCell = planLocation
-
-
-    containerID = i;
-    
-  
-    createThreeColumnContainer(
-      contentView,
-      firstCell,
-      secondCell,
-      secondCellStatus,
-      thirdCell,
-      thirdCellStatus,
-      containerID,
-      isTableTitle
-    );
-  }
-
-  moreContainer = document.createElement("div");
-  moreContainer.id = "more-container";
-  moreContainer.style.display = "none";
-  contentView.appendChild(moreContainer);
-
-  // Toggle click on container (Show more information)
-  additionalWrittenData = false;
-  additionalGraphicData = false;
-  // allContainers = document.querySelectorAll(".parent-container");
-  
-  allContainers = document.querySelectorAll("tr");
-  
-   for (i = 0; i < allContainers.length; i++) {
-    if (allContainers[i].className== "header") continue;
-    allContainers[i].addEventListener("click", function (event) {
-      additionalGraphicData = true;
-      addMoreContentContainer(
-        event,
-        additionalWrittenData,
-        additionalGraphicData
-      );
-      // Add additional data
       
-      graphicDataContainer = document.querySelector("#graphic-data-container");
-      add2DViewer(graphicDataContainer)
+        graphicsTitle = "Floor Plan"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
     });
   }
 
@@ -9789,7 +10697,7 @@ enableNavigation()
 
 
 
-// Show fire Incident Building
+// Show Fire Command Center
 function showFireCommandCenter(results) {
   
   // Get data
@@ -9802,11 +10710,15 @@ function showFireCommandCenter(results) {
   mainView = document.querySelector(".main-view");
   
   mainView.id = ""
-  mainView.innerHTML = "";
+
+  // Set view title
+  title = "Fire Command Center"
+  setTitleView(mainView, title)
 
   // Location
   subjectLabel = "Location:";
-  subjectValue = hasLocation;
+  clickMoreText = " <div class = 'click-for-more'> (Click here to see floor plan) <div>"
+  subjectValue = hasLocation + clickMoreText;
   containerID = "location-container";
   isMore = false;
 
@@ -9814,7 +10726,7 @@ function showFireCommandCenter(results) {
 
   // key Located
   subjectLabel = "Location of Key:";
-  subjectValue = keyLocated;
+  subjectValue = "<a href='#'>" + keyLocated + "</a>"
   containerID = "key-located-container";
   isMore = false;
 
@@ -9857,18 +10769,17 @@ function showFireCommandCenter(results) {
   // Toggle click on container (Show more information)
   additionalWrittenData = false;
   additionalGraphicData = false;
-  // allContainers = document.querySelectorAll(".parent-container");
-  
-  allContainers = document.querySelectorAll("tr");
-  
+   allContainers = document.querySelectorAll(".parent-container");
+ 
    
   for (i = 0; i < allContainers.length; i++) {
 
     if (allContainers[i].id == "location-container") {
+     
       allContainers[i].addEventListener("click", function (event) {
         
         additionalGraphicData = true;
-        addMoreContentContainer(
+        addMoreContentContainerNoTable(
           event,
           allContainers,
           additionalWrittenData,
@@ -9879,7 +10790,9 @@ function showFireCommandCenter(results) {
           "#graphic-data-container"
         );
         
-        add2DViewer(graphicDataContainer)
+        graphicsTitle = "Location of Fire Command Center"
+       
+        add2DViewer(graphicDataContainer, graphicsTitle)
       });
     }
   }
@@ -10203,7 +11116,6 @@ tableBody.appendChild(dataRow)
 function createTable(){
       table = new DataTable(document.querySelector("#table-view"), {
     // options
-    
 });
 }
 
@@ -10215,6 +11127,9 @@ function createMoreContentHeading(event, headingContainer){
   allHeadings = tableHeading.querySelectorAll("th")
 
   // Get table values
+  if(event.target.tagName == "A")
+  tableRow = event.target.parentNode.parentNode
+ else
   tableRow = event.target.parentNode
   allValues = tableRow.querySelectorAll("td")
   
@@ -10253,19 +11168,6 @@ for(i =0; i < headingList.length; i++){
   dataCell.innerHTML = headingList[i]
 dataRow.appendChild(dataCell)
 
-
-  // headingElement = document.createElement("div")
-  // if (i == 0)
-  // headingElement.className = "heading-element-first"
-  // else if (i == allHeadings.length - 1)
-  // headingElement.className = "heading-element-last"
-  // else
-  // headingElement.className = "heading-element"
-// headingElement.innerHTML = `
-// <div class = "heading-element-title"> ${headingList[i]}</div>
-// <div class = "heading-element-value"> ${valueList[i]}</div>
-// `
-// headingContainer.appendChild(headingElement)
   }
   
 
@@ -10276,23 +11178,13 @@ headingTableBody.appendChild(dataRow)
 
 for(i =0; i < valueList.length; i++){
   dataCell = document.createElement("td")
+  dataCell.id = "cell-" + i
   dataCell.innerHTML = valueList[i]
   dataCell.className = valueIdList[i]
 dataRow.appendChild(dataCell)
 
 
   headingElement = document.createElement("div")
-  // if (i == 0)
-  // headingElement.className = "heading-element-first"
-  // else if (i == allHeadings.length - 1)
-  // headingElement.className = "heading-element-last"
-  // else
-  // headingElement.className = "heading-element"
-// headingElement.innerHTML = `
-// <div class = "heading-element-title"> ${headingList[i]}</div>
-// <div class = "heading-element-value"> ${valueList[i]}</div>
-// `
-// headingContainer.appendChild(headingElement)
   }
 
 }

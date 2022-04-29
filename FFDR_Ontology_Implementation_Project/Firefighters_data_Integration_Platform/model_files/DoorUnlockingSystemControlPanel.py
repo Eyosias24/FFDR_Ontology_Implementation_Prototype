@@ -8,3 +8,6 @@ class DoorUnlockingSystemControlPanel(ControlPanel):
 	
 	def __str__(self):
 		return "Door Unlocking System Control Panel" 
+
+	def serialize(self):
+		return super().serialize()

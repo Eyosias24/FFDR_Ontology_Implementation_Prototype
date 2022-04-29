@@ -9,3 +9,6 @@ class MassNotificationSystemControlPanel(ControlPanel):
 	
 	def __str__(self):
 		return "Mass Notification System Control Panel" 
+
+	def serialize(self):
+		return super().serialize()

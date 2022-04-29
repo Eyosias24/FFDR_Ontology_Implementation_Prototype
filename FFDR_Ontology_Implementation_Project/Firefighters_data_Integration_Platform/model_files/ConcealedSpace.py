@@ -14,7 +14,7 @@ class ConcealedSpace(BuildingComponent):
 
 	def serialize(self):
 		return {
-			'hasName': self.hasLocation, 
+			'hasName': self.hasName, 
 			'hasLocation': self.hasLocation, 
 			'hasDescription': self.hasDescription, 
 			'hasFireExtinguishingSystem': self.hasFireExtinguishingSystem.serialize() if not self.hasFireExtinguishingSystem == None else '',

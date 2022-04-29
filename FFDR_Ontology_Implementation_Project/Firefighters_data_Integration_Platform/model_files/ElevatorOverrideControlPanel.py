@@ -10,3 +10,6 @@ class ElevatorOverrideControlPanel(ControlPanel):
 	def __str__(self):
 		return "Elevator Override Control Panel" 
 
+	def serialize(self):
+		return super().serialize()
+

@@ -20,7 +20,7 @@ display: flex;
 
 #left-main-right-container {
 height: calc(100% - 150px);
-  padding-bottom: 60px;
+  padding-bottom: 50px;
   display: flex;
   flex: 1 1 auto;
 }
@@ -115,7 +115,7 @@ height: calc(100% - 150px);
 }
 /* Top and bottom navigation menu property */
 #top-nav-menu{
-  height: 60px;
+  height: 50px;
     min-height: fit-content;
 
 }
@@ -130,7 +130,7 @@ height: calc(100% - 150px);
   bottom: 0px;
   width: inherit;
   
-  height: 60px;
+  height: 50px;
 }
 @media screen and (min-width: 1024px) {
   #bottom-nav-menu nav,
@@ -144,7 +144,7 @@ height: calc(100% - 150px);
   width: 100%;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
   height: 100%;
   color: #fff;
@@ -242,7 +242,7 @@ height: calc(100% - 40px);
   margin-left: auto;
 }
 .parent-container .first-child {
-  width: 40%;
+  width: 30%;
   pointer-events: none;
 }
 .parent-container .second-child {
@@ -256,14 +256,16 @@ height: calc(100% - 40px);
   
   pointer-events: none;
 }
-.main-view .negative {
+.main-view .negative,
+.main-view #negative {
   /* width: 20%; */
   color: red;
   font-weight: 600;
   /* pointer-events: none; */
 }
 
-.main-view .positive {
+.main-view .positive,
+.main-view #positive  {
   /* width: 20%; */
   color: green;
   font-weight: 600;
@@ -300,16 +302,21 @@ height: calc(100% - 40px);
 #data-container {    
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    max-height: 100px;
+    /* flex-wrap: wrap; */
+    /* max-height: 150px; */
     border: 1px solid #dae0e5;
     padding: 5px;
     border-radius: 5px;
-    margin-bottom: 5px;
+    margin: 5px 0;
     background: white;
+    width: 100%;
     height: fit-content;
 }
-
+.additional-data-container{display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-gap: 5px;
+    grid-auto-flow: column;
+}
 #graphic-data-container {
   display: block;
   height: 100%;
@@ -317,32 +324,40 @@ height: calc(100% - 40px);
   border: 1px solid #dae0e5;
   padding: 5px;
   border-radius: 5px;
-    margin-bottom: 5px;
+  
+    margin: 15px 0;
 }
 
-#data-container .data-item {
+.additional-data-container .data-item {
   display: flex;
   width: fit-content;
   padding: 2px;
 }
-#data-container .data-item .data-item-value {
+.additional-data-container .data-item .data-item-value {
   padding-left: 5px;
-  font-weight: 500;
-  color: #4160e2;
+  font-weight: 400;
+  /* color: #4160e2; */
 }
-#data-container .data-item .data-item-label {
+.additional-data-container .data-item .data-item-value a {
+  font-weight: 500;
+  /* color: #4160e2; */
+}
+.additional-data-container .data-item .data-item-label {
   font-weight: 500;
 }
 
-#data-container .data-item #on {
+.additional-data-container .data-item #on {
   color: green;
+  
+    font-weight: 500;
 }
-#data-container .data-item #off {
+.additional-data-container .data-item #off {
   color: red;
+    font-weight: 500;
 }
 #map {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 40px);
 }
 
 .collapse,
@@ -479,8 +494,8 @@ height: calc(100% - 40px);
 
 
 
-.stairway #data-container,
-.elevator #data-container{
+.stairway .additional-data-container,
+.elevator .additional-data-container{
   height: 175px;
 }
 
@@ -539,7 +554,7 @@ h4 {
 }
 /* 2D viewer container */
 #graphic-data-container iframe{
-  height: 100%;
+  height: calc(100% - 40px);
   width: 100%;
 }
 
@@ -581,6 +596,7 @@ h4 {
 #label-container{
       margin-right: auto;
       margin-bottom: 5px;
+      height: 25px;
 }
 
 #contain-container .content-item{
@@ -594,7 +610,7 @@ margin-bottom: 5px;
     flex-direction: column;
     margin-right: auto;
     flex-wrap: wrap;
-    height: 100%;
+    height: calc(100% - 25px);
         background: white;
     width: 100%;
     padding: 10px;
@@ -615,6 +631,8 @@ margin-bottom: 5px;
     margin-bottom: 5px;
     color: white;
     height: 40px;
+    display: flex;
+    justify-content: space-between;
 }
  #sub-main-view{    
   margin-top: 5px;
@@ -632,6 +650,7 @@ margin-bottom: 5px;
     overflow-y: auto;
     /* height: calc(100% - 120px); */
     height: 100%;
+        padding-top: 10px;
 }
 
 #sub-main-view .content-view{
@@ -739,4 +758,113 @@ margin-bottom: 5px;
 }
 .value-row{
     border-bottom: 1px solid #dae0e5
+}
+
+
+.info-line{
+  font-weight: 500;
+    font-size: small;
+    line-height: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 5px;
+}
+
+
+#key-located-container .second-child a{
+pointer-events: all;
+}
+
+
+.title-container{
+  height:30px;
+  background: #7386d5;
+    color: white;
+    font-size: large;
+    padding-left: 5px;
+    margin-bottom: 10px;
+}
+
+/* Tooltips */
+.main-view .tooltip-item {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-item .tool-tip-text {
+  visibility: hidden;
+  width: max-content;
+  background-color: #7386d5;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 110%;
+}
+
+.tooltip-item .tool-tip-text::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #7386d5 transparent transparent;
+}
+.tooltip-item:hover .tool-tip-text {
+  visibility: visible;
+}
+
+
+.main-view .tooltip-item-bottom {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-item-bottom .tool-tip-text {
+  visibility: hidden;
+  width: max-content;
+  background-color: #7386d5;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  top: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip-item-bottom .tool-tip-text::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #7386d5 transparent;
+}
+
+.tooltip-item-bottom:hover .tool-tip-text {
+  visibility: visible;
+}
+
+
+
+td{
+  cursor: pointer;
+}
+
+/* cursor */
+#building-address-container,
+#number-of-exit-container,
+#location-container{
+  cursor: pointer;
 }

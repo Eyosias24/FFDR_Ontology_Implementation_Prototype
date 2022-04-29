@@ -9,3 +9,6 @@ class FarsControlPanel(ControlPanel):
 	
 	def __str__(self):
 		return "FARS Control Panel" 
+
+	def serialize(self):
+		return super().serialize()

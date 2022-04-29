@@ -81,6 +81,27 @@ function getFireCommandCenter() {
 }
 
 
+function getControlPanels() {
+  LoadingPage()
+
+
+  if(Object.keys(controlPanelResults).length > 0)
+
+   showControlPanel(controlPanelResults);
+
+  else
+
+  // Fetch Building Plans
+  fetch("/control_panels/" + projectTitle)
+    .then((response) => response.json())
+    .then((results) => {
+      controlPanelResults = results
+      
+      showControlPanel(controlPanelResults);
+      // do things
+    });
+}
+
 function getAutomaticFireExtinguishingSystem(projectTitle) {
   LoadingPage()
 

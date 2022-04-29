@@ -8,8 +8,8 @@ during a building fire emergency.
 class ContactAddress(models.Model):
 	hasProjectName = models.ForeignKey(IncidentBuilding,null=True, on_delete=models.DO_NOTHING)
 	hasName = models.CharField(blank=True, max_length=80)
-	hasTelephoneNumber = models.CharField(blank=True, max_length=80)
-	hasMobileNumber = models.CharField(blank=True, max_length=15)
+	hasTelephoneNumber = models.CharField(blank=True, max_length=20)
+	hasMobileNumber = models.CharField(blank=True, max_length=20)
 	hasEmail = models.TextField(blank=True)
 	hasPhysicalAddress = models.CharField(max_length=255, blank=True)
 
