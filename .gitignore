@@ -2,5 +2,4 @@ tutorial-env/
 Data for data base.docx
 config/
 nohup.out
-.DJANGO_SECRET_KEY
 
