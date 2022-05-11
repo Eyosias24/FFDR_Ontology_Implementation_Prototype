@@ -26,12 +26,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!b-t3$xp)1m^j7p9m-w%ilyn2skcpf)byi5bl!-3_urp#*$hi5'
+# SECRET_KEY = 'django-insecure-!b-t3$xp)1m^j7p9m-w%ilyn2skcpf)byi5bl!-3_urp#*$hi5'
+
+import os
+
+# ...
+
+try:
+    SECRET_KEY = os.environ["SECRET_KEY"]
+except KeyError as e:
+    raise RuntimeError("Could not find a SECRET_KEY in environment") from e
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [".ffdiplatform.com"]
 
 
 # Application definition
@@ -131,8 +141,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
+STATIC_ROOT = "/var/www/ffdiplatform.com/static"
+STATICFILES_DIRS = [BASE_DIR / "Firefighters_data_Integration_Platform/static"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
