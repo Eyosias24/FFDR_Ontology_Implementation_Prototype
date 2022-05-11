@@ -481,7 +481,7 @@ function loadNavPanels() {
     "Mass Notification System",
   ];
 // List of all Navigation items
-allNavItems = [...topNavItems , ...rightNavItems , ...bottomNavItems , ...moreBottomNavItems , ...leftNavItems]
+allNavItems = [...topNavItems , ...rightNavItems , ...bottomNavItems , ...leftNavItems]
 
 
 
